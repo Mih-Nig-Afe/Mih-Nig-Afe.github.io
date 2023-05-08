@@ -218,9 +218,10 @@ ul ol {
     border-top-left-radius: 13px;
     border-bottom-left-radius: 13px;
     border-top-right-radius: 0;
-    max-width: 300px;
+    max-width: 500px;
     height: inherit;
     width: 100%;
+    
   }
 }
 
@@ -232,14 +233,14 @@ ul ol {
 
 @media only screen and (max-width: 767px) {
   .card1 .featured-image {
-    height: 60%;
-    width: 90%;
+    height: 580px;
+    width: 97%;
   }
 }
 
 @media only screen and (max-width: 401px) {
   .card1 .featured-image {
-    height: 60%;
+    height: 350px;
   }
 }
 
