@@ -228,19 +228,22 @@ ul ol {
 @media only screen and (max-width: 992px) {
   .card1 .featured-image {
     width: 400px;
+    
   }
 }
 
 @media only screen and (max-width: 767px) {
   .card1 .featured-image {
-    height: 580px;
-    width: 97%;
+    height: 300px;
+    width: 100%;
+    object-fit: contain;
   }
 }
 
 @media only screen and (max-width: 401px) {
   .card1 .featured-image {
-    height: 350px;
+    height: 300px;
+    object-fit: contain;
   }
 }
 
