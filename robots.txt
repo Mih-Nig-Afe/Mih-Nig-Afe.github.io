@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://mih-nig-afe.github.io/sitemap.xml
+
+# Disallow crawling of assets that don't need indexing
+Disallow: /assets/css/
+Disallow: /assets/js/
+Disallow: /assets/fonts/
+
+# Allow crawling of images for image search
+Allow: /assets/images/
+
+# Crawl delay (optional - be respectful to search engines)
+Crawl-delay: 1
