@@ -477,3 +477,34 @@ $(function submitAnimation() {
     }
   });
 });
+
+// Tab visibility change - "Come back" message
+(function() {
+  var originalTitle = '';
+  
+  function initTabMessage() {
+    originalTitle = document.title || 'Portfolio';
+    
+    window.addEventListener('blur', function() {
+      document.title = '👋 Come back!';
+    });
+    
+    window.addEventListener('focus', function() {
+      document.title = originalTitle;
+    });
+    
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        document.title = '👋 Come back!';
+      } else {
+        document.title = originalTitle;
+      }
+    });
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTabMessage);
+  } else {
+    initTabMessage();
+  }
+})();
