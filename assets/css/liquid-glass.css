@@ -1,0 +1,866 @@
+/**
+ * Liquid Glass Design System
+ * macOS Sequoia-inspired glassmorphism for portfolio
+ * 
+ * Features:
+ * - Frosted glass panels with backdrop blur
+ * - Ambient gradient backgrounds
+ * - Soft shadows and inner glows
+ * - Smooth micro-animations
+ * - Full light/dark mode support
+ */
+
+/* =============================================================================
+   DESIGN TOKENS - LIGHT MODE
+   ============================================================================= */
+
+:root,
+html[data-theme="light"],
+html[light-mode="light"] {
+  /* Accent Colors - Muted, sophisticated purple */
+  --lg-accent: #7c3aed;
+  --lg-accent-strong: #8b5cf6;
+  --lg-accent-muted: #6d28d9;
+  --lg-accent-glow: rgba(124, 58, 237, 0.25);
+
+  /* Glass Surface Colors - Semi-transparent with more contrast */
+  --lg-glass-bg: rgba(255, 255, 255, 0.6);
+  --lg-glass-bg-strong: rgba(255, 255, 255, 0.8);
+  --lg-glass-bg-subtle: rgba(255, 255, 255, 0.4);
+
+  /* Glass Border & Stroke - More visible borders */
+  --lg-glass-border: rgba(0, 0, 0, 0.08);
+  --lg-glass-border-subtle: rgba(0, 0, 0, 0.05);
+  --lg-glass-inner-glow: inset 0 1px 1px rgba(255, 255, 255, 0.9);
+
+  /* Shadows - Slightly stronger for definition */
+  --lg-shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --lg-shadow-md: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --lg-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12);
+  --lg-shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.15);
+  --lg-shadow-glow: 0 0 40px rgba(124, 58, 237, 0.15);
+
+  /* Blur Values */
+  --lg-blur-sm: 16px;
+  --lg-blur-md: 28px;
+  --lg-blur-lg: 44px;
+
+  /* Border Radius */
+  --lg-radius-sm: 12px;
+  --lg-radius-md: 20px;
+  --lg-radius-lg: 28px;
+  --lg-radius-xl: 36px;
+  --lg-radius-full: 9999px;
+
+  /* Text Colors - Darker for better readability */
+  --lg-text-primary: #0f0f1a;
+  --lg-text-secondary: #2d2d4a;
+  --lg-text-muted: #4a4a6a;
+  --lg-text-on-accent: #ffffff;
+
+  /* Background Gradients - Cleaner, more neutral */
+  --lg-bg-gradient:
+    radial-gradient(ellipse 80% 60% at 10% 20%, rgba(196, 181, 253, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 90% 10%, rgba(251, 207, 232, 0.15) 0%, transparent 50%),
+    linear-gradient(135deg, #f5f5f8 0%, #f0f0f5 50%, #eaeaf2 100%);
+
+  /* Ambient Orbs - Very subtle */
+  --lg-orb-1: radial-gradient(circle at 20% 80%, rgba(124, 58, 237, 0.04) 0%, transparent 50%);
+  --lg-orb-2: radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.03) 0%, transparent 45%);
+
+  /* Preloader Colors */
+  --lg-preloader-bg: linear-gradient(135deg, #e0e0e8 0%, #d0d0d8 100%);
+  --lg-preloader-accent: #7c3aed;
+
+  /* Footer accent for light mode */
+  --lg-footer-icon: #4a4a6a;
+
+  /* Transitions */
+  --lg-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --lg-transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --lg-transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --lg-transition-spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* =============================================================================
+   DESIGN TOKENS - DARK MODE
+   ============================================================================= */
+
+html[data-theme="dark"],
+html[light-mode="dark"] {
+  /* Accent Colors - Muted, elegant purple for dark mode */
+  --lg-accent: #9370db;
+  --lg-accent-strong: #a78bfa;
+  --lg-accent-muted: #8b5cf6;
+  --lg-accent-glow: rgba(147, 112, 219, 0.25);
+
+  /* Glass Surface Colors - More transparent */
+  --lg-glass-bg: rgba(18, 18, 28, 0.55);
+  --lg-glass-bg-strong: rgba(25, 25, 38, 0.7);
+  --lg-glass-bg-subtle: rgba(12, 12, 20, 0.4);
+
+  /* Glass Border & Stroke */
+  --lg-glass-border: rgba(255, 255, 255, 0.08);
+  --lg-glass-border-subtle: rgba(255, 255, 255, 0.04);
+  --lg-glass-inner-glow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+
+  /* Shadows */
+  --lg-shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --lg-shadow-md: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --lg-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.55);
+  --lg-shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.6);
+  --lg-shadow-glow: 0 0 50px rgba(147, 112, 219, 0.12);
+
+  /* Text Colors */
+  --lg-text-primary: #e8e8f0;
+  --lg-text-secondary: #b0b0c8;
+  --lg-text-muted: #8888a8;
+  --lg-text-on-accent: #ffffff;
+
+  /* Background Gradients - Dark, minimal purple influence */
+  --lg-bg-gradient:
+    radial-gradient(ellipse 70% 50% at 10% 20%, rgba(88, 28, 135, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 90% 80%, rgba(59, 7, 100, 0.06) 0%, transparent 45%),
+    linear-gradient(135deg, #08080c 0%, #0c0c14 50%, #0a0a10 100%);
+
+  /* Ambient Orbs - Very subtle */
+  --lg-orb-1: radial-gradient(circle at 20% 80%, rgba(147, 112, 219, 0.06) 0%, transparent 50%);
+  --lg-orb-2: radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.04) 0%, transparent 45%);
+
+  /* Preloader Colors */
+  --lg-preloader-bg: linear-gradient(135deg, #0c0c14 0%, #101018 100%);
+  --lg-preloader-accent: #9370db;
+}
+
+
+/* =============================================================================
+   BASE STYLES
+   ============================================================================= */
+
+/* Apply gradient background to body */
+body {
+  background: var(--lg-bg-gradient) !important;
+  background-attachment: fixed !important;
+  min-height: 100vh;
+}
+
+/* Ambient orbs overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--lg-orb-1), var(--lg-orb-2);
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+/* =============================================================================
+   GLASS PANEL COMPONENTS
+   ============================================================================= */
+
+/* Base glass panel */
+.lg-glass {
+  background: var(--lg-glass-bg);
+  backdrop-filter: blur(var(--lg-blur-md));
+  -webkit-backdrop-filter: blur(var(--lg-blur-md));
+  border: 1px solid var(--lg-glass-border);
+  border-radius: var(--lg-radius-lg);
+  box-shadow: var(--lg-shadow-md), var(--lg-glass-inner-glow);
+  transition:
+    transform var(--lg-transition-normal),
+    box-shadow var(--lg-transition-normal),
+    background var(--lg-transition-normal);
+}
+
+/* Stronger glass (more opaque) */
+.lg-glass-strong {
+  background: var(--lg-glass-bg-strong);
+  backdrop-filter: blur(var(--lg-blur-lg));
+  -webkit-backdrop-filter: blur(var(--lg-blur-lg));
+  border: 1px solid var(--lg-glass-border);
+  border-radius: var(--lg-radius-lg);
+  box-shadow: var(--lg-shadow-lg), var(--lg-glass-inner-glow);
+}
+
+/* Subtle glass (more transparent) */
+.lg-glass-subtle {
+  background: var(--lg-glass-bg-subtle);
+  backdrop-filter: blur(var(--lg-blur-sm));
+  -webkit-backdrop-filter: blur(var(--lg-blur-sm));
+  border: 1px solid var(--lg-glass-border-subtle);
+  border-radius: var(--lg-radius-md);
+  box-shadow: var(--lg-shadow-sm);
+}
+
+/* Glass hover effects */
+.lg-glass-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--lg-shadow-xl), var(--lg-shadow-glow), var(--lg-glass-inner-glow);
+}
+
+/* Glass with shimmer effect */
+.lg-glass-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.lg-glass-shimmer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.15),
+      transparent);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.lg-glass-shimmer:hover::before {
+  left: 100%;
+}
+
+
+/* =============================================================================
+   NAVBAR ENHANCEMENT
+   ============================================================================= */
+
+.navbar {
+  background: var(--lg-glass-bg) !important;
+  backdrop-filter: blur(var(--lg-blur-lg)) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur-lg)) !important;
+  border: 1px solid var(--lg-glass-border) !important;
+  box-shadow: var(--lg-shadow-md), var(--lg-glass-inner-glow) !important;
+  transition: all var(--lg-transition-normal) !important;
+}
+
+.navbar:hover {
+  box-shadow: var(--lg-shadow-lg), var(--lg-shadow-glow), var(--lg-glass-inner-glow) !important;
+}
+
+.navbar-brand {
+  color: var(--lg-text-primary) !important;
+  transition: color var(--lg-transition-fast);
+}
+
+.navbar .nav-link {
+  color: var(--lg-text-secondary) !important;
+  transition: color var(--lg-transition-fast), transform var(--lg-transition-fast);
+  position: relative;
+}
+
+.navbar .nav-link:hover {
+  color: var(--lg-accent) !important;
+  transform: translateY(-1px);
+}
+
+.navbar .nav-link.current-link::after {
+  background: linear-gradient(90deg, var(--lg-accent), var(--lg-accent-strong));
+  border-radius: 2px;
+}
+
+
+/* =============================================================================
+   SOCIAL ICONS ENHANCEMENT
+   ============================================================================= */
+
+.socialicon {
+  background: var(--lg-glass-bg) !important;
+  backdrop-filter: blur(var(--lg-blur-sm)) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur-sm)) !important;
+  border: 1px solid var(--lg-glass-border) !important;
+  box-shadow: var(--lg-shadow-sm), var(--lg-glass-inner-glow) !important;
+  transition: all var(--lg-transition-spring) !important;
+}
+
+.socialicon:hover {
+  transform: translateY(-6px) scale(1.08) !important;
+  box-shadow: var(--lg-shadow-lg), var(--lg-shadow-glow) !important;
+  border-color: var(--lg-accent) !important;
+}
+
+
+/* =============================================================================
+   FOOTER ENHANCEMENT
+   ============================================================================= */
+
+.footer {
+  background: var(--lg-glass-bg-strong) !important;
+  backdrop-filter: blur(var(--lg-blur-lg)) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur-lg)) !important;
+  border-top: 1px solid var(--lg-glass-border) !important;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1), var(--lg-glass-inner-glow) !important;
+}
+
+.footer::before,
+.footer::after {
+  background: radial-gradient(circle, var(--lg-accent-glow), transparent 70%) !important;
+}
+
+.rounded-social-buttons .social-button {
+  background: var(--lg-glass-bg) !important;
+  backdrop-filter: blur(var(--lg-blur-sm)) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur-sm)) !important;
+  border: 1px solid var(--lg-glass-border) !important;
+  box-shadow: var(--lg-shadow-sm) !important;
+  transition: all var(--lg-transition-spring) !important;
+  color: var(--lg-text-primary) !important;
+}
+
+.rounded-social-buttons .social-button:hover {
+  transform: translateY(-4px) scale(1.1);
+  box-shadow: var(--lg-shadow-md), var(--lg-shadow-glow) !important;
+}
+
+
+/* =============================================================================
+   SCROLL TO TOP BUTTON
+   ============================================================================= */
+
+#btnScrollToTop {
+  background: linear-gradient(135deg, var(--lg-accent), var(--lg-accent-strong)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: var(--lg-shadow-md), var(--lg-shadow-glow) !important;
+  transition: all var(--lg-transition-spring) !important;
+}
+
+#btnScrollToTop:hover {
+  transform: translateY(-8px) scale(1.1) !important;
+  box-shadow: var(--lg-shadow-lg), 0 0 30px var(--lg-accent-glow) !important;
+}
+
+
+/* =============================================================================
+   CARDS - PROJECT & EXPERIENCE
+   ============================================================================= */
+
+.card,
+.card1,
+.skill-card {
+  background: var(--lg-glass-bg) !important;
+  backdrop-filter: blur(var(--lg-blur-md)) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur-md)) !important;
+  border: 1px solid var(--lg-glass-border) !important;
+  border-radius: var(--lg-radius-lg) !important;
+  box-shadow: var(--lg-shadow-md), var(--lg-glass-inner-glow) !important;
+  transition: all var(--lg-transition-spring) !important;
+  overflow: hidden;
+}
+
+.card:hover,
+.card1:hover,
+.skill-card:hover {
+  transform: translateY(-8px) scale(1.02) !important;
+  box-shadow: var(--lg-shadow-xl), var(--lg-shadow-glow) !important;
+  border-color: var(--lg-accent-muted) !important;
+}
+
+.card .wrapper {
+  background: var(--lg-glass-bg-subtle) !important;
+  backdrop-filter: blur(var(--lg-blur-sm)) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur-sm)) !important;
+  border: 1px solid var(--lg-glass-border-subtle) !important;
+  border-radius: var(--lg-radius-lg) !important;
+}
+
+.card .title a,
+.card .title {
+  color: #ffffff !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card .title a:hover {
+  color: var(--lg-accent-strong) !important;
+}
+
+.skill-card .header {
+  background: linear-gradient(135deg, var(--lg-accent), var(--lg-accent-strong)) !important;
+  border-radius: var(--lg-radius-lg) var(--lg-radius-lg) 0 0 !important;
+}
+
+
+/* =============================================================================
+   TIMELINE (EDUCATION PAGE)
+   ============================================================================= */
+
+.timeline::before {
+  background: linear-gradient(180deg, var(--lg-accent), var(--lg-accent-strong), var(--lg-accent)) !important;
+  width: 4px !important;
+  border-radius: 2px;
+}
+
+.timeline-img {
+  background: linear-gradient(135deg, var(--lg-accent), var(--lg-accent-strong)) !important;
+  box-shadow: var(--lg-shadow-sm), var(--lg-shadow-glow) !important;
+  border: 3px solid var(--lg-glass-bg-strong);
+}
+
+.timeline-content {
+  background: var(--lg-glass-bg) !important;
+  backdrop-filter: blur(var(--lg-blur-md)) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur-md)) !important;
+  border: 1px solid var(--lg-glass-border) !important;
+  border-radius: var(--lg-radius-lg) !important;
+  box-shadow: var(--lg-shadow-lg), var(--lg-glass-inner-glow) !important;
+  color: var(--lg-text-primary) !important;
+  transition: all var(--lg-transition-normal);
+}
+
+.timeline-content:hover {
+  transform: translateX(8px);
+  box-shadow: var(--lg-shadow-xl), var(--lg-shadow-glow) !important;
+}
+
+.timeline-content .date {
+  background: linear-gradient(135deg, var(--lg-accent), var(--lg-accent-strong)) !important;
+  border-radius: 0 var(--lg-radius-lg) 0 var(--lg-radius-md);
+  box-shadow: var(--lg-shadow-sm);
+}
+
+.timeline-content::after {
+  border-color: transparent transparent transparent var(--lg-glass-bg) !important;
+}
+
+.timeline-item:nth-child(even) .timeline-content::after {
+  border-color: transparent var(--lg-glass-bg) transparent transparent !important;
+}
+
+
+/* =============================================================================
+   BLOG SLIDER (HACKATHON/CERTIFICATES)
+   ============================================================================= */
+
+.blog-slider {
+  background: var(--lg-glass-bg-strong) !important;
+  backdrop-filter: blur(var(--lg-blur-lg)) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur-lg)) !important;
+  border: 1px solid var(--lg-glass-border) !important;
+  border-radius: var(--lg-radius-xl) !important;
+  box-shadow: var(--lg-shadow-xl), var(--lg-glass-inner-glow) !important;
+}
+
+.blog-slider__img {
+  border-radius: var(--lg-radius-lg) !important;
+  box-shadow: var(--lg-shadow-lg), var(--lg-shadow-glow) !important;
+}
+
+.blog-slider__title {
+  color: var(--lg-text-primary) !important;
+}
+
+.blog-slider__code {
+  color: var(--lg-accent) !important;
+}
+
+.blog-slider__text {
+  color: var(--lg-text-secondary) !important;
+}
+
+.blog-slider__button {
+  background: linear-gradient(135deg, var(--lg-accent), var(--lg-accent-strong)) !important;
+  border-radius: var(--lg-radius-full) !important;
+  box-shadow: var(--lg-shadow-md), var(--lg-shadow-glow) !important;
+  transition: all var(--lg-transition-spring) !important;
+}
+
+.blog-slider__button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: var(--lg-shadow-lg), 0 0 40px var(--lg-accent-glow) !important;
+}
+
+.blog-slider__pagination .swiper-pagination-bullet {
+  background: var(--lg-glass-border) !important;
+}
+
+.blog-slider__pagination .swiper-pagination-bullet-active {
+  background: linear-gradient(135deg, var(--lg-accent), var(--lg-accent-strong)) !important;
+}
+
+
+/* =============================================================================
+   MOOC CARDS
+   ============================================================================= */
+
+#mooc .card {
+  background: var(--lg-glass-bg) !important;
+  backdrop-filter: blur(var(--lg-blur-md)) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur-md)) !important;
+  border: 1px solid var(--lg-glass-border) !important;
+  border-radius: var(--lg-radius-lg) !important;
+  box-shadow: var(--lg-shadow-md), var(--lg-glass-inner-glow) !important;
+}
+
+#mooc .card:hover {
+  transform: translateY(-8px) scale(1.03) !important;
+  box-shadow: var(--lg-shadow-xl), var(--lg-shadow-glow) !important;
+}
+
+.mooc-title {
+  color: var(--lg-text-primary) !important;
+}
+
+
+/* =============================================================================
+   PRELOADER ENHANCEMENT
+   ============================================================================= */
+
+.loader-container {
+  background: var(--lg-preloader-bg, var(--lg-bg-gradient)) !important;
+}
+
+/* Light mode preloader - visible against light background */
+html[data-theme="light"] .loader-container,
+html[light-mode="light"] .loader-container {
+  background: linear-gradient(135deg, #e8e8f0 0%, #dcdce8 50%, #d4d4e0 100%) !important;
+}
+
+html[data-theme="light"] .atom::before,
+html[light-mode="light"] .atom::before {
+  background: #7c3aed !important;
+}
+
+html[data-theme="light"] .atom>[class^="electron"],
+html[light-mode="light"] .atom>[class^="electron"] {
+  border-color: rgba(124, 58, 237, 0.6) !important;
+}
+
+/* Dark mode preloader - visible against dark background */
+html[data-theme="dark"] .loader-container,
+html[light-mode="dark"] .loader-container {
+  background: linear-gradient(135deg, #0c0c14 0%, #101018 50%, #0e0e16 100%) !important;
+}
+
+html[data-theme="dark"] .atom::before,
+html[light-mode="dark"] .atom::before {
+  background: #9370db !important;
+}
+
+.atom {
+  filter: drop-shadow(0 0 25px var(--lg-accent-glow));
+}
+
+
+/* =============================================================================
+   SCROLLBAR STYLING
+   ============================================================================= */
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--lg-glass-bg-subtle);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--lg-accent), var(--lg-accent-strong));
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--lg-accent-strong), var(--lg-accent));
+  background-clip: padding-box;
+}
+
+html {
+  scrollbar-color: var(--lg-accent) var(--lg-glass-bg-subtle);
+}
+
+
+/* =============================================================================
+   HEADINGS & TEXT ENHANCEMENTS
+   ============================================================================= */
+
+.my_projects,
+.my_experience,
+.edu_background {
+  background: linear-gradient(135deg, var(--lg-accent), var(--lg-accent-strong)) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.main-heading,
+.projects_head,
+.experience_head,
+.education_head,
+.heading1 {
+  color: var(--lg-text-primary) !important;
+}
+
+.pre-heading {
+  color: var(--lg-text-secondary) !important;
+}
+
+
+/* =============================================================================
+   DARK MODE TOGGLE ENHANCEMENT
+   ============================================================================= */
+
+.dark_toggler {
+  box-shadow: var(--lg-shadow-sm), var(--lg-glass-inner-glow) !important;
+  border: 1px solid var(--lg-glass-border) !important;
+}
+
+.dark_toggler:checked {
+  box-shadow: var(--lg-shadow-md), var(--lg-shadow-glow) !important;
+}
+
+
+/* =============================================================================
+   PROFILE IMAGE ENHANCEMENT
+   ============================================================================= */
+
+.text .rounded-circle {
+  box-shadow: var(--lg-shadow-lg), var(--lg-shadow-glow) !important;
+  border: 4px solid var(--lg-glass-border) !important;
+  transition: all var(--lg-transition-spring);
+}
+
+.text .rounded-circle:hover {
+  transform: scale(1.05);
+  box-shadow: var(--lg-shadow-xl), 0 0 50px var(--lg-accent-glow) !important;
+}
+
+
+/* =============================================================================
+   ANIMATIONS
+   ============================================================================= */
+
+@keyframes lg-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes lg-pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: var(--lg-shadow-md), 0 0 20px var(--lg-accent-glow);
+  }
+
+  50% {
+    box-shadow: var(--lg-shadow-lg), 0 0 40px var(--lg-accent-glow);
+  }
+}
+
+@keyframes lg-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.lg-animate-float {
+  animation: lg-float 4s ease-in-out infinite;
+}
+
+.lg-animate-pulse {
+  animation: lg-pulse-glow 3s ease-in-out infinite;
+}
+
+
+/* =============================================================================
+   UTILITY CLASSES
+   ============================================================================= */
+
+.lg-text-gradient {
+  background: linear-gradient(135deg, var(--lg-accent), var(--lg-accent-strong));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lg-border-glow {
+  border: 1px solid var(--lg-accent-muted);
+  box-shadow: 0 0 20px var(--lg-accent-glow);
+}
+
+.lg-backdrop-blur {
+  backdrop-filter: blur(var(--lg-blur-md));
+  -webkit-backdrop-filter: blur(var(--lg-blur-md));
+}
+
+
+/* =============================================================================
+   FALLBACK FOR UNSUPPORTED BROWSERS
+   ============================================================================= */
+
+@supports not (backdrop-filter: blur(1px)) {
+
+  .lg-glass,
+  .lg-glass-strong,
+  .lg-glass-subtle,
+  .navbar,
+  .footer,
+  .card,
+  .card1,
+  .timeline-content,
+  .blog-slider {
+    background: var(--lg-glass-bg-strong) !important;
+  }
+}
+
+
+/* =============================================================================
+   HOME PAGE ALIGNMENT FIXES
+   ============================================================================= */
+
+/* Fix text section alignment */
+.text {
+  width: 100%;
+  max-width: 600px;
+  text-align: center !important;
+  padding: 0 15px;
+  box-sizing: border-box;
+  margin-top: 100px !important;
+  /* Bring content UP */
+  top: 35% !important;
+  /* Adjust vertical position */
+}
+
+/* Ensure center element is properly aligned */
+.text .center,
+.text center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Social icons alignment fix */
+.social-icons {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px;
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+/* Profile image centering */
+.text .rounded-circle {
+  display: block;
+  margin: 0 auto 15px auto;
+}
+
+
+/* =============================================================================
+   LIGHT MODE SPECIFIC FIXES
+   ============================================================================= */
+
+/* Light mode text visibility */
+html[data-theme="light"] body,
+html[light-mode="light"] body {
+  color: #0f0f1a !important;
+}
+
+html[data-theme="light"] .text,
+html[light-mode="light"] .text {
+  color: #0f0f1a !important;
+}
+
+html[data-theme="light"] .header,
+html[light-mode="light"] .header {
+  color: #0f0f1a !important;
+}
+
+/* Light mode footer icons - make them visible */
+html[data-theme="light"] .footer,
+html[light-mode="light"] .footer {
+  background: rgba(240, 240, 248, 0.95) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+html[data-theme="light"] .footer i,
+html[light-mode="light"] .footer i {
+  color: #4a4a6a !important;
+}
+
+html[data-theme="light"] .footer a,
+html[light-mode="light"] .footer a {
+  color: #2d2d4a !important;
+}
+
+html[data-theme="light"] .footer .social-button,
+html[light-mode="light"] .footer .social-button {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  color: #2d2d4a !important;
+}
+
+html[data-theme="light"] .footer .social-button i,
+html[light-mode="light"] .footer .social-button i {
+  color: #4a4a6a !important;
+}
+
+html[data-theme="light"] .footer .social-button:hover,
+html[light-mode="light"] .footer .social-button:hover {
+  background: var(--lg-accent) !important;
+  color: white !important;
+}
+
+html[data-theme="light"] .footer .social-button:hover i,
+html[light-mode="light"] .footer .social-button:hover i {
+  color: white !important;
+}
+
+/* Light mode navbar text */
+html[data-theme="light"] .navbar .nav-link,
+html[light-mode="light"] .navbar .nav-link {
+  color: #2d2d4a !important;
+}
+
+html[data-theme="light"] .navbar-brand,
+html[light-mode="light"] .navbar-brand {
+  color: #0f0f1a !important;
+}
+
+/* Light mode social icons on home */
+html[data-theme="light"] .socialicon,
+html[light-mode="light"] .socialicon {
+  background: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Light mode cards text */
+html[data-theme="light"] .card-body,
+html[light-mode="light"] .card-body {
+  color: #2d2d4a !important;
+}
+
+html[data-theme="light"] .card-title,
+html[light-mode="light"] .card-title {
+  color: #0f0f1a !important;
+}
+
+/* Light mode timeline text */
+html[data-theme="light"] .timeline-content,
+html[light-mode="light"] .timeline-content {
+  color: #2d2d4a !important;
+}
+
+html[data-theme="light"] .timeline-content h2,
+html[light-mode="light"] .timeline-content h2 {
+  color: #0f0f1a !important;
+}

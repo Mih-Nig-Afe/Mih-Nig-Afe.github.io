@@ -107,7 +107,12 @@ h4 {
   font-size: 2.5vh;
 }
 .card {
-  background-color: var(--bg1-color);
+  background: var(--glass-surface, var(--bg1-color));
+  border: 1px solid var(--glass-border-color, rgba(255, 255, 255, 0.15));
+  border-radius: var(--glass-radius, 3rem);
+  box-shadow: var(--glass-shadow-soft, var(--shadow));
+  backdrop-filter: blur(var(--glass-blur, 18px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 18px));
 }
 .s2 .card img {
   height: 90%;
@@ -188,9 +193,10 @@ p {
   top: 80%;
 }
 #mooc .card {
-  border-radius: 5px;
-  background: var(--tint-col);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
+  border-radius: var(--glass-radius, 18px);
+  background: var(--glass-surface, var(--tint-col));
+  box-shadow: var(--glass-shadow-soft, 0 6px 10px rgba(0, 0, 0, 0.08));
+  border: 1px solid var(--glass-border-color, rgba(255, 255, 255, 0.15));
   transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
     0.3s box-shadow,
     0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
@@ -203,7 +209,7 @@ p {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
 #mooc .card-body {
-  background-color: var(--bg1-color);
+  background: transparent;
   padding: 1px;
 }
 /* SVG animation */
@@ -442,15 +448,16 @@ header p {
   position: relative;
   width: 45%;
   padding: 10px 30px;
-  border-radius: 4px;
-/*   background: #f5f5f5;
-  color: black; */
-  box-shadow: 0 20px 25px 15px rgba(0, 0, 0, 0.3);
+  border-radius: var(--glass-radius, 18px);
+  background: var(--glass-surface-strong, rgba(255, 255, 255, 0.08));
+  border: 1px solid var(--glass-border-color, rgba(255, 255, 255, 0.12));
+  box-shadow: var(--glass-shadow, 0 20px 25px 15px rgba(0, 0, 0, 0.3));
   display: flex;
   flex-direction: row;
   align-items: center;
-   background-image: linear-gradient(147deg, #545b62a8, black);
-  color: white;
+  color: var(--head-col);
+  backdrop-filter: blur(var(--glass-blur, 24px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 24px));
 }
 
 .timeline-content::after {
@@ -468,7 +475,7 @@ header p {
 .timeline-img {
   width: 30px;
   height: 30px;
-  background: #3F51B5;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
   border-radius: 50%;
   position: absolute;
   left: 50%;

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Integration Test | Mih-Nig-Afe Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe  UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      color: #fff;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #bb86fc;
+      margin-bottom: 40px;
+      font-size: 32px;
+    }
+
+    .test-section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(187, 134, 252, 0.2);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .test-section h2 {
+      color: #bb86fc;
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    .status {
+      padding: 8px 16px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 8px 8px 8px 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .status.loading {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+    }
+
+    .status.success {
+      background: rgba(76, 175, 80, 0.2);
+      color: #4caf50;
+    }
+
+    .status.error {
+      background: rgba(244, 67, 54, 0.2);
+      color: #f44336;
+    }
+
+    .data-display {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 16px;
+      font-family: monospace;
+      font-size: 13px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .error-message {
+      color: #f44336;
+      padding: 12px;
+      background: rgba(244, 67, 54, 0.1);
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+
+    .repo-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .repo-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(187, 134, 252, 0.2);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .repo-name {
+      color: #bb86fc;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .repo-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 12px;
+    }
+
+    .repo-stats {
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .language-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    button {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #bb86fc 0%, #9562d3 100%);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(187, 134, 252, 0.4);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1><i class="fab fa-github"></i> GitHub API Integration Test</h1>
+
+    <!-- User Profile Test -->
+    <div class="test-section">
+      <h2>1. User Profile Data</h2>
+      <div id="user-status" class="status loading">Loading...</div>
+      <div id="user-data" class="data-display" style="display:none;"></div>
+    </div>
+
+    <!-- Repositories Test -->
+    <div class="test-section">
+      <h2>2. Repositories</h2>
+      <div id="repos-status" class="status loading">Loading...</div>
+      <div id="repos-count" style="margin-top: 12px;"></div>
+      <div id="repos-data" class="repo-list"></div>
+    </div>
+
+    <!-- Language Statistics Test -->
+    <div class="test-section">
+      <h2>3. Language Statistics</h2>
+      <div id="lang-status" class="status loading">Loading...</div>
+      <div id="lang-data" class="data-display" style="display:none;"></div>
+    </div>
+
+    <!-- Cache Test -->
+    <div class="test-section">
+      <h2>4. Cache Status</h2>
+      <div id="cache-status"></div>
+      <button onclick="clearCache()">Clear Cache & Reload</button>
+    </div>
+  </div>
+
+  <!-- Load Scripts -->
+  <script src="assets/js/cache-manager.js"></script>
+  <script src="assets/js/github-service.js"></script>
+
+  <script>
+    // Test GitHub Integration
+    async function runTests() {
+      console.log('Starting GitHub Integration Tests...');
+
+      // Test 1: User Profile
+      try {
+        const userData = await githubService.fetchUser();
+        document.getElementById('user-status').className = 'status success';
+        document.getElementById('user-status').textContent = '✓ Success';
+
+        const userDisplay = document.getElementById('user-data');
+        userDisplay.style.display = 'block';
+        userDisplay.innerHTML = `<pre>${JSON.stringify({
+          name: userData.name,
+          bio: userData.bio,
+          location: userData.location,
+          publicRepos: userData.public_repos,
+          followers: userData.followers,
+          following: userData.following,
+          avatarUrl: userData.avatar_url,
+          createdAt: userData.created_at
+        }, null, 2)}</pre>`;
+      } catch (error) {
+        document.getElementById('user-status').className = 'status error';
+        document.getElementById('user-status').textContent = '✗ Failed';
+        document.getElementById('user-data').innerHTML = `
+                    <div class="error-message">Error: ${error.message}</div>
+                `;
+        document.getElementById('user-data').style.display = 'block';
+      }
+
+      // Test 2: Repositories
+      try {
+        const repos = await githubService.fetchRepositories();
+        document.getElementById('repos-status').className = 'status success';
+        document.getElementById('repos-status').textContent = '✓ Success';
+
+        document.getElementById('repos-count').innerHTML = `
+                    <strong>Total Repositories:</strong> ${repos.length}
+                `;
+
+        const reposDisplay = document.getElementById('repos-data');
+        reposDisplay.innerHTML = repos.slice(0, 9).map(repo => `
+                    <div class="repo-card">
+                        <div class="repo-name">${repo.name}</div>
+                        <div class="repo-desc">${repo.description || 'No description'}</div>
+                        <div class="repo-stats">
+                            ${repo.language ? `
+                                <span>
+                                    <span class="language-dot" style="background: ${githubService.getLanguageColor(repo.language)}"></span>
+                                    ${repo.language}
+                                </span>
+                            ` : ''}
+                            <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
+                            <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
+                        </div>
+                    </div>
+                `).join('');
+      } catch (error) {
+        document.getElementById('repos-status').className = 'status error';
+        document.getElementById('repos-status').textContent = '✗ Failed';
+        document.getElementById('repos-data').innerHTML = `
+                    <div class="error-message">Error: ${error.message}</div>
+                `;
+      }
+
+      // Test 3: Language Statistics
+      try {
+        const repos = await githubService.fetchRepositories();
+        const langStats = await githubService.calculateLanguageStats(repos);
+
+        document.getElementById('lang-status').className = 'status success';
+        document.getElementById('lang-status').textContent = '✓ Success';
+
+        const langDisplay = document.getElementById('lang-data');
+        langDisplay.style.display = 'block';
+        langDisplay.innerHTML = `<pre>${JSON.stringify(langStats, null, 2)}</pre>`;
+      } catch (error) {
+        document.getElementById('lang-status').className = 'status error';
+        document.getElementById('lang-status').textContent = '✗ Failed';
+        document.getElementById('lang-data').innerHTML = `
+                    <div class=" error-message">Error: ${error.message}</div>
+                `;
+        document.getElementById('lang-data').style.display = 'block';
+      }
+
+      // Test 4: Cache Status
+      updateCacheStatus();
+    }
+
+    function updateCacheStatus() {
+      const cacheStatus = document.getElementById('cache-status');
+      const cacheKeys = ['user_profile', 'user_repos', 'aggregate_language_stats'];
+
+      let html = '<div style="margin-top: 12px;">';
+      cacheKeys.forEach(key => {
+        const age = cacheManager.getAge(key);
+        if (age !== null) {
+          const minutes = Math.floor(age / 60000);
+          const seconds = Math.floor((age % 60000) / 1000);
+          html += `<div style="margin-bottom: 8px;">
+                        <strong>${key}:</strong> 
+                        <span class="status success">Cached (${minutes}m ${seconds}s old)</span>
+                    </div>`;
+        } else {
+          html += `<div style="margin-bottom: 8px;">
+                        <strong>${key}:</strong> 
+                        <span class="status error">Not Cached</span>
+                    </div>`;
+        }
+      });
+      html += '</div>';
+      cacheStatus.innerHTML = html;
+    }
+
+    function clearCache() {
+      cacheManager.clearAll();
+      alert('Cache cleared! Reloading page...');
+      location.reload();
+    }
+
+    // Run tests on page load
+    runTests();
+  </script>
+</body>
+
+</html>

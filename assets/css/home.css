@@ -112,7 +112,7 @@ body{
 }
 
 a.socialicon {
-  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--glass-shadow-soft);
 }
 
 .social-icons {
@@ -128,10 +128,13 @@ a.socialicon {
   overflow: hidden;
   width: var(--link-size);
   height: var(--link-size);
-  background-color: #fff;
+  background: var(--glass-surface);
   margin: 8px;
   border-radius: 50%;
-  box-shadow: 2px 5px 5px var(--shadow-col);
+  border: 1px solid var(--glass-border-color, var(--glass-stroke));
+  box-shadow: var(--glass-shadow-soft);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
   text-decoration: none;
   transition: var(--trans-props);
 }
@@ -144,7 +147,7 @@ a.socialicon {
 
 /* Social icon in dark mode */
 html[light-mode="dark"] .socialicon{
-  background-color: #141516;
+  background-color: transparent;
 }
 
 .kaggle i {
