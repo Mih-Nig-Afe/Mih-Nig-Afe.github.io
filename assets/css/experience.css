@@ -241,14 +241,18 @@ ul ol {
   .card1 .featured-image {
     border-top-left-radius: 13px;
     border-bottom-left-radius: 13px;
-    border-top-right-radius: 0;
-    max-width: 50%;
-    /* Adjusted to share space better */
+    border-top-right-radius: 13px;
+    flex: 0 0 28%;
+    max-width: 28%;
     height: 100%;
-    min-height: 340px;
+    min-height: 300px;
     width: 100%;
     object-fit: cover !important;
     object-position: center center !important;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translateX(20px);
   }
 }
 
@@ -273,6 +277,103 @@ ul ol {
   .card1 .featured-image {
     height: 320px;
     object-fit: cover;
+  }
+}
+
+.about-portrait {
+  display: block;
+  width: clamp(210px, 30vw, 320px);
+  aspect-ratio: 4 / 5;
+  height: auto;
+  min-height: 280px;
+  padding: 10px;
+  margin: 10px auto 6px;
+  border-radius: 22px;
+  object-fit: cover;
+  object-position: center 55%;
+  background: radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.14) 0 32%, rgba(255, 255, 255, 0) 60%),
+    linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(14, 165, 233, 0.26));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 26px 54px rgba(0, 0, 0, 0.24), 0 1px 0 rgba(255, 255, 255, 0.08) inset;
+  -webkit-mask-image: radial-gradient(125% 125% at 50% 45%, #000 74%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(125% 125% at 50% 45%, #000 74%, rgba(0, 0, 0, 0) 100%);
+  transition: transform 0.45s ease, box-shadow 0.45s ease, background 0.45s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card1:hover .about-portrait {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.26), 0 0 0 1px rgba(255, 255, 255, 0.14) inset;
+  background: radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.18) 0 34%, rgba(255, 255, 255, 0) 60%),
+    linear-gradient(135deg, rgba(124, 58, 237, 0.36), rgba(14, 165, 233, 0.3));
+  border-radius: 0 22px 22px 0;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.about-portrait::before,
+.about-portrait::after {
+  content: "";
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  height: 16%;
+  border-radius: 999px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(124, 58, 237, 0.22), rgba(14, 165, 233, 0.12) 60%, rgba(255, 255, 255, 0));
+  filter: blur(9px);
+  opacity: 0.9;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  animation: portraitGlow 8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.about-portrait::before {
+  top: -5%;
+  transform: translateY(-6px) scaleX(0.96);
+}
+
+.about-portrait::after {
+  bottom: -5%;
+  transform: translateY(6px) scaleX(0.94);
+  background: linear-gradient(0deg, rgba(14, 165, 233, 0.14), rgba(124, 58, 237, 0.12) 60%, rgba(255, 255, 255, 0));
+}
+
+.card1:hover .about-portrait::before,
+.card1:hover .about-portrait::after {
+  opacity: 1;
+  transform: translateY(0) scaleX(1);
+}
+
+@keyframes portraitGlow {
+  0%,
+  100% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateY(-2px) scaleX(1.02);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 992px) {
+  .about-portrait {
+    width: clamp(200px, 58vw, 300px);
+    min-height: 260px;
+    padding: 9px;
+  }
+}
+
+@media (max-width: 575px) {
+  .about-portrait {
+    width: clamp(180px, 86vw, 280px);
+    min-height: 240px;
+    padding: 8px;
+    border-radius: 18px;
+    -webkit-mask-image: radial-gradient(125% 125% at 50% 40%, #000 80%, rgba(0, 0, 0, 0) 100%);
+    mask-image: radial-gradient(125% 125% at 50% 40%, #000 80%, rgba(0, 0, 0, 0) 100%);
   }
 }
 

@@ -539,13 +539,54 @@ html[light-mode="light"] .loader-container {
 
 html[data-theme="light"] .atom::before,
 html[light-mode="light"] .atom::before {
-  background: #9370db !important;
-  box-shadow: 0 0 25px rgba(147, 112, 219, 0.6) !important;
+  background: rgb(92, 92, 93) !important;
+  box-shadow: 0 0 14px rgba(92, 92, 93, 0.32) !important;
 }
 
 html[data-theme="light"] .atom>[class^="electron"],
 html[light-mode="light"] .atom>[class^="electron"] {
-  border-color: rgba(147, 112, 219, 0.85) !important;
+  border-color: rgba(92, 92, 93, 0.65) !important;
+}
+
+html[data-theme="light"] .atom,
+html[light-mode="light"] .atom {
+  filter: drop-shadow(0 8px 18px rgba(92, 92, 93, 0.16));
+}
+
+/* Light mode: make orbiting electrons brighter and slightly slower for visibility */
+html[data-theme="light"],
+html[light-mode="light"] {
+  --electron-size: calc(var(--atom-size) / 22);
+  --electron-speed: 1.6s;
+  --electron-speed-alpha: 1.35s;
+  --electron-speed-omega: 1.15s;
+}
+
+html[data-theme="light"] .atom [class^="electron"]::after,
+html[light-mode="light"] .atom [class^="electron"]::after {
+  width: calc(var(--electron-size) * 1.1);
+  height: calc(var(--electron-size) * 1.1);
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.35),
+    0 0 14px rgba(92, 92, 93, 0.25);
+}
+
+html[data-theme="light"] .atom .electron::after,
+html[light-mode="light"] .atom .electron::after {
+  background: #ffd166 !important;
+  box-shadow: 0 0 14px rgba(255, 209, 102, 0.75);
+}
+
+html[data-theme="light"] .atom .electron-alpha::after,
+html[light-mode="light"] .atom .electron-alpha::after {
+  background: #ff4d6d !important;
+  box-shadow: 0 0 14px rgba(255, 77, 109, 0.75);
+}
+
+html[data-theme="light"] .atom .electron-omega::after,
+html[light-mode="light"] .atom .electron-omega::after {
+  background: #2acb8b !important;
+  box-shadow: 0 0 14px rgba(42, 203, 139, 0.75);
 }
 
 /* Dark mode preloader - visible against dark background */
