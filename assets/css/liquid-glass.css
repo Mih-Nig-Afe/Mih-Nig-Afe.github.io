@@ -23,10 +23,10 @@ html[light-mode="light"] {
   --lg-accent-muted: #6d28d9;
   --lg-accent-glow: rgba(124, 58, 237, 0.25);
 
-  /* Glass Surface Colors - Semi-transparent with more contrast */
-  --lg-glass-bg: rgba(255, 255, 255, 0.6);
-  --lg-glass-bg-strong: rgba(255, 255, 255, 0.8);
-  --lg-glass-bg-subtle: rgba(255, 255, 255, 0.4);
+  /* Glass Surface Colors - More transparent for glassier effect */
+  --lg-glass-bg: rgba(255, 255, 255, 0.42);
+  --lg-glass-bg-strong: rgba(255, 255, 255, 0.58);
+  --lg-glass-bg-subtle: rgba(255, 255, 255, 0.28);
 
   /* Glass Border & Stroke - More visible borders */
   --lg-glass-border: rgba(0, 0, 0, 0.08);
@@ -40,10 +40,10 @@ html[light-mode="light"] {
   --lg-shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.15);
   --lg-shadow-glow: 0 0 40px rgba(124, 58, 237, 0.15);
 
-  /* Blur Values */
-  --lg-blur-sm: 16px;
-  --lg-blur-md: 28px;
-  --lg-blur-lg: 44px;
+  /* Blur Values - Enhanced for stronger frost effect */
+  --lg-blur-sm: 22px;
+  --lg-blur-md: 36px;
+  --lg-blur-lg: 52px;
 
   /* Border Radius */
   --lg-radius-sm: 12px;
@@ -58,11 +58,11 @@ html[light-mode="light"] {
   --lg-text-muted: #4a4a6a;
   --lg-text-on-accent: #ffffff;
 
-  /* Background Gradients - Cleaner, more neutral */
+  /* Background Gradients - Softer, dimmer for eye comfort */
   --lg-bg-gradient:
-    radial-gradient(ellipse 80% 60% at 10% 20%, rgba(196, 181, 253, 0.12) 0%, transparent 55%),
-    radial-gradient(ellipse 70% 50% at 90% 10%, rgba(251, 207, 232, 0.15) 0%, transparent 50%),
-    linear-gradient(135deg, #f5f5f8 0%, #f0f0f5 50%, #eaeaf2 100%);
+    radial-gradient(ellipse 80% 60% at 10% 20%, rgba(196, 181, 253, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 90% 10%, rgba(251, 207, 232, 0.20) 0%, transparent 50%),
+    linear-gradient(135deg, #e6e2ed 0%, #e0dce6 50%, #d9d5e2 100%);
 
   /* Ambient Orbs - Very subtle */
   --lg-orb-1: radial-gradient(circle at 20% 80%, rgba(124, 58, 237, 0.04) 0%, transparent 50%);
@@ -94,10 +94,10 @@ html[light-mode="dark"] {
   --lg-accent-muted: #8b5cf6;
   --lg-accent-glow: rgba(147, 112, 219, 0.25);
 
-  /* Glass Surface Colors - More transparent */
-  --lg-glass-bg: rgba(18, 18, 28, 0.55);
-  --lg-glass-bg-strong: rgba(25, 25, 38, 0.7);
-  --lg-glass-bg-subtle: rgba(12, 12, 20, 0.4);
+  /* Glass Surface Colors - More transparent for glassier effect */
+  --lg-glass-bg: rgba(18, 18, 28, 0.42);
+  --lg-glass-bg-strong: rgba(25, 25, 38, 0.55);
+  --lg-glass-bg-subtle: rgba(12, 12, 20, 0.28);
 
   /* Glass Border & Stroke */
   --lg-glass-border: rgba(255, 255, 255, 0.08);
@@ -370,11 +370,30 @@ body::before {
 .card .title a,
 .card .title {
   color: #ffffff !important;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .card .title a:hover {
   color: var(--lg-accent-strong) !important;
+}
+
+/* Light mode: dark text on project cards for readability */
+html[data-theme="light"] .card .title a,
+html[light-mode="light"] .card .title a,
+html[data-theme="light"] .card .title,
+html[light-mode="light"] .card .title {
+  color: #0f0f1a !important;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
+}
+
+html[data-theme="light"] .card .text,
+html[light-mode="light"] .card .text {
+  color: #2d2d4a !important;
+}
+
+html[data-theme="light"] .card .data,
+html[light-mode="light"] .card .data {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.92) 65%);
 }
 
 .skill-card .header {
@@ -515,17 +534,18 @@ body::before {
 /* Light mode preloader - visible against light background */
 html[data-theme="light"] .loader-container,
 html[light-mode="light"] .loader-container {
-  background: linear-gradient(135deg, #e8e8f0 0%, #dcdce8 50%, #d4d4e0 100%) !important;
+  background: linear-gradient(135deg, #d9d5e2 0%, #d2ceda 50%, #cbc7d5 100%) !important;
 }
 
 html[data-theme="light"] .atom::before,
 html[light-mode="light"] .atom::before {
-  background: #7c3aed !important;
+  background: #9370db !important;
+  box-shadow: 0 0 25px rgba(147, 112, 219, 0.6) !important;
 }
 
 html[data-theme="light"] .atom>[class^="electron"],
 html[light-mode="light"] .atom>[class^="electron"] {
-  border-color: rgba(124, 58, 237, 0.6) !important;
+  border-color: rgba(147, 112, 219, 0.85) !important;
 }
 
 /* Dark mode preloader - visible against dark background */
@@ -723,17 +743,18 @@ html {
    HOME PAGE ALIGNMENT FIXES
    ============================================================================= */
 
-/* Fix text section alignment */
+/* Fix text section alignment - Center both horizontally and vertically */
 .text {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
   width: 100%;
   max-width: 600px;
   text-align: center !important;
   padding: 0 15px;
   box-sizing: border-box;
-  margin-top: 100px !important;
-  /* Bring content UP */
-  top: 35% !important;
-  /* Adjust vertical position */
+  margin: 0 !important;
 }
 
 /* Ensure center element is properly aligned */
@@ -788,8 +809,31 @@ html[light-mode="light"] .header {
 /* Light mode footer icons - make them visible */
 html[data-theme="light"] .footer,
 html[light-mode="light"] .footer {
-  background: rgba(240, 240, 248, 0.95) !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+  background: rgba(230, 226, 237, 0.88) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+  backdrop-filter: blur(36px) !important;
+  -webkit-backdrop-filter: blur(36px) !important;
+}
+
+/* Light mode footer animation orbs - more visible */
+html[data-theme="light"] .footer::before,
+html[light-mode="light"] .footer::before,
+html[data-theme="light"] .footer::after,
+html[light-mode="light"] .footer::after {
+  background: radial-gradient(circle, rgba(147, 112, 219, 0.45), transparent 70%) !important;
+}
+
+/* Light mode footer quote/tag text */
+html[data-theme="light"] .footer .tag,
+html[light-mode="light"] .footer .tag,
+html[data-theme="light"] .tag,
+html[light-mode="light"] .tag {
+  color: #2d2d4a !important;
+}
+
+html[data-theme="light"] .footer p,
+html[light-mode="light"] .footer p {
+  color: #4a4a6a !important;
 }
 
 html[data-theme="light"] .footer i,
@@ -863,4 +907,292 @@ html[light-mode="light"] .timeline-content {
 html[data-theme="light"] .timeline-content h2,
 html[light-mode="light"] .timeline-content h2 {
   color: #0f0f1a !important;
+}
+
+
+/* =============================================================================
+   ADDITIONAL LIGHT MODE FIXES
+   ============================================================================= */
+
+/* Light mode: Quote icon in footer - make it visible */
+html[data-theme="light"] .footer .quotes svg path,
+html[light-mode="light"] .footer .quotes svg path,
+html[data-theme="light"] .quotes svg path,
+html[light-mode="light"] .quotes svg path {
+  fill: #4a4a6a !important;
+}
+
+/* Light mode: Project card description text (inside .data overlay) */
+html[data-theme="light"] .card .data .content,
+html[light-mode="light"] .card .data .content {
+  color: #2d2d4a !important;
+}
+
+html[data-theme="light"] .card .data .text,
+html[light-mode="light"] .card .data .text {
+  color: #3d3d5a !important;
+}
+
+/* Better project card data overlay for light mode */
+html[data-theme="light"] .card .data,
+html[light-mode="light"] .card .data {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.95) 55%) !important;
+}
+
+/* Social icons styling for better visibility */
+html[data-theme="light"] .card .menu-content a,
+html[light-mode="light"] .card .menu-content a,
+html[data-theme="light"] .card .social-icon svg,
+html[light-mode="light"] .card .social-icon svg {
+  fill: #4a4a6a !important;
+  color: #4a4a6a !important;
+}
+
+
+/* =============================================================================
+   HOME PAGE CONTENT POSITIONING - CENTER VERTICALLY
+   Override ALL margin-top media queries from home.css
+   ============================================================================= */
+
+/* Base centering - works for all screen sizes */
+.text,
+.text.col-sm-6,
+div.text {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  position: absolute !important;
+}
+
+/* Override ALL media queries from home.css */
+@media only screen and (max-width: 2381px) {
+
+  .text,
+  .text.col-sm-6,
+  div.text {
+    margin-top: 0 !important;
+    top: 50% !important;
+  }
+}
+
+@media only screen and (max-width: 1340px) {
+
+  .text,
+  .text.col-sm-6,
+  div.text {
+    margin-top: 0 !important;
+    top: 50% !important;
+  }
+}
+
+@media only screen and (max-width: 780px) {
+
+  .text,
+  .text.col-sm-6,
+  div.text {
+    margin-top: 0 !important;
+    top: 48% !important;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+
+  .text,
+  .text.col-sm-6,
+  div.text {
+    margin-top: 0 !important;
+    top: 48% !important;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+
+  .text,
+  .text.col-sm-6,
+  div.text {
+    margin-top: 0 !important;
+    top: 45% !important;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+
+  .text,
+  .text.col-sm-6,
+  div.text {
+    margin-top: 0 !important;
+    top: 45% !important;
+  }
+}
+
+@media only screen and (min-height: 731px) {
+
+  .text,
+  .text.col-sm-6,
+  div.text {
+    margin-top: 0 !important;
+  }
+}
+
+@media only screen and (min-height: 768px) {
+
+  .text,
+  .text.col-sm-6,
+  div.text {
+    margin-top: 0 !important;
+  }
+}
+
+
+/* =============================================================================
+   COMPREHENSIVE LIGHT MODE TEXT FIXES - PROJECT CARDS & FOOTER
+   ============================================================================= */
+
+/* Modern Project Cards - Text Visibility in Light Mode */
+html[data-theme="light"] .project-card-modern,
+html[light-mode="light"] .project-card-modern {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(245, 245, 250, 0.9) 100%) !important;
+  border-color: rgba(124, 58, 237, 0.25) !important;
+}
+
+html[data-theme="light"] .project-title,
+html[light-mode="light"] .project-title,
+html[data-theme="light"] .project-title a,
+html[light-mode="light"] .project-title a,
+html[data-theme="light"] .project-card-link,
+html[light-mode="light"] .project-card-link,
+html[data-theme="light"] .project-card-link:visited,
+html[light-mode="light"] .project-card-link:visited {
+  color: #0f0f1a !important;
+}
+
+html[data-theme="light"] .project-title a:hover,
+html[light-mode="light"] .project-title a:hover,
+html[data-theme="light"] .project-card-link:hover .project-title,
+html[light-mode="light"] .project-card-link:hover .project-title {
+  color: #7c3aed !important;
+}
+
+html[data-theme="light"] .project-description,
+html[light-mode="light"] .project-description {
+  color: #3d3d5a !important;
+}
+
+html[data-theme="light"] .stat-item,
+html[light-mode="light"] .stat-item {
+  color: #4a4a6a !important;
+}
+
+html[data-theme="light"] .project-updated,
+html[light-mode="light"] .project-updated {
+  color: #6a6a8a !important;
+}
+
+html[data-theme="light"] .project-tag,
+html[light-mode="light"] .project-tag {
+  color: #7c3aed !important;
+  background: rgba(124, 58, 237, 0.12) !important;
+  border-color: rgba(124, 58, 237, 0.3) !important;
+}
+
+html[data-theme="light"] .card-header,
+html[light-mode="light"] .card-header {
+  border-bottom-color: rgba(124, 58, 237, 0.15) !important;
+}
+
+html[data-theme="light"] .card-footer,
+html[light-mode="light"] .card-footer {
+  border-top-color: rgba(124, 58, 237, 0.15) !important;
+}
+
+html[data-theme="light"] .card-content,
+html[light-mode="light"] .card-content {
+  color: #2d2d4a !important;
+}
+
+/* Project controls and search/sort in light mode */
+html[data-theme="light"] .project-controls,
+html[light-mode="light"] .project-controls {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(124, 58, 237, 0.2) !important;
+}
+
+html[data-theme="light"] #project-search,
+html[light-mode="light"] #project-search,
+html[data-theme="light"] #project-sort,
+html[light-mode="light"] #project-sort {
+  background: rgba(255, 255, 255, 0.8) !important;
+  color: #2d2d4a !important;
+  border-color: rgba(124, 58, 237, 0.3) !important;
+}
+
+html[data-theme="light"] #project-search::placeholder,
+html[light-mode="light"] #project-search::placeholder {
+  color: #6a6a8a !important;
+}
+
+html[data-theme="light"] .filter-btn,
+html[light-mode="light"] .filter-btn {
+  background: rgba(255, 255, 255, 0.8) !important;
+  color: #4a4a6a !important;
+  border-color: rgba(124, 58, 237, 0.3) !important;
+}
+
+html[data-theme="light"] .filter-btn.active,
+html[light-mode="light"] .filter-btn.active {
+  color: #ffffff !important;
+}
+
+/* Footer Form - "Get in Touch" and form elements */
+html[data-theme="light"] .form-style-6,
+html[light-mode="light"] .form-style-6 {
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+html[data-theme="light"] .form-header,
+html[light-mode="light"] .form-header,
+html[data-theme="light"] .form-header h6,
+html[light-mode="light"] .form-header h6,
+html[data-theme="light"] .form-header .display,
+html[light-mode="light"] .form-header .display,
+html[data-theme="light"] .display,
+html[light-mode="light"] .display {
+  color: #0f0f1a !important;
+}
+
+html[data-theme="light"] .form-style-6 input,
+html[light-mode="light"] .form-style-6 input,
+html[data-theme="light"] .form-style-6 textarea,
+html[light-mode="light"] .form-style-6 textarea {
+  color: #2d2d4a !important;
+  border-bottom-color: rgba(124, 58, 237, 0.3) !important;
+}
+
+html[data-theme="light"] .form-style-6 input::placeholder,
+html[light-mode="light"] .form-style-6 input::placeholder,
+html[data-theme="light"] .form-style-6 textarea::placeholder,
+html[light-mode="light"] .form-style-6 textarea::placeholder {
+  color: #6a6a8a !important;
+}
+
+/* Skill cards in light mode */
+html[data-theme="light"] .skill-card .data,
+html[light-mode="light"] .skill-card .data {
+  color: #2d2d4a !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.95) 55%) !important;
+}
+
+html[data-theme="light"] .skill-card .title a,
+html[light-mode="light"] .skill-card .title a {
+  color: #0f0f1a !important;
+}
+
+/* Error and no results containers */
+html[data-theme="light"] .error-container,
+html[light-mode="light"] .error-container,
+html[data-theme="light"] .no-results,
+html[light-mode="light"] .no-results {
+  color: #4a4a6a !important;
 }

@@ -43,11 +43,24 @@ html[data-theme="dark"] {
 body{
   font-family: "Poppins";
 }
-#home,
-#particles-js {
+#home {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(2rem, 4vw, 4rem);
+  text-align: center;
+  overflow: hidden;
+}
+
+#particles-js {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
 .section {
@@ -61,11 +74,65 @@ body{
 }
 
 .text {
-  font-size: 25px;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  position: absolute;
+  position: relative;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  top: auto;
+  left: auto;
+  transform: none;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  text-align: center;
+  z-index: 1;
+}
+
+.hero-card {
+  max-width: min(800px, 90vw);
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-soft, #5c6270);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.hero-headline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  line-height: 1.2;
+}
+
+.hero-headline .wave img {
+  vertical-align: middle;
+}
+
+.hero-avatar {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-avatar img {
+  width: clamp(160px, 20vw, 220px);
+  height: clamp(160px, 20vw, 220px);
+  object-fit: cover;
+}
+
+.hero-roles {
+  margin: 0;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+}
+
+
+.social-icons {
+  gap: 12px;
+  margin-top: clamp(0.25rem, 1vw, 0.75rem);
 }
 
 .animated-text span {

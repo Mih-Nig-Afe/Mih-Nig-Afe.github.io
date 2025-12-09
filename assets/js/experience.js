@@ -7,18 +7,18 @@ const exp = [
   {
     title: "Mihretab Nigatu",
     cardImage: "assets/images/About-page/me.jpg",
-    place: "Fronted Developer",
+    place: "Systems Futurist · Full Stack Developer & AI Engineer",
     time: "(2020 - present)",
-    desp: "Hi there, I'm Mihretab Nigatu, a passionate Frontend Developer with a keen eye for detail and a strong desire to create engaging user experiences. I believe that the key to building successful websites and applications is to understand the needs of the end-users and to design with them in mind. With several years of experience under my belt, I have honed my skills in a variety of programming languages such as HTML, CSS, and JavaScript, and I have also become proficient in using popular frontend frameworks such as React, Vue.js, and Angular. In addition to my technical abilities, I am also a great team player with excellent communication skills. I enjoy collaborating with others to bring ideas to life and I always strive to exceed expectations.If you're looking for a dedicated frontend developer who is passionate about creating high-quality user experiences, then look no further. I would love the opportunity to work with you and help bring your vision to life.",
+    desp: "I am Mihretab Nigatu—a Systems Futurist and Full Stack Developer & AI Engineer passionate about building intelligent, scalable digital ecosystems. 🤖 <strong>AI & Machine Learning:</strong> I architect autonomous AI agents and ML-powered solutions that automate complex workflows. From natural language processing to predictive analytics, I leverage cutting-edge AI frameworks to create systems that learn, adapt, and deliver measurable business impact. 📱 <strong>Telegram Bot Development:</strong> I specialize in designing sophisticated Telegram bot ecosystems—building everything from customer service automation and payment integration bots to multi-agent orchestration systems. My bots handle thousands of interactions seamlessly, featuring inline keyboards, webhook integrations, real-time notifications, and AI-powered conversational interfaces. 🌐 <strong>Full Stack Web Engineering:</strong> With 4+ years of hands-on experience, I craft pixel-perfect, responsive web experiences using modern frontend stacks (HTML5, CSS3, JavaScript, React, Vue.js). I build performant, SEO-optimized, and accessible interfaces backed by robust backend systems in Python, PHP, Node.js, and serverless architectures. My portfolio spans e-commerce platforms, school management systems, and enterprise dashboards. 🔧 <strong>Full-Stack & Automation:</strong> I bridge frontend elegance with backend power—integrating RESTful APIs, database systems, CI/CD pipelines, and cloud infrastructure. My automation pipelines streamline deployments and enable continuous delivery. 🎓 Google-certified and constantly evolving, I approach every project with systems thinking, clean architecture principles, and a commitment to delivering resilient, human-centered software. Let's build the future together!",
   },
-  
+
 ];
 
 const showCards2 = () => {
   let output = "";
   exp.forEach(
     ({ title, cardImage, place, time, desp }) =>
-      (output += `        
+    (output += `        
     <div class="col gaap" data-aos="fade-up" data-aos-easing="linear" data-aos-delay="100" data-aos-duration="400"> 
       <div class="card card1">
         <img src="${cardImage}" class="featured-image"/>
@@ -54,7 +54,7 @@ const volunteershipcards = [
     description:
       "The Google Developer Certificate for Web Development is a credential that validates proficiency in building and designing dynamic websites and applications using modern web technologies.",
   },
-  
+
   {
     title: "Codingal",
     cardImage: "assets/images/About-page/Certificates/codingal.png",
@@ -79,7 +79,7 @@ const showCards = () => {
   let output = "";
   volunteershipcards.forEach(
     ({ title, cardImage, description }) =>
-      (output += `        
+    (output += `        
       <div class="card volunteerCard" data-aos="fade-down" data-aos-easing="linear" data-aos-delay="100" data-aos-duration="600" style="height: 550px;width:400px">
       
       <img src="${cardImage}" height="250" width="65" class="card-img" style="border-radius:10px">
