@@ -1,0 +1,21 @@
+{
+    "name": "Mihretab Nigatu Portfolio",
+    "short_name": "Mihretab",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#bb86fc",
+    "description": "Portfolio of Mihretab Nigatu - Web Specialist & Fullstack Developer",
+    "icons": [
+        {
+            "src": "assets/images/logo.jpg",
+            "sizes": "192x192",
+            "type": "image/jpeg"
+        },
+        {
+            "src": "assets/images/logo.jpg",
+            "sizes": "512x512",
+            "type": "image/jpeg"
+        }
+    ]
+}

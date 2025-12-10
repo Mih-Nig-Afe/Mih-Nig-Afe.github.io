@@ -7,7 +7,7 @@ const exp = [
   {
     title: "Mihretab Nigatu",
     cardImage: "assets/images/About-page/me.jpg",
-    place: "Systems Futurist · Full Stack Developer & AI Engineer",
+    place: "Systems Futurist · Web Specialist · Full Stack Developer & AI Engineer",
     time: "(2020 - present)",
     desp: "I am Mihretab Nigatu—a Systems Futurist and Full Stack Developer & AI Engineer passionate about building intelligent, scalable digital ecosystems. 🤖 <strong>AI & Machine Learning:</strong> I architect autonomous AI agents and ML-powered solutions that automate complex workflows. From natural language processing to predictive analytics, I leverage cutting-edge AI frameworks to create systems that learn, adapt, and deliver measurable business impact. 📱 <strong>Telegram Bot Development:</strong> I specialize in designing sophisticated Telegram bot ecosystems—building everything from customer service automation and payment integration bots to multi-agent orchestration systems. My bots handle thousands of interactions seamlessly, featuring inline keyboards, webhook integrations, real-time notifications, and AI-powered conversational interfaces. 🌐 <strong>Full Stack Web Engineering:</strong> With 4+ years of hands-on experience, I craft pixel-perfect, responsive web experiences using modern frontend stacks (HTML5, CSS3, JavaScript, React, Vue.js). I build performant, SEO-optimized, and accessible interfaces backed by robust backend systems in Python, PHP, Node.js, and serverless architectures. My portfolio spans e-commerce platforms, school management systems, and enterprise dashboards. 🔧 <strong>Full-Stack & Automation:</strong> I bridge frontend elegance with backend power—integrating RESTful APIs, database systems, CI/CD pipelines, and cloud infrastructure. My automation pipelines streamline deployments and enable continuous delivery. 🎓 Google-certified and constantly evolving, I approach every project with systems thinking, clean architecture principles, and a commitment to delivering resilient, human-centered software. Let's build the future together!",
   },
@@ -34,6 +34,11 @@ const showCards2 = () => {
             <ol>
               ${desp}
             </ol>
+            <div style="text-align:center; padding: 20px 0;">
+                <a href="assets/docs/Resume.pdf" target="_blank" class="resume-btn">
+                    <i class="fas fa-file-alt"></i> Resume
+                </a>
+            </div>
           </header>
         </article>
       </div>
@@ -80,7 +85,7 @@ const showCards = () => {
   volunteershipcards.forEach(
     ({ title, cardImage, description }) =>
     (output += `        
-      <div class="card volunteerCard" data-aos="fade-down" data-aos-easing="linear" data-aos-delay="100" data-aos-duration="600" style="height: 550px;width:400px">
+      <div class="card volunteerCard" data-aos="fade-down" data-aos-easing="linear" data-aos-delay="100" data-aos-duration="600" style="height: 550px;width:400px; cursor: pointer;" onclick="showModal('${cardImage}')">
       
       <img src="${cardImage}" height="250" width="65" class="card-img" style="border-radius:10px">
       <div class="content">
@@ -93,3 +98,27 @@ const showCards = () => {
   volunteership.innerHTML = output;
 };
 document.addEventListener("DOMContentLoaded", showCards);
+
+/* Modal Logic */
+function showModal(imageSrc) {
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("img01");
+  const captionText = document.getElementById("caption");
+
+  modal.style.display = "block";
+  modalImg.src = imageSrc;
+}
+
+function closeModal() {
+  const modal = document.getElementById("imageModal");
+  modal.style.display = "none";
+}
+
+// Close modal when clicking outside the image
+window.onclick = function (event) {
+  const modal = document.getElementById("imageModal");
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
