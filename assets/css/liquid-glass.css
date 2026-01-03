@@ -1028,7 +1028,15 @@ html[light-mode="light"] .navbar-brand {
 html[data-theme="light"] .socialicon,
 html[light-mode="light"] .socialicon {
   background: rgba(255, 255, 255, 0.75) !important;
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-color: transparent !important;
+}
+
+/* Light mode: show purple ring only on hover/focus */
+html[data-theme="light"] .socialicon:hover,
+html[light-mode="light"] .socialicon:hover,
+html[data-theme="light"] .socialicon:focus,
+html[light-mode="light"] .socialicon:focus {
+  border-color: var(--accent) !important;
 }
 
 /* Light mode cards text */
