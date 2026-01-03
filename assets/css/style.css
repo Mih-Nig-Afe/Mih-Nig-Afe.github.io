@@ -43,7 +43,7 @@ html[data-theme="light"] {
   --col-box-shadow-hover: inset #8a7373 2px 2px 4px, inset #4D4D4D -2px -2px 4px;
   --col-bd-icon: transparent;
   --bg-icon: #fff;
-  --col-icon-twitter: #1da1f2;
+
   --col-icon-dribbble: #ea4c89;
   --col-icon-linkedin: #0e76a8;
   --col-icon-kaggle: #41aff3;
@@ -79,7 +79,7 @@ html[data-theme="dark"] {
   --col-bd-icon: transparent;
   --col-box-shadow: 5px 5px 10px rgba(22, 21, 21, 0.7), -5px -5px 10px rgba(255, 255, 255, 0.1);
   --col-box-shadow-hover: inset rgba(255, 255, 255, 1) 2px 2px 4px, inset rgba(255, 255, 255, 0.5) -2px -2px 4px;
-  --col-icon-twitter: #1da1f2;
+
   --col-icon-dribbble: #ea4c89;
   --col-icon-linkedin: #0e76a8;
   --col-icon-kaggle: #41aff3;
@@ -119,11 +119,11 @@ html[data-theme="dark"] {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #ca9eff;
-  
+
 }
 
 /* Custom Scrollbar for Mozilla Firefox*/
-html{
+html {
   overflow-y: visible;
   scrollbar-color: #ca9eff #f1f1f1;
   scrollbar-width: auto;
@@ -192,14 +192,16 @@ body::before {
 }
 
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+
   .glass-panel,
   .glass-chip,
   .glass-card,
   .glass-cta,
   .glass-nav {
-      background: var(--glass-surface-strong);
+    background: var(--glass-surface-strong);
   }
 }
+
 .text-center heading1 exp-head {
   color: white;
 }
@@ -235,25 +237,29 @@ body::before {
 
 @keyframes up {
   0% {
-      transform: translate(0);
+    transform: translate(0);
   }
+
   20% {
-      transform: translateY(-15px);
+    transform: translateY(-15px);
   }
+
   40% {
-      transform: translate(0);
+    transform: translate(0);
   }
 }
 
 @-webkit-keyframes up {
   0% {
-      transform: translate(0);
+    transform: translate(0);
   }
+
   20% {
-      transform: translateY(-15px);
+    transform: translateY(-15px);
   }
+
   40% {
-      transform: translate(0);
+    transform: translate(0);
   }
 }
 
@@ -348,9 +354,9 @@ html {
 
 @media (max-width: 991px) {
   .navbar {
-      border-radius: 32px;
-      width: calc(100% - 1.5rem);
-      margin: 0.75rem;
+    border-radius: 32px;
+    width: calc(100% - 1.5rem);
+    margin: 0.75rem;
   }
 }
 
@@ -394,6 +400,7 @@ html {
   transition: all 0.9s;
   background-color: #bb86fc;
 }
+
 /* end of dark mode toggle switch button */
 
 html {
@@ -417,8 +424,8 @@ html[light-mode="dark"] {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.dark-theme .nav-link:hover{
-color: #ffffff !important;
+.dark-theme .nav-link:hover {
+  color: #ffffff !important;
 }
 
 .dark-theme .first,
@@ -426,11 +433,13 @@ color: #ffffff !important;
 .dark-theme .third {
   background-color: rgba(255, 255, 255, 0.5);
 }
-.dsc{
-   box-shadow:   2px 5px 5px 0px rgb(130 216 251), 
-   inset -2px -5px 5px 0px rgb(130 216 251);
-   background: #1f1d1d;
+
+.dsc {
+  box-shadow: 2px 5px 5px 0px rgb(130 216 251),
+    inset -2px -5px 5px 0px rgb(130 216 251);
+  background: #1f1d1d;
 }
+
 /*
 -------------------------------------
   SIDEBAR SVG ANIMATION
@@ -462,28 +471,31 @@ color: #ffffff !important;
 
 @keyframes wheel {
   from {
-      transform: rotateZ(0deg);
+    transform: rotateZ(0deg);
   }
+
   to {
-      transform: rotateZ(360deg);
+    transform: rotateZ(360deg);
   }
 }
 
 @keyframes bikes {
   from {
-      transform: rotateX(0deg);
+    transform: rotateX(0deg);
   }
+
   to {
-      transform: rotateX(12deg);
+    transform: rotateX(12deg);
   }
 }
 
 @keyframes hat {
   from {
-      transform: translateY(0%) rotateZ(0deg);
+    transform: translateY(0%) rotateZ(0deg);
   }
+
   to {
-      transform: translateY(10%) rotateZ(20deg);
+    transform: translateY(10%) rotateZ(20deg);
   }
 }
 
@@ -496,66 +508,70 @@ color: #ffffff !important;
 
 @media only screen and (min-width: 1024px) {
   .current-link {
-      font-weight: bolder;
-      position: relative;
-      z-index: 1;
-      text-align: center;
+    font-weight: bolder;
+    position: relative;
+    z-index: 1;
+    text-align: center;
   }
+
   .current-link:after {
-      content: "";
-      position: absolute;
-      left: 34%;
-      margin-left: auto;
-      margin-right: auto;
-      bottom: 0;
-      width: 32%;
-      border-bottom: 3px solid #6a00bb;
+    content: "";
+    position: absolute;
+    left: 34%;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 0;
+    width: 32%;
+    border-bottom: 3px solid #6a00bb;
   }
-  
+
   .nav-item-hover::after {
-      content: "";
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      height: 0.15em;
-      bottom: 0;
-      width: 0%;
-      background-color: #6a00bb;
-      transition: all ease-in-out 280ms;
+    content: "";
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 0.15em;
+    bottom: 0;
+    width: 0%;
+    background-color: #6a00bb;
+    transition: all ease-in-out 280ms;
   }
-  
+
   .nav-item:hover::after {
-      width: 50%;
-      
+    width: 50%;
+
   }
 
   li.nav-item {
-      text-align: center;
+    text-align: center;
   }
+
   a.nav-link {
-      padding: 6px 21px !important;
+    padding: 6px 21px !important;
   }
 
   /* Hide svg on laptop screens to prevent overlap between sidebar and navbar */
   .bike {
-      display: none;
+    display: none;
   }
 }
 
 /* navbar hover for light mode */
-html[light-mode="light"] .nav-link{
+html[light-mode="light"] .nav-link {
   color: #000000 !important;
 }
-html[light-mode="light"] .nav-link:hover{
-  color: 	rgb(106, 0, 187) !important;
+
+html[light-mode="light"] .nav-link:hover {
+  color: rgb(106, 0, 187) !important;
 }
-html[light-mode="light"] .navbar-brand:hover{
+
+html[light-mode="light"] .navbar-brand:hover {
   color: #000000 !important;
 }
 
 @media (min-width: 992px) {
   .navbar-expand-lg .navbar-nav {
-      align-items: center;
+    align-items: center;
   }
 }
 
@@ -712,29 +728,6 @@ Rotate Transition in foote Soical Icon
 
 
 /*
-------------------------------
- TWITTER MICROANIMATION
--------------------------------
-*/
-
-.twitter:hover #wing1 {
-  transform-origin: center;
-  animation: flap 0.4s ease-out infinite alternate;
-}
-
-.twitter:hover #wing2 {
-  transform-origin: center;
-  animation: flap 0.4s ease-in infinite alternate;
-}
-
-@keyframes flap {
-  50% {
-      transform: scaleX(-1) rotate(-45deg) translate(-40px, -40px);
-  }
-}
-
-
-/*
 -----------------------------
  LINKEDIN MICROANIMATION
 -----------------------------
@@ -746,12 +739,13 @@ Rotate Transition in foote Soical Icon
 
 @keyframes rect-up {
   50% {
-      y: 10px;
-      height: 11px;
+    y: 10px;
+    height: 11px;
   }
+
   0% {
-      y: 13px;
-      height: 8px;
+    y: 13px;
+    height: 8px;
   }
 }
 
@@ -761,13 +755,15 @@ Rotate Transition in foote Soical Icon
 
 @keyframes bounce {
   75% {
-      cy: 8px;
+    cy: 8px;
   }
+
   50% {
-      cy: 4px
+    cy: 4px
   }
+
   0% {
-      cy: 4px
+    cy: 4px
   }
 }
 
@@ -805,24 +801,28 @@ Rotate Transition in foote Soical Icon
 }
 
 @keyframes shutter {
+
   0%,
   50% {
-      stroke-dashoffset: 150;
+    stroke-dashoffset: 150;
   }
+
   75% {
-      fill: #EF4649;
-      stroke-dashoffset: 0;
-      stroke-width: 11;
+    fill: #EF4649;
+    stroke-dashoffset: 0;
+    stroke-width: 11;
   }
 }
 
 @keyframes lens {
+
   0%,
   75% {
-      opacity: 0;
+    opacity: 0;
   }
+
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
@@ -840,10 +840,11 @@ Rotate Transition in foote Soical Icon
 
 @keyframes moveArm {
   0% {
-      transform: rotate(10deg);
+    transform: rotate(10deg);
   }
+
   100% {
-      transform: rotate(-10deg);
+    transform: rotate(-10deg);
   }
 }
 
@@ -887,16 +888,6 @@ Rotate Transition in foote Soical Icon
 ----------------------------------------
 */
 
-.rounded-social-buttons .social-button.twitter {
-  color: var(--col-icon-twitter);
-}
-
-.rounded-social-buttons .social-button.twitter:hover,
-.rounded-social-buttons .social-button.twitter:focus {
-  background: rgba(29, 161, 242, 0.12);
-  box-shadow: 0 12px 30px rgba(29, 161, 242, 0.25);
-}
-
 .rounded-social-buttons .social-button.linkedin {
   color: var(--col-icon-linkedin);
 }
@@ -929,15 +920,6 @@ Rotate Transition in foote Soical Icon
 }
 
 /* Purple outline on hover for dark theme footer social icons */
-html[light-mode="dark"] .rounded-social-buttons .social-button.twitter:hover,
-html[light-mode="dark"] .rounded-social-buttons .social-button.twitter:focus,
-html[data-theme="dark"] .rounded-social-buttons .social-button.twitter:hover,
-html[data-theme="dark"] .rounded-social-buttons .social-button.twitter:focus {
-  border-color: #9370db !important;
-  outline: 2px solid #9370db;
-  outline-offset: 2px;
-}
-
 html[light-mode="dark"] .rounded-social-buttons .social-button.linkedin:hover,
 html[light-mode="dark"] .rounded-social-buttons .social-button.linkedin:focus,
 html[data-theme="dark"] .rounded-social-buttons .social-button.linkedin:hover,
@@ -1087,7 +1069,8 @@ form {
 
 .form-style-6 input[type="submit"]:hover,
 .form-style-6 input[type="button"]:hover {
-  background:#6a00bbd2;;
+  background: #6a00bbd2;
+  ;
 
 }
 
@@ -1108,71 +1091,81 @@ form {
 
 @media (max-width: 768px) {
   .collapse navbar-collapse {
-      display: flex;
-      justify-content: center;
+    display: flex;
+    justify-content: center;
   }
+
   .footer {
-      padding-top: 10px;
+    padding-top: 10px;
   }
+
   #navbar-content {
-      margin-top: -200px;
-      height: 120vh;
-      text-align: center;
-      transform: translateY(25%);
+    margin-top: -200px;
+    height: 120vh;
+    text-align: center;
+    transform: translateY(25%);
   }
+
   #btnScrollToTop {
-      display: none;
+    display: none;
   }
 }
 
 @media (max-width: 414px) {
   .collapse navbar-collapse {
-      display: flex;
-      justify-content: center;
+    display: flex;
+    justify-content: center;
   }
+
   #navbar-content {
-      margin-top: -180px;
-      height: 120vh;
-      text-align: center;
-      transform: translateY(25%);
+    margin-top: -180px;
+    height: 120vh;
+    text-align: center;
+    transform: translateY(25%);
   }
+
   #btnScrollToTop {
-      display: none;
+    display: none;
   }
 }
 
 @media (max-width: 375px) {
   .collapse navbar-collapse {
-      display: flex;
-      justify-content: center;
+    display: flex;
+    justify-content: center;
   }
+
   #navbar-content {
-      margin-top: -180px;
-      height: 120vh;
-      text-align: center;
-      transform: translateY(25%);
+    margin-top: -180px;
+    height: 120vh;
+    text-align: center;
+    transform: translateY(25%);
   }
+
   #btnScrollToTop {
-      display: none;
+    display: none;
   }
 }
 
 @media (max-width: 320px) {
   .collapse navbar-collapse {
-      display: flex;
-      justify-content: center;
+    display: flex;
+    justify-content: center;
   }
+
   #navbar-content {
-      margin-top: -140px;
-      height: 130vh;
-      text-align: center;
-      transform: translateY(25%);
+    margin-top: -140px;
+    height: 130vh;
+    text-align: center;
+    transform: translateY(25%);
   }
+
   .footer {
-      margin-top: 6rem;
+    margin-top: 6rem;
   }
+
   #btnScrollToTop {
-      display: none;
+    display: none;
   }
 }
 
@@ -1185,6 +1178,7 @@ form {
   -webkit-box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.2);
   -khtml-box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.2);
 }
+
 /*
 ----------------------------
 Send button micro animation
@@ -1195,18 +1189,21 @@ Send button micro animation
   position: relative;
   margin-left: 4rem;
   width: 270px;
-  
+
 }
- button{
-width: 15rem;
-height: 2.5rem;
-outline: none;
+
+button {
+  width: 15rem;
+  height: 2.5rem;
+  outline: none;
 }
-#lnch :hover{
-    cursor: pointer;
-    outline: none;
-    
+
+#lnch :hover {
+  cursor: pointer;
+  outline: none;
+
 }
+
 #lnch {
   font-size: 25px;
   color: #fff;
@@ -1218,6 +1215,7 @@ outline: none;
   transition: 0.5s ease background-color, 0.5s ease box-shadow;
   background: #bb86fc;
 }
+
 #lnch_btn {
   position: absolute;
   top: 0px;
@@ -1225,32 +1223,39 @@ outline: none;
   font-size: 22px;
   line-height: 1;
   color: #fff;
- padding: 10px 50px;
+  padding: 10px 50px;
   cursor: pointer;
   transition: 0.3s ease transform;
 }
+
 #lnch.launching {
   background-color: #f39c12;
   box-shadow: 0 10px 20px -6px #f39c12;
 }
+
 #lnch_btn.launching {
   transform: rotateZ(-90deg);
   animation: shake 0.3s ease 0.5s infinite;
 }
+
 @keyframes shake {
+
   10%,
   90% {
     transform: translate3d(-1px, 0, 0) rotateZ(-90deg);
   }
+
   20%,
   80% {
     transform: translate3d(1px, 0, 0) rotateZ(-90deg);
   }
+
   30%,
   50%,
   70% {
     transform: translate3d(-1px, 0, 0) rotateZ(-90deg);
   }
+
   40%,
   60% {
     transform: translate3d(1px, 0, 0) rotateZ(-90deg);
@@ -1266,11 +1271,13 @@ outline: none;
   transform: rotateZ(-90deg);
   animation: moveUp 1s ease 0s forwards;
 }
+
 @keyframes moveUp {
   0% {
     margin-top: 0;
     transform: scale(1) rotateZ(-90deg);
   }
+
   100% {
     color: #ff1f5a;
     margin-top: -100px;
@@ -1494,6 +1501,7 @@ outline: none;
 }
 
 @media (max-width: 600px) {
+
   .static-nav,
   .static-footer {
     padding: 1.25rem;

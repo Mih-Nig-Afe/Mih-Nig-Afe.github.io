@@ -339,15 +339,6 @@ html[data-theme="dark"] .footer .social-button:hover i {
 }
 
 /* Make all dark theme footer social icon SVGs white on hover */
-html[light-mode="dark"] .footer .social-button:hover .twitter-icon-footer path,
-html[data-theme="dark"] .footer .social-button:hover .twitter-icon-footer path,
-html[light-mode="dark"] .footer .social-button:hover .twitter-icon-footer #body,
-html[data-theme="dark"] .footer .social-button:hover .twitter-icon-footer #body,
-html[light-mode="dark"] .footer .social-button:hover .twitter-icon-footer #wing1,
-html[data-theme="dark"] .footer .social-button:hover .twitter-icon-footer #wing2 {
-  fill: white !important;
-}
-
 html[light-mode="dark"] .footer .social-button:hover .linkedin-icon-footer path,
 html[data-theme="dark"] .footer .social-button:hover .linkedin-icon-footer path,
 html[light-mode="dark"] .footer .social-button:hover .linkedin-icon-footer rect,
@@ -968,15 +959,6 @@ html[light-mode="light"] .footer .social-button:hover i {
 }
 
 /* Make all footer social icon SVGs white on hover in light theme */
-html[data-theme="light"] .footer .social-button:hover .twitter-icon-footer path,
-html[light-mode="light"] .footer .social-button:hover .twitter-icon-footer path,
-html[data-theme="light"] .footer .social-button:hover .twitter-icon-footer #body,
-html[light-mode="light"] .footer .social-button:hover .twitter-icon-footer #body,
-html[data-theme="light"] .footer .social-button:hover .twitter-icon-footer #wing1,
-html[light-mode="light"] .footer .social-button:hover .twitter-icon-footer #wing2 {
-  fill: white !important;
-}
-
 html[data-theme="light"] .footer .social-button:hover .linkedin-icon-footer path,
 html[light-mode="light"] .footer .social-button:hover .linkedin-icon-footer path,
 html[data-theme="light"] .footer .social-button:hover .linkedin-icon-footer rect,
