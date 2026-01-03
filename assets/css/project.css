@@ -21,8 +21,8 @@ html[data-theme="dark"] {
 }
 html {
   overflow-x: hidden;
-  max-width: 120%;
-  height: auto;
+  width: 100%;
+  max-width: 100%;
 }
 body {
   color: var(--text);
@@ -149,18 +149,21 @@ a:hover {
   position: relative;
   overflow: hidden;
   box-shadow: 0 19px 38px var(--shadow1), 0 15px 12px var(--shadow2);
-  .row {
-    margin-top: 0em;
-  }
-  .card {
-    width: 43%;
-    column-gap: 3rem;
-    margin: 0 2rem;
-    transition: width 0.8s;
-  }
-  .column {
-    margin-left: 1.5rem;
-  }
+}
+
+.card .row {
+  margin-top: 0em;
+}
+
+.card .card {
+  width: 43%;
+  column-gap: 3rem;
+  margin: 0 2rem;
+  transition: width 0.8s;
+}
+
+.card .column {
+  margin-left: 1.5rem;
 }
 
 .card .menu-content {

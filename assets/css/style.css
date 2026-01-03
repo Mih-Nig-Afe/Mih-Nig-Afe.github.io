@@ -141,6 +141,23 @@ body {
   isolation: isolate;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -339,6 +356,7 @@ html {
 
 /* Dark Mode toggle switch button */
 .dark_toggler {
+  appearance: none;
   -webkit-appearance: none;
   position: relative;
   cursor: pointer;
@@ -849,9 +867,9 @@ Rotate Transition in foote Soical Icon
 /* instagram SVG micro animation */
 
 .instagram-icon-footer {
-  width: 70px;
-  padding-right: 24px;
-  padding-bottom: 8px;
+  width: 65px;
+  margin-bottom: 8px;
+  padding: 0;
 }
 
 
@@ -1013,6 +1031,7 @@ form {
 .form-style-6 input[type="url"],
 .form-style-6 textarea,
 .form-style-6 select {
+  transition: all 0.30s ease-in-out;
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
   -ms-transition: all 0.30s ease-in-out;

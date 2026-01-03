@@ -20,7 +20,6 @@ class GitHubService {
     // Check cache first
     const cached = this.cache.get(cacheKey);
     if (cached) {
-      console.log(`Using cached data for ${cacheKey}`);
       return cached;
     }
 

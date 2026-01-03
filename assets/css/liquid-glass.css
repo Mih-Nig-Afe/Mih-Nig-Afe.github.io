@@ -846,23 +846,17 @@ html {
    HOME PAGE ALIGNMENT FIXES
    ============================================================================= */
 
-/* Fix text section alignment - Center both horizontally and vertically */
-.text {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
+/* Scope alignment tweaks to home page only (avoid affecting other pages) */
+#home .text {
   width: 100%;
-  max-width: 600px;
-  text-align: center !important;
-  padding: 0 15px;
+  text-align: center;
   box-sizing: border-box;
-  margin: 0 !important;
+  margin: 0 auto;
 }
 
 /* Ensure center element is properly aligned */
-.text .center,
-.text center {
+#home .text .center,
+#home .text center {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -871,7 +865,7 @@ html {
 }
 
 /* Social icons alignment fix */
-.social-icons {
+#home .social-icons {
   display: flex !important;
   flex-wrap: wrap !important;
   align-items: center !important;
@@ -883,7 +877,7 @@ html {
 }
 
 /* Profile image centering */
-.text .rounded-circle {
+#home .text .rounded-circle {
   display: block;
   margin: 0 auto 15px auto;
 }
@@ -1101,63 +1095,7 @@ html[light-mode="light"] .card .social-icon svg {
 }
 
 
-/* =============================================================================
-   HOME PAGE CONTENT POSITIONING - CENTER VERTICALLY
-   Override ALL margin-top media queries from home.css
-   ============================================================================= */
 
-/* Base centering - works for all screen sizes */
-.text,
-.text.col-sm-6,
-div.text {
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  position: absolute !important;
-}
-
-/* Override ALL media queries from home.css */
-@media only screen and (max-width: 2381px) {
-
-  .text,
-  .text.col-sm-6,
-  div.text {
-    margin-top: 0 !important;
-    top: 50% !important;
-  }
-}
-
-@media only screen and (max-width: 1340px) {
-
-  .text,
-  .text.col-sm-6,
-  div.text {
-    margin-top: 0 !important;
-    top: 50% !important;
-  }
-}
-
-@media only screen and (max-width: 780px) {
-
-  .text,
-  .text.col-sm-6,
-  div.text {
-    margin-top: 0 !important;
-    top: 48% !important;
-  }
-}
-
-@media only screen and (max-width: 700px) {
-
-  .text,
-  .text.col-sm-6,
-  div.text {
-    margin-top: 0 !important;
-    top: 48% !important;
-  }
-}
 
 @media only screen and (max-width: 480px) {
 

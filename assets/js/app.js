@@ -382,7 +382,6 @@ if (localStorage.getItem("lightMode") == "light") {
 }
 
 function toggle_light_mode() {
-  console.log(localStorage.getItem("lightMode"));
   var app = document.getElementsByTagName("HTML")[0];
   var nav = document.getElementById("navbar");
   if (localStorage.lightMode == "dark") {

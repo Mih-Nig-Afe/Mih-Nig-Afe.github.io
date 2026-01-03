@@ -72,7 +72,7 @@ html {
 
 .sect {
   height: auto;
-  max-width: 120%;
+  max-width: 100%;
   background-size: cover;
   background-position: center center;
   object-fit: fill;
