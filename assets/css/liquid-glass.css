@@ -316,6 +316,68 @@ body::before {
   box-shadow: var(--lg-shadow-md), var(--lg-shadow-glow) !important;
 }
 
+/* Purple outline ring on hover for both themes */
+html[light-mode="dark"] .rounded-social-buttons .social-button:hover,
+html[data-theme="dark"] .rounded-social-buttons .social-button:hover,
+html[data-theme="light"] .rounded-social-buttons .social-button:hover,
+html[light-mode="light"] .rounded-social-buttons .social-button:hover {
+  border-color: var(--lg-accent) !important;
+  outline: 2px solid var(--lg-accent) !important;
+  outline-offset: 2px;
+}
+
+/* Dark theme footer social icons - full purple background with white icons on hover (same as light theme) */
+html[light-mode="dark"] .footer .social-button:hover,
+html[data-theme="dark"] .footer .social-button:hover {
+  background: var(--lg-accent) !important;
+  color: white !important;
+}
+
+html[light-mode="dark"] .footer .social-button:hover i,
+html[data-theme="dark"] .footer .social-button:hover i {
+  color: white !important;
+}
+
+/* Make all dark theme footer social icon SVGs white on hover */
+html[light-mode="dark"] .footer .social-button:hover .twitter-icon-footer path,
+html[data-theme="dark"] .footer .social-button:hover .twitter-icon-footer path,
+html[light-mode="dark"] .footer .social-button:hover .twitter-icon-footer #body,
+html[data-theme="dark"] .footer .social-button:hover .twitter-icon-footer #body,
+html[light-mode="dark"] .footer .social-button:hover .twitter-icon-footer #wing1,
+html[data-theme="dark"] .footer .social-button:hover .twitter-icon-footer #wing2 {
+  fill: white !important;
+}
+
+html[light-mode="dark"] .footer .social-button:hover .linkedin-icon-footer path,
+html[data-theme="dark"] .footer .social-button:hover .linkedin-icon-footer path,
+html[light-mode="dark"] .footer .social-button:hover .linkedin-icon-footer rect,
+html[data-theme="dark"] .footer .social-button:hover .linkedin-icon-footer rect,
+html[light-mode="dark"] .footer .social-button:hover .linkedin-icon-footer circle,
+html[data-theme="dark"] .footer .social-button:hover .linkedin-icon-footer circle {
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Instagram icon - only stroke white, keep fill transparent to maintain camera design */
+html[light-mode="dark"] .footer .social-button:hover .instagram-icon-footer .st0,
+html[data-theme="dark"] .footer .social-button:hover .instagram-icon-footer .st0,
+html[light-mode="dark"] .footer .social-button:hover .instagram-icon-footer path,
+html[data-theme="dark"] .footer .social-button:hover .instagram-icon-footer path,
+html[light-mode="dark"] .footer .social-button:hover .instagram-icon-footer circle,
+html[data-theme="dark"] .footer .social-button:hover .instagram-icon-footer circle {
+  fill: none !important;
+  stroke: white !important;
+}
+
+html[light-mode="dark"] .footer .social-button:hover .github-icon-footer path,
+html[data-theme="dark"] .footer .social-button:hover .github-icon-footer path,
+html[light-mode="dark"] .footer .social-button:hover .github-icon-footer #body,
+html[data-theme="dark"] .footer .social-button:hover .github-icon-footer #body,
+html[light-mode="dark"] .footer .social-button:hover .github-icon-footer #arm,
+html[data-theme="dark"] .footer .social-button:hover .github-icon-footer #arm {
+  fill: white !important;
+}
+
 
 /* =============================================================================
    SCROLL TO TOP BUTTON
@@ -903,11 +965,52 @@ html[data-theme="light"] .footer .social-button:hover,
 html[light-mode="light"] .footer .social-button:hover {
   background: var(--lg-accent) !important;
   color: white !important;
+  border-color: var(--lg-accent) !important;
 }
 
 html[data-theme="light"] .footer .social-button:hover i,
 html[light-mode="light"] .footer .social-button:hover i {
   color: white !important;
+}
+
+/* Make all footer social icon SVGs white on hover in light theme */
+html[data-theme="light"] .footer .social-button:hover .twitter-icon-footer path,
+html[light-mode="light"] .footer .social-button:hover .twitter-icon-footer path,
+html[data-theme="light"] .footer .social-button:hover .twitter-icon-footer #body,
+html[light-mode="light"] .footer .social-button:hover .twitter-icon-footer #body,
+html[data-theme="light"] .footer .social-button:hover .twitter-icon-footer #wing1,
+html[light-mode="light"] .footer .social-button:hover .twitter-icon-footer #wing2 {
+  fill: white !important;
+}
+
+html[data-theme="light"] .footer .social-button:hover .linkedin-icon-footer path,
+html[light-mode="light"] .footer .social-button:hover .linkedin-icon-footer path,
+html[data-theme="light"] .footer .social-button:hover .linkedin-icon-footer rect,
+html[light-mode="light"] .footer .social-button:hover .linkedin-icon-footer rect,
+html[data-theme="light"] .footer .social-button:hover .linkedin-icon-footer circle,
+html[light-mode="light"] .footer .social-button:hover .linkedin-icon-footer circle {
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Instagram icon - only stroke white, keep fill transparent to maintain camera design */
+html[data-theme="light"] .footer .social-button:hover .instagram-icon-footer .st0,
+html[light-mode="light"] .footer .social-button:hover .instagram-icon-footer .st0,
+html[data-theme="light"] .footer .social-button:hover .instagram-icon-footer path,
+html[light-mode="light"] .footer .social-button:hover .instagram-icon-footer path,
+html[data-theme="light"] .footer .social-button:hover .instagram-icon-footer circle,
+html[light-mode="light"] .footer .social-button:hover .instagram-icon-footer circle {
+  fill: none !important;
+  stroke: white !important;
+}
+
+html[data-theme="light"] .footer .social-button:hover .github-icon-footer path,
+html[light-mode="light"] .footer .social-button:hover .github-icon-footer path,
+html[data-theme="light"] .footer .social-button:hover .github-icon-footer #body,
+html[light-mode="light"] .footer .social-button:hover .github-icon-footer #body,
+html[data-theme="light"] .footer .social-button:hover .github-icon-footer #arm,
+html[light-mode="light"] .footer .social-button:hover .github-icon-footer #arm {
+  fill: white !important;
 }
 
 /* Light mode navbar text */

@@ -910,6 +910,43 @@ Rotate Transition in foote Soical Icon
   box-shadow: 0 12px 30px rgba(36, 41, 46, 0.2);
 }
 
+/* Purple outline on hover for dark theme footer social icons */
+html[light-mode="dark"] .rounded-social-buttons .social-button.twitter:hover,
+html[light-mode="dark"] .rounded-social-buttons .social-button.twitter:focus,
+html[data-theme="dark"] .rounded-social-buttons .social-button.twitter:hover,
+html[data-theme="dark"] .rounded-social-buttons .social-button.twitter:focus {
+  border-color: #9370db !important;
+  outline: 2px solid #9370db;
+  outline-offset: 2px;
+}
+
+html[light-mode="dark"] .rounded-social-buttons .social-button.linkedin:hover,
+html[light-mode="dark"] .rounded-social-buttons .social-button.linkedin:focus,
+html[data-theme="dark"] .rounded-social-buttons .social-button.linkedin:hover,
+html[data-theme="dark"] .rounded-social-buttons .social-button.linkedin:focus {
+  border-color: #9370db !important;
+  outline: 2px solid #9370db;
+  outline-offset: 2px;
+}
+
+html[light-mode="dark"] .rounded-social-buttons .social-button.instagram:hover,
+html[light-mode="dark"] .rounded-social-buttons .social-button.instagram:focus,
+html[data-theme="dark"] .rounded-social-buttons .social-button.instagram:hover,
+html[data-theme="dark"] .rounded-social-buttons .social-button.instagram:focus {
+  border-color: #9370db !important;
+  outline: 2px solid #9370db;
+  outline-offset: 2px;
+}
+
+html[light-mode="dark"] .rounded-social-buttons .social-button.github:hover,
+html[light-mode="dark"] .rounded-social-buttons .social-button.github:focus,
+html[data-theme="dark"] .rounded-social-buttons .social-button.github:hover,
+html[data-theme="dark"] .rounded-social-buttons .social-button.github:focus {
+  border-color: #9370db !important;
+  outline: 2px solid #9370db;
+  outline-offset: 2px;
+}
+
 
 /************
 Contact Form In Footer
