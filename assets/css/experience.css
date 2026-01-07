@@ -204,6 +204,12 @@ section>div {
   text-align: center;
 }
 
+.card1 ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 ul ol {
   list-style: disc;
   padding: 3%;
