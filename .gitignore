@@ -1,0 +1,10 @@
+# macOS Finder metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# macOS volume root metadata
+Icon?
+._*
+.Spotlight-V100
+.Trashes
