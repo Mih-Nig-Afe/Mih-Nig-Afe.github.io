@@ -64,4 +64,4 @@ This repo is designed for **GitHub Pages**.
 
 ## License
 
-See [LICENSE](LICENSE).
+See [LICENSE](LICENSE). 
