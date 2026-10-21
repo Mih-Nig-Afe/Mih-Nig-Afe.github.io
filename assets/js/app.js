@@ -1,10 +1,5 @@
 
 "use strict";
-// Sweet Alert CDN through JS
-let script = document.createElement("script");
-script.type = 'text/javascript';
-script.src = "https://unpkg.com/sweetalert/dist/sweetalert.min.js";
-document.body.appendChild(script);
 
 // Header
 
@@ -202,9 +197,7 @@ let footer = $(`
 
 //"Scroll to top" button
 let upArrow = $(`
-  <button id="btnScrollToTop" onclick="scrollToTop()"><i class="fas fa-2x fa-angle-up"></i></button>
-  <link rel="stylesheet" type="text/css" href="./css/style.css" />
-  })
+  <button id="btnScrollToTop" onclick="scrollToTop()" aria-label="Scroll to top"><i class="fas fa-2x fa-angle-up"></i></button>
 `);
 
 $(document).ready(function () {
@@ -375,34 +368,27 @@ $(window).on("load", function () {
   $(".loader-container").fadeOut(500);
 });
 
-//send button animation
-
-
+// Send button animation if contact form exists
 $(function submitAnimation() {
-  const name = document.querySelector("#name")
-  const emailAdress = document.querySelector("#email")
-  const text = document.querySelector("#textArea")
+  const lnchBtn = $("#lnch");
+  if (!lnchBtn.length) return;
+
+  const name = document.querySelector("#name");
+  const emailAdress = document.querySelector("#email");
+  const text = document.querySelector("#textArea");
   const emailPattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 
-  $("#lnch").on("click", function () {
-
-    // Check if the name field is empty or contains a number
-    if (name.value == "" || (/\d/.test(name.value))) {
-      swal("Error !", "Please enter a valid name !", "error");
+  lnchBtn.on("click", function () {
+    if (!name || name.value === "" || (/\d/.test(name.value))) {
+      alert("Please enter a valid name!");
       return;
-    }
-    // Check if the email field is empty or email is not valid ex: test@@email.com
-    else if (emailAdress.value == "" || !(emailPattern.test(emailAdress.value))) {
-      swal("Error !", "Please enter a valid email !", "error");
+    } else if (!emailAdress || emailAdress.value === "" || !(emailPattern.test(emailAdress.value))) {
+      alert("Please enter a valid email!");
       return;
-    }
-    // Check if the message field is empty
-    else if (text.value == "") {
-      swal("Error !", "Please enter a valid message !", "error");
+    } else if (!text || text.value === "") {
+      alert("Please enter a valid message!");
       return;
-    }
-    else {
-
+    } else {
       setTimeout(function () {
         $("#lnch").addClass("launching").text("Sending");
         $("#lnch_btn").addClass("launching");
@@ -411,41 +397,10 @@ $(function submitAnimation() {
         $("#lnch").addClass("launched").text("SENT");
         $("#lnch_btn").addClass("launched");
       }, 1500);
-      // Wait for 2.2 seconds so that the send button animation can be fully played before submitting the form
       setTimeout(() => {
-        document.querySelector('form').submit();
+        const form = document.querySelector('form');
+        if (form) form.submit();
       }, 2200);
     }
   });
 });
-
-// Tab visibility change - "Come back" message
-(function () {
-  var originalTitle = '';
-
-  function initTabMessage() {
-    originalTitle = document.title || 'Portfolio';
-
-    window.addEventListener('blur', function () {
-      document.title = '👋 Come back!';
-    });
-
-    window.addEventListener('focus', function () {
-      document.title = originalTitle;
-    });
-
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) {
-        document.title = '👋 Come back!';
-      } else {
-        document.title = originalTitle;
-      }
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTabMessage);
-  } else {
-    initTabMessage();
-  }
-})();

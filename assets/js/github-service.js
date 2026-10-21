@@ -86,48 +86,42 @@ class GitHubService {
   }
 
   /**
-   * Calculate aggregate language statistics across all repos
+   * Calculate aggregate language statistics across all repos safely without rate-limit waterfalls
    * @param {Array} repos - Array of repository objects
    * @returns {Promise<Object>} Aggregated language stats
    */
   async calculateLanguageStats(repos) {
-    const languageStats = {};
+    if (!repos || !Array.isArray(repos)) return {};
 
     // Use cached aggregate if available and fresh
     const cached = this.cache.get('aggregate_language_stats');
     if (cached) return cached;
 
-    for (const repo of repos) {
-      try {
-        const languages = await this.fetchRepoLanguages(repo.name);
+    const languageCounts = {};
+    let totalWithLanguage = 0;
 
-        for (const [lang, bytes] of Object.entries(languages)) {
-          languageStats[lang] = (languageStats[lang] || 0) + bytes;
-        }
-      } catch (error) {
-        console.error(`Error fetching languages for ${repo.name}:`, error);
+    for (const repo of repos) {
+      if (repo && repo.language) {
+        languageCounts[repo.language] = (languageCounts[repo.language] || 0) + 1;
+        totalWithLanguage++;
       }
     }
 
-    // Convert bytes to percentages
-    const total = Object.values(languageStats).reduce((sum, bytes) => sum + bytes, 0);
-    const percentages = {};
+    if (totalWithLanguage === 0) return {};
 
-    for (const [lang, bytes] of Object.entries(languageStats)) {
+    const percentages = {};
+    for (const [lang, count] of Object.entries(languageCounts)) {
       percentages[lang] = {
-        bytes,
-        percentage: ((bytes / total) * 100).toFixed(2)
+        bytes: count,
+        percentage: ((count / totalWithLanguage) * 100).toFixed(2)
       };
     }
 
-    // Sort by usage
     const sorted = Object.entries(percentages)
       .sort((a, b) => b[1].bytes - a[1].bytes)
       .reduce((obj, [key, val]) => ({ ...obj, [key]: val }), {});
 
-    // Cache the result
     this.cache.set('aggregate_language_stats', sorted);
-
     return sorted;
   }
 

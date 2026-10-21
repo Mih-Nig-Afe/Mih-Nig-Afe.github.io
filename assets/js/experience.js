@@ -31,9 +31,9 @@ const showCards2 = () => {
               <span class="pre-heading">${place}</span><br>
               <span class="author">${time}</span>
             </p>
-            <ol>
+            <div class="about-description">
               ${desp}
-            </ol>
+            </div>
             <div style="text-align:center; padding: 20px 0;">
                 <a href="assets/docs/Resume.pdf" target="_blank" class="resume-btn">
                     <i class="fas fa-file-alt"></i> Resume
@@ -85,7 +85,7 @@ const showCards = () => {
   volunteershipcards.forEach(
     ({ title, cardImage, description }) =>
     (output += `        
-      <div class="card volunteerCard" data-aos="fade-down" data-aos-easing="linear" data-aos-delay="100" data-aos-duration="600" style="height: 550px;width:400px; cursor: pointer;" onclick="showModal('${cardImage}')">
+      <div class="card volunteerCard" data-aos="fade-down" data-aos-easing="linear" data-aos-delay="100" data-aos-duration="600" style="max-width: 400px; width: 100%; min-height: 500px; cursor: pointer;" onclick="showModal('${cardImage}')">
       
       <img src="${cardImage}" height="250" width="65" class="card-img" style="border-radius:10px">
       <div class="content">

@@ -1,67 +1,108 @@
-<!--
- * @Author: Mih-Nig-Afe 90252194+Mih-Nig-Afe@users.noreply.github.com
- * @Date: 2025-12-04 14:22:51
- * @LastEditors: Mih-Nig-Afe 90252194+Mih-Nig-Afe@users.noreply.github.com
- * @LastEditTime: 2026-01-07 16:36:49
- * @FilePath: /Mih-Nig-Afe.github.io/README.md
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
 # Mih-Nig-Afe.github.io
 
-Personal portfolio website (GitHub Pages) showcasing my work, experience, projects, and education.
+Personal developer portfolio website of **Mihretab Nigatu** (Systems Futurist, Web Specialist, Full-Stack Developer & AI Engineer).
 
-**Live:** [mih-nig-afe.github.io](https://mih-nig-afe.github.io/)
+**Live Portfolio:** [https://mih-nig-afe.github.io](https://mih-nig-afe.github.io)
+
+---
 
 ## Preview
 
-![Homepage preview](Screenshots/Screenshot%202026-01-07%20at%2016.23.08.png)
+![Homepage Preview](Screenshots/Screenshot%202026-01-07%20at%2016.23.08.png)
+![Homepage Dark Mode](Screenshots/Screenshot%202026-01-07%20at%2016.24.53.png)
 
-![Homepage preview (alternate)](Screenshots/Screenshot%202026-01-07%20at%2016.24.53.png)
+---
 
-## Pages
+## Key Features & Visual Design
 
-- `index.html` — Home
-- `projects.html` — Projects
-- `experience.html` — About
-- `education.html` — Education
-- `404.html` — Not found page
+- **Interactive Constellation Canvas**: Dynamic particle mesh powered by `particles.js` with real-time responsive cursor interaction.
+- **Typewriter Role Cycler**: Animated multi-role text cycler highlighting core competencies across AI/ML agents, Telegram bots, and full-stack systems.
+- **Liquid Glass Glassmorphism**: Frosted glass panels, dynamic blur filters, and glowing accents calibrated for both dark and light modes.
+- **Atom Electron Preloader**: Smooth CSS orbital preloader animation for clean first-contentful-paint transitions.
+- **Illustrated Vector Scenes**: Custom SVG artwork illustrating engineering workstations across Projects and Experience pages.
+- **Custom Hardware-Accelerated Cursor**: Cursor follower with `@media (pointer: fine)` scoping and automatic mobile touch fallback.
+- **Structured Data & SEO**: Comprehensive Schema.org JSON-LD (Person, WebSite, Breadcrumbs), Open Graph, and Twitter metadata.
+- **Single-Source Analytics**: Streamlined Google Analytics (`G-M11CMZ12Q`) with zero duplicate tags.
+- **API Quota Protection**: GitHub service caching with rate-limit protection for project showcases.
 
-## What’s Inside
+---
 
-- Responsive, static site (HTML/CSS/JS)
-- Custom styling and page-specific stylesheets under `assets/css/`
-- JavaScript modules and page scripts under `assets/js/`
-- Assets (images, icons, fonts) under `assets/`
-- SEO files: `robots.txt`, `sitemap.xml`
-- PWA basics: `manifest.json`
+## Page Catalog
 
-## Run Locally
+- [`index.html`](index.html) — Hero showcase, animated role cycler, MTAB brand avatar, social links, and particles mesh.
+- [`projects.html`](projects.html) — Featured projects showcase with interactive category filtering and GitHub repository links.
+- [`experience.html`](experience.html) — Professional biography, core competency breakdown, and verified credentials.
+- [`education.html`](education.html) — Academic history, timeline milestones, and certified MOOC accreditations.
+- [`404.html`](404.html) — Custom animated 404 error page with direct navigation back to home.
 
-This is a static site — no build step required.
+---
 
-Option A (quick):
+## Directory Structure
 
-- Open `index.html` in your browser
-
-Option B (recommended: local server):
-
-```bash
-python3 -m http.server 5173
+```text
+.
+├── 404.html                     # Custom 404 error page
+├── education.html               # Academic timeline & certifications
+├── experience.html              # Bio, experience & skill matrix
+├── index.html                   # Homepage & hero experience
+├── manifest.json                # PWA web app manifest
+├── projects.html                # Project portfolio with filtering
+├── robots.txt                   # Search crawler directives
+├── sitemap.xml                  # XML sitemap for SEO
+├── assets/
+│   ├── css/                     # Liquid glass, theme, and page stylesheets
+│   ├── docs/                    # Resume and academic documentation
+│   ├── fonts/                   # Signature font (Agustina)
+│   ├── images/                  # Favicons, project previews, brand assets
+│   └── js/                      # Particles, dynamic titles, GitHub services
+└── Screenshots/                 # Light & dark theme visual comps
 ```
 
-Then open:
+---
 
-- [http://localhost:5173](http://localhost:5173)
+## Running Locally
 
-## Deploy
+This is a zero-build static site that runs in any browser:
 
-This repo is designed for **GitHub Pages**.
+### Option A: Python HTTP Server (Recommended)
 
-- Push to `main`
-- In GitHub → **Settings → Pages**, select:
-  - Source: "Deploy from a branch"
-  - Branch: `main` / root
+```bash
+# Start a local static server on port 4321
+python3 -m http.server 4321
+```
 
-## License
+Then visit:
+- **Home**: [http://localhost:4321/index.html](http://localhost:4321/index.html)
+- **Projects**: [http://localhost:4321/projects.html](http://localhost:4321/projects.html)
+- **Experience**: [http://localhost:4321/experience.html](http://localhost:4321/experience.html)
+- **Education**: [http://localhost:4321/education.html](http://localhost:4321/education.html)
 
-See [LICENSE](LICENSE). 
+### Option B: Node.js / npx serve
+
+```bash
+npx serve .
+```
+
+---
+
+## Deployment to GitHub Pages
+
+This repository is configured for standard **GitHub Pages** deployment directly from the `main` branch root:
+
+1. Push commits to `main`:
+   ```bash
+   git push origin main
+   ```
+2. In GitHub repository settings: **Settings → Pages**:
+   - **Source**: Deploy from a branch
+   - **Branch**: `main` / `/(root)`
+3. Site updates automatically at [https://mih-nig-afe.github.io](https://mih-nig-afe.github.io).
+
+---
+
+## Author
+
+**Mihretab Nigatu (MTAB Development)**
+- **GitHub**: [@Mih-Nig-Afe](https://github.com/Mih-Nig-Afe)
+- **LinkedIn**: [in/mih-nig-afe](https://www.linkedin.com/in/mih-nig-afe/)
+- **Instagram**: [@mih_nig_afe](https://www.instagram.com/mih_nig_afe/)

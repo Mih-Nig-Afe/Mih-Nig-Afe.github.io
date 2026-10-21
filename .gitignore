@@ -1,3 +1,14 @@
+# Build outputs & dependencies
+node_modules/
+dist/
+.astro/
+.agents/
+
+# Environment & local files
+.env
+.env.*
+!.env.example
+
 # macOS Finder metadata
 .DS_Store
 .AppleDouble

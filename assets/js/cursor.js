@@ -12,6 +12,13 @@ var cursor = {
   lastScrolledTop : 0,  // For changing position of cursor with scrolling
 
   init: function () {
+    // Only enable custom cursor if fine pointer (mouse/trackpad) is supported
+    if (!window.matchMedia("(pointer: fine)").matches || !this.$dot || !this.$outline) {
+      if (this.$dot) this.$dot.style.display = "none";
+      if (this.$outline) this.$outline.style.display = "none";
+      return;
+    }
+
     // Set up element sizes
     this.dotSize = this.$dot.offsetWidth;
     this.outlineSize = this.$outline.offsetWidth;

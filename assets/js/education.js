@@ -92,28 +92,6 @@ function encodeAssetPath(path) {
   return encodeURI(path).replace(/'/g, "%27");
 }
 
-let currentItem = 0;
-
-const img = document.getElementById("image");
-
-const prevBtn = document.querySelector("#prevBtn");
-const nextBtn = document.querySelector("#nextBtn");
-
-window.addEventListener("DOMContentLoaded", function () {
-  showExperience();
-});
-
-function showExperience() {
-  setInterval(function () {
-    if (currentItem === experience.length) {
-      currentItem = 0;
-    }
-    const item = experience[currentItem];
-    img.src = item.img;
-    currentItem++;
-  }, 3000);
-}
-
 const showCards = () => {
   let output = "";
   moocscards.forEach(
