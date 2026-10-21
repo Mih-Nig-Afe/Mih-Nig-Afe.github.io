@@ -1,93 +1,162 @@
 /**
- * MTAB Development - Studio Deck Aesthetics
- * Crafted with High-End Visual Design & Distilled Frontend Aesthetics doctrine.
- * Architectural Double-Bezel Framing, Bespoke Typography, Tactile Island Buttons, and Physical Depth.
+ * MTAB Development - Studio Admin Deck
+ * Refined under Distilled Frontend Aesthetics Doctrine:
+ * - Liquid Obsidian & Frosted Glass Surfaces (Harmonized with Portfolio Sequoia Liquid Glass)
+ * - Warm Burnished Champagne / Amber Gold Dominant Accent (Banish all AI cyan/neon purple glows)
+ * - Architectural Double-Bezel Framing & Specular Inner Highlights
+ * - Bespoke Typography: Outfit (Display & Headings), Plus Jakarta Sans (Body), JetBrains Mono (Telemetry), Agustina (Brand)
+ * - Orchestrated CSS-Only Motion & Staggered Page Reveals
+ * - Textured Atmospheric Depth with Fine Blueprint Micro-Grid
  */
 
 :root {
-  /* High-End Obsidian & Titanium Palette (Zero Generic AI Slop) */
-  --admin-bg: #07090e;
-  --admin-surface-1: #0c0f18;
-  --admin-surface-2: #121726;
-  --admin-surface-3: #181e30;
+  /* ========================================================================
+     1. Distilled Color Palette: Obsidian, Titanium & Burnished Amber
+     ======================================================================== */
+  --admin-bg: #090c14;
+  --admin-surface-1: rgba(15, 19, 32, 0.78);
+  --admin-surface-2: rgba(22, 28, 46, 0.85);
+  --admin-surface-3: rgba(28, 36, 58, 0.92);
+  --admin-surface-solid: #0d111d;
 
-  --admin-border-subtle: rgba(255, 255, 255, 0.06);
-  --admin-border-strong: rgba(255, 255, 255, 0.12);
-  --admin-border-glow: rgba(0, 242, 254, 0.25);
+  /* Glassmorphism & Hairline Surface Optics */
+  --admin-glass-blur: 24px;
+  --admin-border-subtle: rgba(255, 255, 255, 0.08);
+  --admin-border-prominent: rgba(255, 255, 255, 0.16);
+  --admin-border-focus: rgba(229, 169, 88, 0.45);
+  --admin-inner-specular: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --admin-inner-glow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
 
-  --admin-cyan: #00f2fe;
-  --admin-cyan-glow: rgba(0, 242, 254, 0.35);
+  /* Dominant Accent: Warm Burnished Champagne / Solar Amber Gold (Anti-AI Slop) */
+  --admin-accent: #e5a958;
+  --admin-accent-hover: #f2be75;
+  --admin-accent-muted: #c98835;
+  --admin-accent-soft: rgba(229, 169, 88, 0.12);
+  --admin-accent-border: rgba(229, 169, 88, 0.32);
+
+  /* Secondary Status Accents (Natural, optical - ZERO radioactive neon glows) */
   --admin-emerald: #10b981;
-  --admin-emerald-glow: rgba(16, 185, 129, 0.35);
-  --admin-blue: #3b82f6;
-  --admin-amber: #f59e0b;
-  --admin-amber-glow: rgba(245, 158, 11, 0.35);
-  --admin-danger: #ef4444;
-  --admin-danger-glow: rgba(239, 68, 68, 0.35);
+  --admin-emerald-soft: rgba(16, 185, 129, 0.12);
+  --admin-emerald-border: rgba(16, 185, 129, 0.32);
 
+  --admin-danger: #ef4444;
+  --admin-danger-soft: rgba(239, 68, 68, 0.12);
+  --admin-danger-border: rgba(239, 68, 68, 0.32);
+
+  --admin-info: #94a3b8;
+  --admin-info-soft: rgba(148, 163, 184, 0.12);
+
+  /* Legacy alias mappings to prevent any runtime breakages */
+  --admin-cyan: var(--admin-accent);
+  --admin-cyan-glow: rgba(229, 169, 88, 0.15);
+  --admin-blue: #94a3b8;
+  --admin-amber: var(--admin-accent);
+  --admin-amber-glow: rgba(229, 169, 88, 0.15);
+  --admin-emerald-glow: rgba(16, 185, 129, 0.15);
+  --admin-danger-glow: rgba(239, 68, 68, 0.15);
+  --admin-border-glow: var(--admin-border-prominent);
+
+  /* High-Contrast Human Typography */
   --admin-text-main: #f8fafc;
-  --admin-text-muted: #94a3b8;
+  --admin-text-body: #cbd5e1;
+  --admin-text-muted: #8892b0;
   --admin-text-dim: #64748b;
 
-  --admin-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --admin-font-display: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  --admin-font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --admin-font-mono: 'JetBrains Mono', monospace;
   --admin-font-brand: 'Agustina', cursive, sans-serif;
 
-  --admin-radius-outer: 22px;
-  --admin-radius-inner: 20px;
+  /* Architectural Curvature */
+  --admin-radius-outer: 20px;
+  --admin-radius-inner: 16px;
+  --admin-radius-sm: 10px;
   --admin-radius-pill: 9999px;
 
+  /* Natural Physical Depth Shadows */
+  --admin-shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --admin-shadow-md: 0 12px 32px -4px rgba(0, 0, 0, 0.5);
+  --admin-shadow-lg: 0 20px 48px -10px rgba(0, 0, 0, 0.65);
+  --admin-shadow-elevated: 0 25px 60px -15px rgba(0, 0, 0, 0.75);
+
+  /* Tactile Physics */
   --admin-ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
   --admin-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Base Body Environment */
+/* ==========================================================================
+   2. Base Body & Atmospheric Textured Depth
+   ========================================================================== */
+
 body.admin-body {
-  font-family: var(--admin-font-sans);
+  font-family: var(--admin-font-body);
   min-height: 100vh;
   background-color: var(--admin-bg);
   background-image:
-    radial-gradient(ellipse 60% 40% at 20% -10%, rgba(0, 242, 254, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 35% at 80% 5%, rgba(59, 130, 246, 0.06) 0%, transparent 45%),
-    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
-    radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 24px 24px;
+    radial-gradient(ellipse 70% 45% at 50% -8%, rgba(229, 169, 88, 0.038) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 40% at 15% 95%, rgba(24, 30, 52, 0.45) 0%, transparent 55%),
+    radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 28px 28px;
   color: var(--admin-text-main);
   overflow-x: hidden;
-  padding-bottom: 110px;
+  padding-bottom: 120px;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Scrollbars */
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6,
+.admin-card h3, .admin-card h4, .drawer-header h4 {
+  font-family: var(--admin-font-display);
+  letter-spacing: -0.022em;
+  color: var(--admin-text-main);
+  font-weight: 700;
+}
+
+p, span, label, input, button {
+  font-family: var(--admin-font-body);
+}
+
+code, kbd, samp, pre, .mono {
+  font-family: var(--admin-font-mono) !important;
+}
+
+/* Custom Minimalist Scrollbars */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(7, 9, 14, 0.8);
+  background: rgba(9, 12, 20, 0.8);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.14);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 242, 254, 0.4);
+  background: rgba(229, 169, 88, 0.4);
 }
 
 /* ==========================================================================
-   Studio Navigation Bar (Machined Island / Glass Header)
+   3. Studio Navigation Bar (Machined Island / Liquid Glass Header)
    ========================================================================== */
 
 .admin-navbar {
-  background: rgba(12, 15, 24, 0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(11, 14, 24, 0.82);
+  backdrop-filter: blur(var(--admin-glass-blur));
+  -webkit-backdrop-filter: blur(var(--admin-glass-blur));
   border-bottom: 1px solid var(--admin-border-subtle);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 -1px 0 rgba(255, 255, 255, 0.04);
-  padding: 0.9rem 1.8rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), var(--admin-inner-specular);
+  padding: 0.85rem 1.8rem;
   position: sticky;
   top: 0;
   z-index: 1000;
+  animation: navDrop 0.45s var(--admin-ease-spring) both;
+}
+
+@keyframes navDrop {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .admin-brand {
@@ -108,15 +177,14 @@ body.admin-body {
 .admin-deck-badge {
   font-family: var(--admin-font-mono);
   font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 1.8px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(59, 130, 246, 0.15));
-  border: 1px solid rgba(0, 242, 254, 0.35);
-  color: var(--admin-cyan);
+  background: var(--admin-accent-soft);
+  border: 1px solid var(--admin-accent-border);
+  color: var(--admin-accent);
   padding: 3px 12px;
   border-radius: var(--admin-radius-pill);
-  box-shadow: 0 0 14px var(--admin-cyan-glow);
 }
 
 /* Status Telemetry Indicators */
@@ -143,74 +211,82 @@ body.admin-body {
 
 .status-dot.online {
   background-color: var(--admin-emerald);
-  box-shadow: 0 0 10px var(--admin-emerald-glow);
-  animation: pulseGreen 2.4s infinite;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+  animation: pulseGreen 2.8s infinite;
 }
 
 .status-dot.offline {
   background-color: var(--admin-danger);
-  box-shadow: 0 0 10px var(--admin-danger-glow);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
 }
 
 @keyframes pulseGreen {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.55; transform: scale(1.15); }
+  50% { opacity: 0.55; transform: scale(1.1); }
 }
 
 /* ==========================================================================
-   Double-Bezel (Doppelrand) Architecture: Machined Outer Shell + Inner Core
+   4. Double-Bezel Framing & High-Impact Page Reveals
    ========================================================================== */
 
 .admin-card {
   position: relative;
   background: var(--admin-surface-1);
+  backdrop-filter: blur(var(--admin-glass-blur));
+  -webkit-backdrop-filter: blur(var(--admin-glass-blur));
   border: 1px solid var(--admin-border-subtle);
   border-radius: var(--admin-radius-outer);
-  box-shadow:
-    0 20px 45px -12px rgba(0, 0, 0, 0.65),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07);
-  padding: 28px;
+  box-shadow: var(--admin-shadow-lg), var(--admin-inner-specular);
+  padding: 30px;
   margin-bottom: 28px;
   transition: transform 0.25s var(--admin-ease-spring), border-color 0.25s var(--admin-ease-spring), box-shadow 0.25s var(--admin-ease-spring);
+  animation: panelReveal 0.45s var(--admin-ease-spring) 0.1s both;
 }
 
 .admin-card:hover {
-  border-color: rgba(0, 242, 254, 0.22);
-  box-shadow:
-    0 24px 50px -10px rgba(0, 0, 0, 0.75),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: var(--admin-border-prominent);
+  box-shadow: var(--admin-shadow-elevated), var(--admin-inner-specular);
 }
 
-/* Hardware Studio Command Strip */
+@keyframes panelReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Studio Command Bar (Telemetry Strip) */
 .studio-command-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 16px;
-  padding: 16px 22px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  padding: 16px 24px;
+  background: var(--admin-surface-1);
+  backdrop-filter: blur(var(--admin-glass-blur));
+  -webkit-backdrop-filter: blur(var(--admin-glass-blur));
   border: 1px solid var(--admin-border-subtle);
   border-radius: var(--admin-radius-inner);
+  box-shadow: var(--admin-shadow-sm), var(--admin-inner-specular);
   margin-bottom: 24px;
+  animation: panelReveal 0.45s var(--admin-ease-spring) 0.05s both;
 }
 
 .studio-stat-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .studio-stat-icon {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--admin-border-subtle);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .studio-stat-number {
@@ -226,22 +302,27 @@ body.admin-body {
   color: var(--admin-text-dim);
   text-transform: uppercase;
   letter-spacing: 0.8px;
+  font-weight: 500;
 }
 
 /* ==========================================================================
-   Segmented Tab Navigation (Tactile Minimalist Glass)
+   5. Segmented Tab Navigation (Tactile Minimalist Glass)
    ========================================================================== */
 
 .admin-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   margin: 28px 0 24px 0;
-  background: rgba(12, 15, 24, 0.6);
+  background: rgba(11, 14, 24, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   padding: 6px;
   border-radius: var(--admin-radius-pill);
   border: 1px solid var(--admin-border-subtle);
   width: fit-content;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35);
+  animation: panelReveal 0.45s var(--admin-ease-spring) 0.08s both;
 }
 
 .admin-tab-btn {
@@ -250,6 +331,7 @@ body.admin-body {
   border: 1px solid transparent;
   border-radius: var(--admin-radius-pill);
   padding: 9px 20px;
+  font-family: var(--admin-font-display);
   font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
@@ -266,20 +348,30 @@ body.admin-body {
 
 .admin-tab-btn.active {
   color: #ffffff;
-  background: rgba(0, 242, 254, 0.12);
-  border: 1px solid rgba(0, 242, 254, 0.4);
-  box-shadow: 0 0 16px var(--admin-cyan-glow);
+  background: var(--admin-surface-2);
+  border: 1px solid var(--admin-border-prominent);
+  box-shadow: var(--admin-shadow-sm), var(--admin-inner-specular);
+}
+
+/* Tab Content Switch Animation */
+#tab-content-area {
+  animation: tabFadeIn 0.35s var(--admin-ease-spring);
+}
+
+@keyframes tabFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ==========================================================================
-   Forms, Inputs & Telemetry Fields
+   6. Forms, Inputs & Fieldsets
    ========================================================================== */
 
 .admin-input,
 .admin-textarea,
 .admin-select {
   width: 100%;
-  background: rgba(7, 9, 14, 0.85);
+  background: rgba(9, 12, 20, 0.88);
   border: 1px solid var(--admin-border-subtle);
   border-radius: 12px;
   padding: 12px 18px;
@@ -288,16 +380,16 @@ body.admin-body {
   font-family: inherit;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   margin-bottom: 16px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.45);
 }
 
 .admin-input:focus,
 .admin-textarea:focus,
 .admin-select:focus {
   outline: none;
-  border-color: var(--admin-cyan);
-  background: rgba(10, 13, 22, 0.95);
-  box-shadow: 0 0 18px var(--admin-cyan-glow), inset 0 1px 2px rgba(0, 0, 0, 0.3);
+  border-color: var(--admin-border-focus);
+  background: rgba(12, 16, 26, 0.95);
+  box-shadow: 0 0 0 3px rgba(229, 169, 88, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .admin-label {
@@ -312,87 +404,102 @@ body.admin-body {
 }
 
 /* ==========================================================================
-   Nested CTA & "Island" Button Architecture
+   7. Nested CTA & "Island" Button Architecture
    ========================================================================== */
 
-.btn-cyber-primary {
-  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-  color: #040914;
-  border: none;
+.btn-cyber-primary,
+.btn-primary-action {
+  background: linear-gradient(135deg, #e5a958 0%, #c98835 100%);
+  color: #080b12 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--admin-radius-pill);
   padding: 10px 22px;
+  font-family: var(--admin-font-display);
   font-weight: 700;
   font-size: 0.9rem;
+  letter-spacing: -0.01em;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 8px 24px rgba(0, 242, 254, 0.35);
-  transition: transform 0.2s var(--admin-ease-spring), box-shadow 0.2s var(--admin-ease-spring);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.2s var(--admin-ease-spring), box-shadow 0.2s var(--admin-ease-spring), background 0.2s ease;
 }
 
-.btn-cyber-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(0, 242, 254, 0.5);
-  color: #040914;
+.btn-cyber-primary:hover,
+.btn-primary-action:hover {
+  background: linear-gradient(135deg, #f2be75 0%, #db9540 100%);
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  color: #080b12 !important;
 }
 
-.btn-cyber-primary:active {
-  transform: scale(0.97);
+.btn-cyber-primary:active,
+.btn-primary-action:active {
+  transform: scale(0.975);
 }
 
-.btn-cyber-secondary {
-  background: rgba(255, 255, 255, 0.05);
+.btn-cyber-secondary,
+.btn-secondary-action {
+  background: rgba(255, 255, 255, 0.04);
   color: var(--admin-text-main);
   border: 1px solid var(--admin-border-subtle);
   border-radius: var(--admin-radius-pill);
   padding: 9px 20px;
+  font-family: var(--admin-font-display);
   font-weight: 600;
   font-size: 0.88rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  box-shadow: var(--admin-inner-specular);
   transition: all 0.2s var(--admin-ease-spring);
 }
 
-.btn-cyber-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+.btn-cyber-secondary:hover,
+.btn-secondary-action:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--admin-border-prominent);
   color: #ffffff;
   transform: translateY(-1px);
 }
 
-.btn-cyber-secondary:active {
-  transform: scale(0.97);
+.btn-cyber-secondary:active,
+.btn-secondary-action:active {
+  transform: scale(0.975);
 }
 
-.btn-cyber-danger {
-  background: rgba(239, 68, 68, 0.12);
-  color: #f87171;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+.btn-cyber-danger,
+.btn-danger-action {
+  background: var(--admin-danger-soft);
+  color: #fca5a5;
+  border: 1px solid var(--admin-danger-border);
   border-radius: var(--admin-radius-pill);
   padding: 8px 18px;
+  font-family: var(--admin-font-display);
   font-weight: 600;
   font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s var(--admin-ease-spring);
 }
 
-.btn-cyber-danger:hover {
+.btn-cyber-danger:hover,
+.btn-danger-action:hover {
   background: var(--admin-danger);
   border-color: var(--admin-danger);
   color: #ffffff;
-  box-shadow: 0 4px 16px var(--admin-danger-glow);
   transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.35);
 }
 
-.btn-cyber-danger:active {
-  transform: scale(0.97);
+.btn-cyber-danger:active,
+.btn-danger-action:active {
+  transform: scale(0.975);
 }
 
 /* ==========================================================================
-   Project Cards & Item Rows with Human Curation
+   8. Item Rows, Badges & Curation
    ========================================================================== */
 
 .admin-item-row {
@@ -410,7 +517,7 @@ body.admin-body {
 
 .admin-item-row:hover {
   background: rgba(255, 255, 255, 0.045);
-  border-color: rgba(0, 242, 254, 0.25);
+  border-color: var(--admin-border-prominent);
   transform: translateX(4px);
 }
 
@@ -453,7 +560,7 @@ body.admin-body {
   height: 38px;
   border-radius: 10px;
   border: 1px solid var(--admin-border-subtle);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
   color: var(--admin-text-muted);
   display: inline-flex;
   align-items: center;
@@ -463,9 +570,9 @@ body.admin-body {
 }
 
 .btn-icon-action:hover {
-  background: rgba(0, 242, 254, 0.15);
-  border-color: var(--admin-cyan);
-  color: var(--admin-cyan);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--admin-border-prominent);
+  color: #ffffff;
   transform: translateY(-2px);
 }
 
@@ -473,10 +580,9 @@ body.admin-body {
   background: var(--admin-danger);
   border-color: var(--admin-danger);
   color: #ffffff;
-  box-shadow: 0 4px 12px var(--admin-danger-glow);
 }
 
-/* Category Filter Tabs */
+/* Category Filter Pills */
 .filter-pill-group {
   display: flex;
   flex-wrap: wrap;
@@ -487,6 +593,7 @@ body.admin-body {
 .filter-pill {
   padding: 6px 14px;
   border-radius: var(--admin-radius-pill);
+  font-family: var(--admin-font-display);
   font-size: 0.78rem;
   font-weight: 600;
   background: rgba(255, 255, 255, 0.03);
@@ -498,24 +605,56 @@ body.admin-body {
 
 .filter-pill:hover,
 .filter-pill.active {
-  background: rgba(0, 242, 254, 0.12);
-  border-color: var(--admin-cyan);
-  color: var(--admin-cyan);
+  background: var(--admin-surface-2);
+  border-color: var(--admin-border-prominent);
+  color: #ffffff;
+}
+
+/* Semantic Badges */
+.admin-badge-accent {
+  background: var(--admin-accent-soft);
+  border: 1px solid var(--admin-accent-border);
+  color: var(--admin-accent);
+  font-family: var(--admin-font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--admin-radius-pill);
+}
+
+.admin-badge-featured {
+  background: var(--admin-accent-soft);
+  border: 1px solid var(--admin-accent-border);
+  color: var(--admin-accent);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--admin-radius-pill);
+}
+
+.admin-badge-pinned {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e2e8f0;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--admin-radius-pill);
 }
 
 /* ==========================================================================
-   Floating Staging Bar & Slide-Over Review Drawer
+   9. Floating Staging Bar & Slide-Over Review Drawer
    ========================================================================== */
 
 .staging-bar {
   position: fixed;
   bottom: 28px;
   right: 28px;
-  background: rgba(12, 15, 24, 0.92);
+  background: rgba(12, 16, 28, 0.92);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--admin-cyan);
-  box-shadow: 0 16px 40px -10px var(--admin-cyan-glow);
+  border: 1px solid var(--admin-border-prominent);
+  box-shadow: var(--admin-shadow-elevated), var(--admin-inner-specular);
   border-radius: var(--admin-radius-pill);
   padding: 10px 24px;
   display: flex;
@@ -526,8 +665,8 @@ body.admin-body {
 }
 
 .staging-count {
-  background: var(--admin-cyan);
-  color: #040914;
+  background: var(--admin-accent);
+  color: #080b12;
   font-family: var(--admin-font-mono);
   font-size: 0.75rem;
   font-weight: 800;
@@ -538,8 +677,9 @@ body.admin-body {
 .drawer-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(4, 6, 12, 0.75);
-  backdrop-filter: blur(10px);
+  background: rgba(5, 7, 14, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 2000;
   display: none;
   opacity: 0;
@@ -557,9 +697,9 @@ body.admin-body {
   right: 0;
   width: min(560px, 100vw);
   height: 100vh;
-  background: #090c15;
-  border-left: 1px solid var(--admin-border-strong);
-  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.8);
+  background: #0b0e18;
+  border-left: 1px solid var(--admin-border-prominent);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.85);
   z-index: 2010;
   transform: translateX(100%);
   transition: transform 0.35s var(--admin-ease-spring);
@@ -592,7 +732,7 @@ body.admin-body {
 }
 
 /* ==========================================================================
-   Google Auth & Reset Modal Styles
+   10. Google Auth & Account Reset Screens
    ========================================================================== */
 
 .btn-google {
@@ -601,6 +741,7 @@ body.admin-body {
   border: 1px solid #e5e7eb;
   border-radius: var(--admin-radius-pill);
   padding: 12px 22px;
+  font-family: var(--admin-font-display);
   font-weight: 600;
   font-size: 0.92rem;
   display: inline-flex;
@@ -625,6 +766,7 @@ body.admin-body {
   border: 1px solid var(--admin-border-subtle);
   border-radius: var(--admin-radius-pill);
   padding: 12px 22px;
+  font-family: var(--admin-font-display);
   font-weight: 600;
   font-size: 0.92rem;
   display: inline-flex;
@@ -637,23 +779,22 @@ body.admin-body {
 }
 
 .btn-google-dark:hover {
-  background: rgba(66, 133, 244, 0.18);
-  border-color: #4285f4;
-  box-shadow: 0 0 20px rgba(66, 133, 244, 0.4);
+  background: rgba(255, 255, 255, 0.09);
+  border-color: var(--admin-border-prominent);
   transform: translateY(-1px);
 }
 
 .auth-step-pill {
   font-family: var(--admin-font-mono);
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 1.2px;
   text-transform: uppercase;
   padding: 5px 14px;
   border-radius: var(--admin-radius-pill);
-  background: rgba(66, 133, 244, 0.15);
-  border: 1px solid rgba(66, 133, 244, 0.4);
-  color: #8ab4f8;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--admin-border-prominent);
+  color: var(--admin-text-main);
   display: inline-block;
   margin-bottom: 16px;
 }
@@ -673,13 +814,14 @@ body.admin-body {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: #4285f4;
+  background: var(--admin-accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  color: #080b12;
   font-size: 0.88rem;
-  font-weight: 700;
+  font-weight: 800;
+  font-family: var(--admin-font-display);
 }
 
 .totp-input {
@@ -689,8 +831,8 @@ body.admin-body {
   text-align: center;
   padding: 12px;
   background: rgba(7, 9, 14, 0.95);
-  border: 1px solid var(--admin-border-strong);
-  color: var(--admin-cyan);
+  border: 1px solid var(--admin-border-prominent);
+  color: var(--admin-accent);
   border-radius: 14px;
   width: 100%;
   margin-bottom: 16px;
@@ -699,22 +841,61 @@ body.admin-body {
 
 .totp-input:focus {
   outline: none;
-  border-color: var(--admin-cyan);
-  box-shadow: 0 0 20px var(--admin-cyan-glow);
+  border-color: var(--admin-border-focus);
+  box-shadow: 0 0 0 3px rgba(229, 169, 88, 0.12);
 }
 
 .recovery-key-box {
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px dashed var(--admin-cyan);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px dashed var(--admin-border-prominent);
   padding: 14px;
   border-radius: 12px;
   font-family: var(--admin-font-mono);
-  color: var(--admin-cyan);
-  font-size: 0.95rem;
+  color: var(--admin-accent);
+  font-size: 0.92rem;
   text-align: center;
   letter-spacing: 1.5px;
   word-break: break-all;
   user-select: all;
+}
+
+/* Modals */
+.admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 14, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.admin-modal-dialog {
+  background: #0c0f18;
+  border: 1px solid var(--admin-border-prominent);
+  border-radius: var(--admin-radius-outer);
+  box-shadow: var(--admin-shadow-elevated), var(--admin-inner-specular);
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalPop 0.3s var(--admin-ease-spring);
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.96) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Toast System */
@@ -729,7 +910,7 @@ body.admin-body {
 }
 
 .admin-toast {
-  background: rgba(12, 15, 24, 0.94);
+  background: rgba(12, 16, 26, 0.94);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--admin-border-subtle);
@@ -737,7 +918,7 @@ body.admin-body {
   padding: 14px 22px;
   color: #ffffff;
   font-size: 0.88rem;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--admin-shadow-lg);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -754,7 +935,7 @@ body.admin-body {
 }
 
 .admin-toast.info {
-  border-left: 4px solid var(--admin-cyan);
+  border-left: 4px solid var(--admin-accent);
 }
 
 /* Stagger Animation */
@@ -769,7 +950,7 @@ body.admin-body {
 }
 
 /* ==========================================================================
-   Side-by-Side Dual-Viewport Resume Comparison Studio
+   11. Side-by-Side Dual-Viewport Resume Comparison Studio
    ========================================================================== */
 
 .resume-studio-topbar {
@@ -796,22 +977,24 @@ body.admin-body {
 
 .pdf-viewer-bezel {
   background: var(--admin-surface-1);
+  backdrop-filter: blur(var(--admin-glass-blur));
+  -webkit-backdrop-filter: blur(var(--admin-glass-blur));
   border: 1px solid var(--admin-border-subtle);
   border-radius: var(--admin-radius-inner);
   overflow: hidden;
-  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: var(--admin-shadow-lg), var(--admin-inner-specular);
   display: flex;
   flex-direction: column;
   transition: border-color 0.25s var(--admin-ease-spring), box-shadow 0.25s var(--admin-ease-spring);
 }
 
 .pdf-viewer-bezel:hover {
-  border-color: rgba(0, 242, 254, 0.28);
+  border-color: var(--admin-border-prominent);
 }
 
 .pdf-viewer-bezel.active-candidate {
-  border-color: rgba(16, 185, 129, 0.45);
-  box-shadow: 0 18px 45px -10px rgba(16, 185, 129, 0.25), inset 0 1px 0 rgba(16, 185, 129, 0.2);
+  border-color: var(--admin-emerald-border);
+  box-shadow: var(--admin-shadow-elevated), 0 0 0 1px var(--admin-emerald-border);
 }
 
 .pdf-viewer-header {
@@ -846,7 +1029,7 @@ body.admin-body {
   height: 580px;
   width: 100%;
   position: relative;
-  background: #0d111b;
+  background: #090c14;
   display: flex;
   flex-direction: column;
 }
@@ -879,16 +1062,30 @@ body.admin-body {
   justify-content: center;
   text-align: center;
   padding: 40px 24px;
-  border: 2px dashed rgba(255, 255, 255, 0.12);
+  border: 2px dashed var(--admin-border-subtle);
   border-radius: var(--admin-radius-inner);
-  background: rgba(255, 255, 255, 0.015);
+  background: rgba(255, 255, 255, 0.012);
   cursor: pointer;
   transition: all 0.25s var(--admin-ease-spring);
 }
 
 .upload-dropzone-viewport:hover,
 .upload-dropzone-viewport.dragover {
-  border-color: var(--admin-cyan);
-  background: rgba(0, 242, 254, 0.04);
+  border-color: var(--admin-accent);
+  background: var(--admin-accent-soft);
   transform: scale(0.995);
+}
+
+.upload-dropzone-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--admin-accent-soft);
+  border: 1px solid var(--admin-accent-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: var(--admin-accent);
+  margin: 0 auto;
 }

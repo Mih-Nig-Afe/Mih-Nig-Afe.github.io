@@ -837,7 +837,7 @@ const AdminApp = {
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
           <div>
             <div class="d-flex align-items-center gap-2 mb-1">
-              <span class="badge badge-pill" style="background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--admin-cyan); font-family: var(--admin-font-mono); font-size: 0.72rem;">PORTFOLIO SHOWCASE</span>
+              <span class="admin-badge-accent">PORTFOLIO SHOWCASE</span>
               <span class="small text-muted">&bull; ${projects.length} Total Curated Works</span>
             </div>
             <h3 class="font-weight-bold mb-1">Projects Command Desk</h3>
@@ -913,9 +913,9 @@ const AdminApp = {
     }
 
     const categoryStyles = {
-      'ai-ml': { label: 'AI & ML', border: 'rgba(16, 185, 129, 0.4)', bg: 'rgba(16, 185, 129, 0.12)', color: '#34d399' },
-      'fullstack': { label: 'Full Stack', border: 'rgba(59, 130, 246, 0.4)', bg: 'rgba(59, 130, 246, 0.12)', color: '#60a5fa' },
-      'mobile': { label: 'Mobile', border: 'rgba(245, 158, 11, 0.4)', bg: 'rgba(245, 158, 11, 0.12)', color: '#fbbf24' }
+      'ai-ml': { label: 'AI & ML', border: 'rgba(16, 185, 129, 0.35)', bg: 'rgba(16, 185, 129, 0.1)', color: '#6ee7b7' },
+      'fullstack': { label: 'Full Stack', border: 'rgba(229, 169, 88, 0.35)', bg: 'rgba(229, 169, 88, 0.1)', color: '#f3be6f' },
+      'mobile': { label: 'Mobile', border: 'rgba(217, 119, 6, 0.35)', bg: 'rgba(217, 119, 6, 0.1)', color: '#fcd34d' }
     };
 
     return list.map((p, idx) => {
@@ -927,15 +927,15 @@ const AdminApp = {
       return `
         <div class="admin-item-row" data-id="${p.id || p.name}">
           <div class="d-flex align-items-center gap-3" style="min-width: 0; flex: 1;">
-            <div class="item-thumb d-flex align-items-center justify-content-center" style="font-size: 1.15rem; font-weight: 800; font-family: var(--admin-font-mono); color: var(--admin-cyan);">
+            <div class="item-thumb d-flex align-items-center justify-content-center" style="font-size: 1.15rem; font-weight: 800; font-family: var(--admin-font-mono); color: var(--admin-accent);">
               ${p.image ? `<img src="${p.image}" class="item-thumb" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerText='${initials}';">` : initials}
             </div>
 
             <div class="item-info">
               <div class="item-title">
                 <span class="text-white">${p.name || p.title}</span>
-                ${p.featured ? `<span class="badge badge-pill" style="background: rgba(0, 242, 254, 0.15); border: 1px solid rgba(0, 242, 254, 0.35); color: var(--admin-cyan); font-size: 0.65rem;">★ Featured</span>` : ''}
-                ${p.pinned ? `<span class="badge badge-pill" style="background: rgba(178, 95, 255, 0.15); border: 1px solid rgba(178, 95, 255, 0.35); color: #d8b4fe; font-size: 0.65rem;">Pinned</span>` : ''}
+                ${p.featured ? `<span class="admin-badge-featured">★ Featured</span>` : ''}
+                ${p.pinned ? `<span class="admin-badge-pinned">Pinned</span>` : ''}
                 <span class="badge badge-pill" style="background: ${catStyle.bg}; border: 1px solid ${catStyle.border}; color: ${catStyle.color}; font-size: 0.65rem;">${catStyle.label}</span>
                 <span class="badge badge-pill badge-secondary" style="font-family: var(--admin-font-mono); font-size: 0.65rem;">${p.language || 'Web'}</span>
               </div>
@@ -1176,7 +1176,7 @@ const AdminApp = {
         <div class="resume-studio-topbar">
           <div>
             <div class="d-flex align-items-center gap-2 mb-1">
-              <span class="badge badge-pill" style="background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--admin-cyan); font-family: var(--admin-font-mono); font-size: 0.72rem;">DUAL-VIEWPORT DIFF STUDIO</span>
+              <span class="admin-badge-accent">DUAL-VIEWPORT DIFF STUDIO</span>
               <span class="small text-muted">&bull; Side-by-Side Visual Inspection</span>
             </div>
             <h3 class="font-weight-bold mb-1">Resume Verification & Comparator</h3>
@@ -1278,7 +1278,7 @@ const AdminApp = {
                 <iframe id="candidate-resume-iframe" src="${this.candidateResumeUrl}#toolbar=0" title="Uploaded Candidate Resume Preview"></iframe>
               ` : `
                 <div class="upload-dropzone-viewport" id="candidate-resume-dropzone" onclick="document.getElementById('resume-file-input').click()">
-                  <div class="mb-3" style="width: 70px; height: 70px; border-radius: 50%; background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.25); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--admin-cyan); margin: 0 auto;">
+                  <div class="upload-dropzone-icon mb-3">
                     <i class="fas fa-cloud-upload-alt"></i>
                   </div>
                   <h5 class="font-weight-bold mb-2">Drag & Drop New Resume (PDF) Here</h5>
@@ -1685,8 +1685,8 @@ const AdminApp = {
         </div>
 
         <!-- Emergency Recovery Key Card -->
-        <div class="p-4 mb-4 rounded" style="background: rgba(3, 218, 198, 0.05); border: 1px solid var(--admin-cyan);">
-          <h5 class="font-weight-bold mb-2" style="color: var(--admin-cyan);"><i class="fas fa-shield-alt"></i> Emergency Recovery Key</h5>
+        <div class="p-4 mb-4 rounded" style="background: var(--admin-accent-soft); border: 1px solid var(--admin-accent-border);">
+          <h5 class="font-weight-bold mb-2" style="color: var(--admin-accent);"><i class="fas fa-shield-alt"></i> Emergency Recovery Key</h5>
           <p class="small text-muted mb-2">Save this key in a secure place. If you ever forget your password, you can use it to regain access:</p>
           <div class="recovery-key-box mb-3">${CryptoVault.DEFAULT_RECOVERY_KEY}</div>
           <button class="btn-cyber-secondary btn-sm" onclick="navigator.clipboard.writeText('${CryptoVault.DEFAULT_RECOVERY_KEY}'); AdminApp.showToast('Recovery key copied to clipboard!', 'info');">
@@ -1809,8 +1809,8 @@ const AdminApp = {
     listEl.innerHTML = items.map(item => `
       <div class="p-3 mb-2 rounded" style="background: rgba(255,255,255,0.04); border: 1px solid var(--admin-glass-border);">
         <div class="d-flex justify-content-between align-items-center mb-1">
-          <strong style="color: var(--admin-cyan); font-size: 0.9rem;">${item.path}</strong>
-          <span class="badge badge-pill badge-info" style="font-size: 0.65rem;">${item.isBase64 ? 'Binary Asset' : 'JSON Schema'}</span>
+          <strong style="color: var(--admin-accent); font-size: 0.9rem; font-family: var(--admin-font-mono);">${item.path}</strong>
+          <span class="badge badge-pill badge-secondary" style="font-size: 0.65rem; background: rgba(255,255,255,0.08);">${item.isBase64 ? 'Binary Asset' : 'JSON Schema'}</span>
         </div>
         <div class="small text-muted">${item.label}</div>
       </div>
