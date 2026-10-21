@@ -33,7 +33,30 @@ Personal developer portfolio website of **Mihretab Nigatu** (Systems Futurist, W
 - [`projects.html`](projects.html) — Featured projects showcase with interactive category filtering and GitHub repository links.
 - [`experience.html`](experience.html) — Professional biography, core competency breakdown, and verified credentials.
 - [`education.html`](education.html) — Academic history, timeline milestones, and certified MOOC accreditations.
+- [`admin.html`](admin.html) — Secure client-side Git-CMS Admin Deck to manage projects, resume PDF, certificates, bio, and typewriter roles.
 - [`404.html`](404.html) — Custom animated 404 error page with direct navigation back to home.
+
+---
+
+## Admin Content Management Deck (`admin.html`)
+
+The portfolio includes an in-browser Git-CMS Admin Deck powered by the GitHub REST API and client-side Web Crypto AES-GCM encryption:
+
+- **Access URL**: Open [`admin.html`](admin.html) locally or live at `https://mih-nig-afe.github.io/admin.html`.
+- **First-Time Setup**:
+  1. Set your personal **Master Password**.
+  2. Input your GitHub Personal Access Token (PAT) with `repo` (or fine-grained `contents:write`) scope.
+  3. The token is encrypted using AES-GCM (PBKDF2 key derivation, 100,000 iterations) and stored safely in your browser's `localStorage`.
+- **Subsequent Logins**: Simply enter your Master Password to decrypt your session in memory.
+- **Content Operations**:
+  - **Projects Manager**: Post new projects, edit descriptions, adjust tags, manage live demo links, reorder priority, and mark featured items.
+  - **Resume Manager**: Upload and replace `assets/docs/Resume.pdf` with live preview and instant base64 serialization.
+  - **Certificates**: Add new accreditations, issue dates, verification URLs, and upload credential badges.
+  - **Bio & Typewriter Roles**: Modify biographical narrative and edit the exact phrases that cycle in the animated typewriter effect on the homepage.
+- **Commit & Publish Pipeline**:
+  - Review all staged modifications in the slide-over review drawer with visual diff summaries.
+  - Click **"Publish & Push to GitHub"** to commit directly to `origin/main` via the GitHub REST API.
+  - GitHub Pages automatically rebuilds and deploys the updates live!
 
 ---
 
@@ -41,6 +64,7 @@ Personal developer portfolio website of **Mihretab Nigatu** (Systems Futurist, W
 
 ```text
 .
+├── admin.html                   # Secure Git-CMS Admin Deck
 ├── 404.html                     # Custom 404 error page
 ├── education.html               # Academic timeline & certifications
 ├── experience.html              # Bio, experience & skill matrix
@@ -50,11 +74,13 @@ Personal developer portfolio website of **Mihretab Nigatu** (Systems Futurist, W
 ├── robots.txt                   # Search crawler directives
 ├── sitemap.xml                  # XML sitemap for SEO
 ├── assets/
-│   ├── css/                     # Liquid glass, theme, and page stylesheets
-│   ├── docs/                    # Resume and academic documentation
+│   ├── css/                     # Liquid glass, theme, and page stylesheets (including admin.css)
+│   ├── data/                    # Managed JSON content (projects, certificates, profile, experience)
+│   ├── docs/                    # Resume (Resume.pdf) and academic documentation
 │   ├── fonts/                   # Signature font (Agustina)
 │   ├── images/                  # Favicons, project previews, brand assets
-│   └── js/                      # Particles, dynamic titles, GitHub services
+│   └── js/                      # Admin engine, particles, dynamic titles, GitHub services
+├── tests/                       # Automated verification test suites
 └── Screenshots/                 # Light & dark theme visual comps
 ```
 

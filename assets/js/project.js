@@ -74,21 +74,31 @@ class ProjectLoader {
     const languageColor = this.github.getLanguageColor(language);
     const updatedTime = this.github.formatRelativeTime(repo.updated_at);
     const description = repo.description || 'No description available';
+    const starsCount = repo.stargazers_count !== undefined ? repo.stargazers_count : 0;
+    const forksCount = repo.forks_count !== undefined ? repo.forks_count : 0;
 
     // Get topics as tags (limited to 5)
-    const topics = repo.topics ? repo.topics.slice(0, 5) : [];
+    const rawTags = repo.tags || repo.topics || [];
+    const topics = Array.isArray(rawTags) ? rawTags.slice(0, 5) : [];
     const tagsHTML = topics.map(topic =>
       `<span class="project-tag">${topic}</span>`
     ).join('');
 
+    const imageHTML = repo.image ? `
+      <div class="project-card-image" style="width: 100%; height: 160px; overflow: hidden; border-radius: 14px 14px 0 0; margin-bottom: 12px;">
+        <img src="${repo.image}" alt="${repo.name}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+      </div>
+    ` : '';
+
     return `
             <div class="column skill-card card" style="margin: 15px" 
                  data-aos="zoom-in-up" data-aos-easing="linear" 
-                 data-aos-delay="300" data-aos-duration="600"
+                 data-aos-delay="200" data-aos-duration="500"
                  data-language="${language.toLowerCase()}"
                  data-name="${repo.name.toLowerCase()}">
-                <a href="${repo.html_url}" target="_blank" rel="noopener" class="project-card-link">
+                <a href="${repo.html_url || '#'}" target="_blank" rel="noopener" class="project-card-link">
                 <div class="wrapper project-card-modern">
+                    ${imageHTML}
                     <div class="card-header">
                         <div class="repo-icon">
                             <i class="fas fa-folder"></i>
@@ -123,11 +133,11 @@ class ProjectLoader {
                                 ` : ''}
                                 <span class="stat-item">
                                     <i class="fas fa-star"></i>
-                                    ${repo.stargazers_count}
+                                    ${starsCount}
                                 </span>
                                 <span class="stat-item">
                                     <i class="fas fa-code-branch"></i>
-                                    ${repo.forks_count}
+                                    ${forksCount}
                                 </span>
                             </div>
                             <div class="project-updated">
@@ -275,13 +285,29 @@ class ProjectLoader {
   }
 
   /**
-   * Load projects from GitHub
+   * Load projects from assets/data/projects.json with GitHub API fallback
    */
   async loadProjects() {
     try {
       this.showLoading();
 
-      const repos = await this.github.fetchRepositories();
+      let repos = [];
+      try {
+        const res = await fetch("assets/data/projects.json");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            repos = data;
+          }
+        }
+      } catch (e) {
+        // Fallback to GitHub API if data file unavailable
+      }
+
+      if (repos.length === 0) {
+        repos = await this.github.fetchRepositories();
+      }
+
       this.allRepos = repos;
       this.filteredRepos = [...repos];
 

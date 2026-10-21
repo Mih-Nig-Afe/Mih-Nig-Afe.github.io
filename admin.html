@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" light-mode="dark" data-theme="dark">
+
+<head>
+  <title>Admin Deck | Mihretab Nigatu Portfolio CMS</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-png" />
+
+  <!-- Bootstrap 4.5.0 & FontAwesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Portfolio Styles & Admin Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/liquid-glass.css" />
+  <link rel="stylesheet" href="assets/css/admin.css" />
+</head>
+
+<body class="admin-body">
+
+  <!-- Toast Container -->
+  <div class="admin-toast-container" id="toast-container"></div>
+
+  <!-- Modal Mount Point -->
+  <div id="modal-root"></div>
+
+  <!-- Slide-over Commit & Publish Drawer -->
+  <div class="drawer-backdrop" id="drawer-backdrop" onclick="AdminApp.closeCommitDrawer()"></div>
+  <div class="admin-drawer" id="commit-drawer">
+    <div class="drawer-header">
+      <div class="d-flex align-items-center gap-2">
+        <i class="fas fa-code-branch text-info"></i>
+        <h4 class="font-weight-bold mb-0">Review & Publish</h4>
+      </div>
+      <button type="button" class="btn-icon-action" onclick="AdminApp.closeCommitDrawer()">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <div class="mb-4">
+        <label class="admin-label">Staged Modifications</label>
+        <p class="text-muted small">The following files will be committed directly to your repository's <code>main</code> branch:</p>
+        <div id="drawer-staged-list"></div>
+      </div>
+
+      <div class="mb-3">
+        <label class="admin-label">Commit Message</label>
+        <input type="text" id="commit-message-input" class="admin-input" placeholder="Summarize your changes...">
+      </div>
+
+      <div id="commit-progress-box" class="p-3 rounded mb-3" style="display: none; background: rgba(0,0,0,0.4); border: 1px solid var(--admin-glass-border); font-family: monospace; font-size: 0.82rem;"></div>
+    </div>
+    <div class="drawer-footer d-flex justify-content-between align-items-center">
+      <button type="button" class="btn-cyber-secondary" onclick="AdminApp.closeCommitDrawer()">Cancel</button>
+      <button type="button" class="btn-cyber-primary" id="btn-publish-push" onclick="AdminApp.executeCommitAndPush()">
+        <i class="fas fa-rocket"></i> Publish & Push to GitHub
+      </button>
+    </div>
+  </div>
+
+  <!-- Floating Staging Bar (Visible when changes are staged) -->
+  <div class="staging-bar" id="staging-bar" style="display: none;">
+    <span class="staging-count" id="staging-count">0 staged files</span>
+    <button class="btn-cyber-primary btn-sm py-1 px-3" onclick="AdminApp.openCommitDrawer()">
+      <i class="fas fa-cloud-upload-alt"></i> Review & Publish
+    </button>
+  </div>
+
+  <!-- SCREEN 1: Cryptographic Lock & Setup Screen -->
+  <div id="lock-screen" class="container justify-content-center align-items-center" style="display: flex; min-height: 100vh; padding: 40px 15px;">
+    <div class="admin-card" style="max-width: 500px; width: 100%; border: 1px solid var(--admin-accent);">
+      <div class="text-center mb-4">
+        <div class="mb-3">
+          <span style="font-family: 'Agustina', cursive; font-size: 2.2rem; color: #ffffff;">Mihretab Nigatu</span>
+        </div>
+        <div class="d-inline-block admin-deck-badge mb-3">Admin Content Management</div>
+        <h4 class="font-weight-bold" id="lock-title">Enter Master Password</h4>
+        <p class="text-muted small" id="lock-sub">Client-side Web Crypto AES-GCM encrypted vault.</p>
+      </div>
+
+      <form id="auth-form">
+        <div id="first-setup-fields" style="display: none;">
+          <div class="alert alert-info py-2 small" style="background: rgba(3, 218, 198, 0.1); border-color: rgba(3, 218, 198, 0.3); color: #80eec0;">
+            <i class="fas fa-info-circle"></i> Create a Master Password to encrypt your GitHub token locally in this browser.
+          </div>
+
+          <label class="admin-label">GitHub Personal Access Token (PAT) *</label>
+          <input type="password" id="github-pat" class="admin-input" placeholder="github_pat_... or ghp_..." autocomplete="off">
+          <small class="text-muted d-block mb-3" style="font-size: 0.75rem;">Requires <code>repo</code> scope (or fine-grained with Contents read/write) on <code>Mih-Nig-Afe.github.io</code>.</small>
+        </div>
+
+        <label class="admin-label">Master Password *</label>
+        <input type="password" id="master-password" class="admin-input" placeholder="Enter master password..." required autocomplete="current-password">
+
+        <div id="confirm-pass-container" style="display: none;">
+          <label class="admin-label">Confirm Master Password *</label>
+          <input type="password" id="confirm-password" class="admin-input" placeholder="Re-type master password..." autocomplete="new-password">
+        </div>
+
+        <div id="auth-error" class="alert alert-danger py-2 small mb-3" style="display: none;"></div>
+
+        <button type="submit" id="btn-unlock" class="btn-cyber-primary w-100 justify-content-center mb-3">
+          <i class="fas fa-lock-open"></i> Unlock Deck
+        </button>
+
+        <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top border-secondary">
+          <a href="index.html" class="small text-muted"><i class="fas fa-arrow-left"></i> Return to Portfolio</a>
+          <button type="button" class="btn btn-link btn-sm text-muted p-0 small" onclick="AdminApp.resetVault()">Reset Vault</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: Main Admin Deck View -->
+  <div id="deck-view" style="display: none;">
+    <!-- Fixed Navigation Header -->
+    <header class="admin-navbar">
+      <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <a href="admin.html" class="admin-brand">
+          <span>Mihretab Nigatu</span>
+          <span class="admin-deck-badge">Admin Deck</span>
+        </a>
+
+        <div class="d-flex align-items-center gap-3">
+          <div class="status-indicator">
+            <span class="status-dot online" id="status-dot"></span>
+            <span id="status-text">Connected</span>
+          </div>
+
+          <a href="index.html" target="_blank" class="btn-cyber-secondary btn-sm py-1 px-3" title="Open portfolio in new tab">
+            <i class="fas fa-external-link-alt"></i> Live Site
+          </a>
+
+          <button class="btn-cyber-danger btn-sm py-1 px-3" onclick="AdminApp.logout()" title="Lock session">
+            <i class="fas fa-lock"></i> Lock
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="container mt-4">
+      <!-- Tab Navigation Menu -->
+      <nav class="admin-tabs" aria-label="Admin Navigation Tabs">
+        <button class="admin-tab-btn active" data-tab="projects" onclick="AdminApp.switchTab('projects')">
+          <i class="fas fa-project-diagram"></i> Projects
+        </button>
+        <button class="admin-tab-btn" data-tab="resume" onclick="AdminApp.switchTab('resume')">
+          <i class="fas fa-file-pdf"></i> Resume PDF
+        </button>
+        <button class="admin-tab-btn" data-tab="certificates" onclick="AdminApp.switchTab('certificates')">
+          <i class="fas fa-certificate"></i> Certificates
+        </button>
+        <button class="admin-tab-btn" data-tab="profile" onclick="AdminApp.switchTab('profile')">
+          <i class="fas fa-user-astronaut"></i> Bio & Roles
+        </button>
+        <button class="admin-tab-btn" data-tab="settings" onclick="AdminApp.switchTab('settings')">
+          <i class="fas fa-cog"></i> Settings
+        </button>
+      </nav>
+
+      <!-- Active Tab Content Area -->
+      <div id="tab-content-area"></div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/admin.js"></script>
+</body>
+
+</html>

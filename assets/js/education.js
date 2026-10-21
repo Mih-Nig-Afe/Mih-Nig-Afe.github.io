@@ -92,16 +92,29 @@ function encodeAssetPath(path) {
   return encodeURI(path).replace(/'/g, "%27");
 }
 
-const showCards = () => {
+const showCards = async () => {
+  let certList = moocscards;
+  try {
+    const res = await fetch("assets/data/certificates.json");
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        certList = data;
+      }
+    }
+  } catch (err) {
+    // Graceful fallback to static array when offline or on file:// protocol
+  }
+
   let output = "";
-  moocscards.forEach(
+  certList.forEach(
     ({ title, cardImage, previewImage }) => {
       const assetSrc = encodeAssetPath(cardImage);
       const previewSrc = encodeAssetPath(previewImage || cardImage);
-      const mediaMarkup = `<img src="${previewSrc}" class="card-img-top content-image" alt="${title}">`;
+      const mediaMarkup = `<img src="${previewSrc}" class="card-img-top content-image" alt="${title}" loading="lazy">`;
 
       output += `        
-        <div class="col-6 col-md-3 col-sm-4 column" data-aos="fade-up" data-aos-easing="linear" data-aos-delay="600" >  
+        <div class="col-6 col-md-3 col-sm-4 column" data-aos="fade-up" data-aos-easing="linear" data-aos-delay="200" >  
             <div class="card mb-3 mx-auto" onclick='showModal(${JSON.stringify(
               assetSrc
             )})' style="cursor: pointer;">
@@ -116,7 +129,7 @@ const showCards = () => {
       `;
     }
   );
-  moocs.innerHTML = output;
+  if (moocs) moocs.innerHTML = output;
 };
 document.addEventListener("DOMContentLoaded", showCards);
 

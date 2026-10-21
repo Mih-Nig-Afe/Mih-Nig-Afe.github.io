@@ -1,0 +1,106 @@
+[
+  {
+    "id": "udacity-ai-fundamentals",
+    "title": "Udacity AI Fundamentals",
+    "issuer": "Udacity",
+    "cardImage": "assets/images/Education-page/Udacity AI Fundamentals.pdf",
+    "previewImage": "assets/images/Education-page/cert-thumbs/udacity-ai-fundamentals.jpg",
+    "moocLink": "#"
+  },
+  {
+    "id": "udacity-android-dev",
+    "title": "Udacity Android Development",
+    "issuer": "Udacity",
+    "cardImage": "assets/images/Education-page/Udacity Android dev't.pdf",
+    "previewImage": "assets/images/Education-page/cert-thumbs/udacity-android-dev.jpg",
+    "moocLink": "#"
+  },
+  {
+    "id": "udacity-data-analysis",
+    "title": "Udacity Data Analysis",
+    "issuer": "Udacity",
+    "cardImage": "assets/images/Education-page/Udacity Data analysis.pdf",
+    "previewImage": "assets/images/Education-page/cert-thumbs/udacity-data-analysis.jpg",
+    "moocLink": "#"
+  },
+  {
+    "id": "udacity-programming-fundamentals",
+    "title": "Udacity Programming Fundamentals",
+    "issuer": "Udacity",
+    "cardImage": "assets/images/Education-page/Udacity Programing fundamental.pdf",
+    "previewImage": "assets/images/Education-page/cert-thumbs/udacity-programming-fundamentals.jpg",
+    "moocLink": "#"
+  },
+  {
+    "id": "openlearn-algorithm-design",
+    "title": "OpenLearn Algorithm Design",
+    "issuer": "OpenLearn",
+    "cardImage": "assets/images/Education-page/Open Learn Algorithm Design Certificate.pdf",
+    "previewImage": "assets/images/Education-page/cert-thumbs/openlearn-algorithm-design.jpg",
+    "moocLink": "#"
+  },
+  {
+    "id": "frontend-website-designing",
+    "title": "Frontend Website Designing",
+    "issuer": "Udemy",
+    "cardImage": "assets/images/Education-page/Cert(7).png",
+    "previewImage": "assets/images/Education-page/Cert(7).png",
+    "moocLink": "https://www.udemy.com/"
+  },
+  {
+    "id": "intro-web-dev",
+    "title": "Introduction to Web developmnet",
+    "issuer": "Coursera",
+    "cardImage": "assets/images/Education-page/Cert(6).jpg",
+    "previewImage": "assets/images/Education-page/Cert(6).jpg",
+    "moocLink": "https://www.coursera.org/"
+  },
+  {
+    "id": "css-essentials",
+    "title": "CSS Essentials",
+    "issuer": "LinkedIn Learning",
+    "cardImage": "assets/images/Education-page/Cert(5).jpg",
+    "previewImage": "assets/images/Education-page/Cert(5).jpg",
+    "moocLink": "https://www.linkedin.com/learning/"
+  },
+  {
+    "id": "html-sololearn",
+    "title": "HTML",
+    "issuer": "SoloLearn",
+    "cardImage": "assets/images/Education-page/Cert(1).jpg",
+    "previewImage": "assets/images/Education-page/Cert(1).jpg",
+    "moocLink": "http://www.sololearn.com/"
+  },
+  {
+    "id": "javascript-sololearn",
+    "title": "JavaScript",
+    "issuer": "SoloLearn",
+    "cardImage": "assets/images/Education-page/Cert(9).png",
+    "previewImage": "assets/images/Education-page/Cert(9).png",
+    "moocLink": "http://www.sololearn.com/"
+  },
+  {
+    "id": "css-sololearn",
+    "title": "CSS",
+    "issuer": "SoloLearn",
+    "cardImage": "assets/images/Education-page/Cert(3).png",
+    "previewImage": "assets/images/Education-page/Cert(3).png",
+    "moocLink": "http://www.sololearn.com/"
+  },
+  {
+    "id": "web-dev-fundamentals",
+    "title": "Web Development Fundamentals",
+    "issuer": "SoloLearn",
+    "cardImage": "assets/images/Education-page/Cert(2).jpg",
+    "previewImage": "assets/images/Education-page/Cert(2).jpg",
+    "moocLink": "http://www.sololearn.com/"
+  },
+  {
+    "id": "responsive-web-design",
+    "title": "Responsive Web Design",
+    "issuer": "SoloLearn",
+    "cardImage": "assets/images/Education-page/Cert(4).jpg",
+    "previewImage": "assets/images/Education-page/Cert(4).jpg",
+    "moocLink": "http://www.sololearn.com/"
+  }
+]

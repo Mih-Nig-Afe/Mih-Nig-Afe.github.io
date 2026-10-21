@@ -96,20 +96,34 @@ particlesJS("particles-js", {
 });
 const allElements = document.querySelectorAll(".animated-text");
 
-// It checks if there is at least one element
+// Initialize typewriter with optional dynamic profile.json sync
 if (allElements.length > 0) {
-  //It runs the script for each found element
-  allElements.forEach((element) => {
-    const txtElement = element,
-      wordsList = txtElement.getAttribute("data-words"),
-      words = wordsList.split(", "); // It makes an array of words from data attribute
+  // Attempt to fetch updated typewriter roles from profile.json
+  (async function initTypewriter() {
+    let customWords = null;
+    try {
+      const res = await fetch("assets/data/profile.json");
+      if (res.ok) {
+        const data = await res.json();
+        if (data && Array.isArray(data.typewriter_words) && data.typewriter_words.length > 0) {
+          customWords = data.typewriter_words;
+        }
+      }
+    } catch (e) {
+      // Fallback to HTML data-words
+    }
 
-    let wordsCount = 0;
+    allElements.forEach((element) => {
+      const txtElement = element;
+      const wordsList = txtElement.getAttribute("data-words") || "";
+      const words = customWords || wordsList.split(", ");
 
-    entry();
+      let wordsCount = 0;
 
-    // Initial function
-    function entry() {
+      entry();
+
+      // Initial function
+      function entry() {
       if (wordsCount < words.length) {
         // It runs the code for each word
         let word = words[wordsCount],
@@ -174,4 +188,5 @@ if (allElements.length > 0) {
       }
     }
   });
+  })();
 }

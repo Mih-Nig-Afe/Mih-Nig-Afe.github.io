@@ -1,0 +1,496 @@
+[
+  {
+    "id": "ALPR-STMS-Hawassa",
+    "name": "ALPR-STMS-Hawassa",
+    "description": "Manual-enforcement-first smart traffic management platform for Hawassa City, structured for phased rollout from digital reporting to future CCTV-assisted ALPR enforcement.",
+    "category": "fullstack",
+    "tags": [
+      "alpr",
+      "ethiopia",
+      "fastapi",
+      "govtech",
+      "hawassa",
+      "postgresql",
+      "public-sector",
+      "pwa",
+      "smart-city",
+      "traffic-management"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/ALPR-STMS-Hawassa",
+    "homepage": "",
+    "language": "Python",
+    "featured": false,
+    "pinned": false,
+    "updated_at": "2026-05-05T15:39:30Z"
+  },
+  {
+    "id": "C-Simple-codes",
+    "name": "C-Simple-codes",
+    "description": "C++ Codes for beginners",
+    "category": "fullstack",
+    "tags": [
+      "C++"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/C-Simple-codes",
+    "homepage": "",
+    "language": "C++",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:47Z"
+  },
+  {
+    "id": "comboniOfficial.github.io",
+    "name": "comboniOfficial.github.io",
+    "description": "Project by Mihretab Nigatu (MTAB Development)",
+    "category": "fullstack",
+    "tags": [
+      "Web"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/comboniOfficial.github.io",
+    "homepage": "",
+    "language": "Code",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:36Z"
+  },
+  {
+    "id": "Customer-sign-up-and-sign-in",
+    "name": "Customer-sign-up-and-sign-in",
+    "description": "A sign up and Sign in pages for customers of a delivery website with database including PHP",
+    "category": "fullstack",
+    "tags": [
+      "PHP"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Customer-sign-up-and-sign-in",
+    "homepage": "",
+    "language": "PHP",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:41Z"
+  },
+  {
+    "id": "Data-Accessing-Python",
+    "name": "Data-Accessing-Python",
+    "description": "Project by Mihretab Nigatu (MTAB Development)",
+    "category": "fullstack",
+    "tags": [
+      "Python"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Data-Accessing-Python",
+    "homepage": "",
+    "language": "Python",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:39Z"
+  },
+  {
+    "id": "Doubly-Circular-linked-Employee-attendance",
+    "name": "Doubly-Circular-linked-Employee-attendance",
+    "description": "Employee Attendance Management System using Doubly-Circular Linked List in C++",
+    "category": "fullstack",
+    "tags": [
+      "attendance-management-system",
+      "check-in-out",
+      "cpp",
+      "data-structures-and-algorithms",
+      "doubly-circular-linked-list",
+      "employee-management-system"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Doubly-Circular-linked-Employee-attendance",
+    "homepage": "",
+    "language": "C++",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-04-29T21:37:26Z"
+  },
+  {
+    "id": "Flutter",
+    "name": "Flutter",
+    "description": "Firist Flutter code",
+    "category": "mobile",
+    "tags": [
+      "Dart"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Flutter",
+    "homepage": "",
+    "language": "Dart",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:49Z"
+  },
+  {
+    "id": "Flutter-X-O-Game",
+    "name": "Flutter-X-O-Game",
+    "description": "Tic Tac Toe or X O Game.",
+    "category": "fullstack",
+    "tags": [
+      "C++"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Flutter-X-O-Game",
+    "homepage": "",
+    "language": "C++",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:46Z"
+  },
+  {
+    "id": "FUTURE_ML_01",
+    "name": "FUTURE_ML_01",
+    "description": "Project by Mihretab Nigatu (MTAB Development)",
+    "category": "fullstack",
+    "tags": [
+      "HTML"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/FUTURE_ML_01",
+    "homepage": "",
+    "language": "HTML",
+    "featured": false,
+    "pinned": false,
+    "updated_at": "2026-04-10T22:13:18Z"
+  },
+  {
+    "id": "FUTURE_ML_02",
+    "name": "FUTURE_ML_02",
+    "description": "Project by Mihretab Nigatu (MTAB Development)",
+    "category": "fullstack",
+    "tags": [
+      "Python"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/FUTURE_ML_02",
+    "homepage": "",
+    "language": "Python",
+    "featured": false,
+    "pinned": false,
+    "updated_at": "2026-04-11T08:09:33Z"
+  },
+  {
+    "id": "lead-data-validation-engine",
+    "name": "lead-data-validation-engine",
+    "description": "Rule-based CRM lead validation engine with deterministic decisions (VALID / INVALID / RECHECK) and explainable outputs.",
+    "category": "ai-ml",
+    "tags": [
+      "Python"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/lead-data-validation-engine",
+    "homepage": "",
+    "language": "Python",
+    "featured": false,
+    "pinned": false,
+    "updated_at": "2026-04-28T14:53:13Z"
+  },
+  {
+    "id": "Liquor-Store-Web",
+    "name": "Liquor-Store-Web",
+    "description": "It is a website created in HTML for a liquor store to display what items they have and to sell their products online.",
+    "category": "fullstack",
+    "tags": [
+      "HTML"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Liquor-Store-Web",
+    "homepage": "",
+    "language": "HTML",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:44Z"
+  },
+  {
+    "id": "Mih-Nig-Afe",
+    "name": "Mih-Nig-Afe",
+    "description": "Project by Mihretab Nigatu (MTAB Development)",
+    "category": "fullstack",
+    "tags": [
+      "Web"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Mih-Nig-Afe",
+    "homepage": "",
+    "language": "Code",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-06-17T14:58:49Z"
+  },
+  {
+    "id": "Mih-Nig-Afe.github.io",
+    "name": "Mih-Nig-Afe.github.io",
+    "description": "A portfolio Website for my self",
+    "category": "fullstack",
+    "tags": [
+      "HTML"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Mih-Nig-Afe.github.io",
+    "homepage": "",
+    "language": "HTML",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-10-21T09:19:53Z"
+  },
+  {
+    "id": "MTAB-express",
+    "name": "MTAB-express",
+    "description": "Project by Mihretab Nigatu (MTAB Development)",
+    "category": "fullstack",
+    "tags": [
+      "Python"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/MTAB-express",
+    "homepage": "",
+    "language": "Python",
+    "featured": true,
+    "pinned": true,
+    "updated_at": "2026-09-02T21:04:53Z"
+  },
+  {
+    "id": "open-route-config",
+    "name": "open-route-config",
+    "description": "Continue AI + OpenRouter config for Cursor-level autonomous coding",
+    "category": "ai-ml",
+    "tags": [
+      "Python"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/open-route-config",
+    "homepage": "",
+    "language": "Python",
+    "featured": false,
+    "pinned": false,
+    "updated_at": "2026-06-16T09:09:32Z"
+  },
+  {
+    "id": "Personal-Library-Management-System",
+    "name": "Personal-Library-Management-System",
+    "description": "Personal Library Management System built with Django and SQLite. CRUD, borrowing/returning, search, and reporting dashboards.",
+    "category": "fullstack",
+    "tags": [
+      "admin",
+      "bootstrap",
+      "crud",
+      "django",
+      "docker",
+      "inventory",
+      "library-management-system",
+      "python",
+      "reporting",
+      "sqlite"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Personal-Library-Management-System",
+    "homepage": "",
+    "language": "Python",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:20Z"
+  },
+  {
+    "id": "Portfolio",
+    "name": "Portfolio",
+    "description": "A portfolio for MTAB Development",
+    "category": "fullstack",
+    "tags": [
+      "HTML"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Portfolio",
+    "homepage": "",
+    "language": "HTML",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:42Z"
+  },
+  {
+    "id": "Python-Graphics",
+    "name": "Python-Graphics",
+    "description": "Some Graphics with Python and some line formation and angle formation to write a word.",
+    "category": "fullstack",
+    "tags": [
+      "Web"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Python-Graphics",
+    "homepage": "",
+    "language": "Code",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:48Z"
+  },
+  {
+    "id": "ResumeScreener-AI",
+    "name": "ResumeScreener-AI",
+    "description": "AI-powered resume screening system using NLP for intelligent candidate ranking and skill gap analysis",
+    "category": "ai-ml",
+    "tags": [
+      "machine-learning",
+      "nlp-machine-learning",
+      "python",
+      "resume-screening",
+      "spacy",
+      "streamlit"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/ResumeScreener-AI",
+    "homepage": "",
+    "language": "Python",
+    "featured": false,
+    "pinned": false,
+    "updated_at": "2026-05-14T18:32:45Z"
+  },
+  {
+    "id": "School-Website",
+    "name": "School-Website",
+    "description": "A school Website for Saint Daniel Comboni School, Hawassa. It is a semi-finished website with the remaining part of the events page to provide the actual information. ",
+    "category": "ai-ml",
+    "tags": [
+      "JavaScript"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/School-Website",
+    "homepage": "",
+    "language": "JavaScript",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:35Z"
+  },
+  {
+    "id": "SocialVision-Facial-Recognition-Search",
+    "name": "SocialVision-Facial-Recognition-Search",
+    "description": "An intelligent social facial recognition system for real-time identity detection and verification, featuring automatic dataset enrichment, self-training pipelines, and adaptive learning using deep learning and computer vision.",
+    "category": "ai-ml",
+    "tags": [
+      "adaptive-learning",
+      "ai",
+      "computer-vision-opencv",
+      "dataset-automation",
+      "deep-learning",
+      "face-detection",
+      "face-recognition-system",
+      "facial-recognition-",
+      "identity-verification",
+      "machine-learning",
+      "opencv-python",
+      "python",
+      "real-time",
+      "self-training"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/SocialVision-Facial-Recognition-Search",
+    "homepage": "",
+    "language": "Python",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:27Z"
+  },
+  {
+    "id": "Statistics-Console-App",
+    "name": "Statistics-Console-App",
+    "description": "A Java console application that calculates statistical measures (Mean, Median, Mode) using Object-Oriented Programming concepts",
+    "category": "fullstack",
+    "tags": [
+      "java",
+      "mean",
+      "median",
+      "mode",
+      "statistics"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Statistics-Console-App",
+    "homepage": "",
+    "language": "Java",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:31Z"
+  },
+  {
+    "id": "storygen-learning",
+    "name": "storygen-learning",
+    "description": "Project by Mihretab Nigatu (MTAB Development)",
+    "category": "fullstack",
+    "tags": [
+      "Python"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/storygen-learning",
+    "homepage": "",
+    "language": "Python",
+    "featured": false,
+    "pinned": false,
+    "updated_at": "2026-04-22T11:19:52Z"
+  },
+  {
+    "id": "trello-dev-loop",
+    "name": "trello-dev-loop",
+    "description": "Trello Dev Loop: Human-in-the-loop AI dev workflow from tickets to GitHub PRs across Claude Code, Cursor, Windsurf & Copilot.",
+    "category": "ai-ml",
+    "tags": [
+      "agensi",
+      "ai-agent",
+      "ai-agents",
+      "claude-code",
+      "copilot",
+      "cursor",
+      "dev-loop",
+      "developer-tools",
+      "git-workflow",
+      "github",
+      "mcp",
+      "model-context-protocol",
+      "productivity",
+      "trello",
+      "windsurf"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/trello-dev-loop",
+    "homepage": "https://www.agensi.io",
+    "language": "JavaScript",
+    "featured": true,
+    "pinned": true,
+    "updated_at": "2026-10-20T09:40:35Z"
+  },
+  {
+    "id": "Voice-Assistant",
+    "name": "Voice-Assistant",
+    "description": "Voice Assistant: Miehab, your AI-powered companion! Features include speech recognition, text-to-speech, GPT-Neo text generation, Wikipedia summaries, and real-time weather updates via OpenWeather API. Built with Python, it combines natural interaction with smart assistance for productivity and learning.",
+    "category": "ai-ml",
+    "tags": [
+      "Python"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Voice-Assistant",
+    "homepage": "",
+    "language": "Python",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-04-04T14:28:48Z"
+  },
+  {
+    "id": "wallet-app-test-task",
+    "name": "wallet-app-test-task",
+    "description": "Project by Mihretab Nigatu (MTAB Development)",
+    "category": "fullstack",
+    "tags": [
+      "TypeScript"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/wallet-app-test-task",
+    "homepage": "",
+    "language": "TypeScript",
+    "featured": false,
+    "pinned": false,
+    "updated_at": "2026-03-31T20:48:53Z"
+  },
+  {
+    "id": "Web-Chat-App-UI",
+    "name": "Web-Chat-App-UI",
+    "description": "Project by Mihretab Nigatu (MTAB Development)",
+    "category": "fullstack",
+    "tags": [
+      "HTML"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/Web-Chat-App-UI",
+    "homepage": "",
+    "language": "HTML",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:40Z"
+  },
+  {
+    "id": "wikipedia-Based-Voice-Assistant",
+    "name": "wikipedia-Based-Voice-Assistant",
+    "description": "Wikipedia-based Voice Assistant for Everyday Information Retrieva.",
+    "category": "fullstack",
+    "tags": [
+      "Python"
+    ],
+    "html_url": "https://github.com/Mih-Nig-Afe/wikipedia-Based-Voice-Assistant",
+    "homepage": "",
+    "language": "Python",
+    "featured": true,
+    "pinned": false,
+    "updated_at": "2026-02-19T14:23:38Z"
+  }
+]

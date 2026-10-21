@@ -1,0 +1,28 @@
+{
+  "name": "Mihretab Nigatu",
+  "preferredName": "Mihretab",
+  "brand": "MTAB Development",
+  "headline": "Systems Futurist · Web Specialist · Full Stack Developer & AI Engineer",
+  "location": "Addis Ababa & Hawassa, Ethiopia",
+  "status": "Available for Worldwide Remote Work",
+  "avatar": "assets/images/logo.jpg",
+  "portrait": "assets/images/About-page/me.jpg",
+  "resumeUrl": "assets/docs/Resume.pdf",
+  "typewriter_words": [
+    "Autonomous ML Agents",
+    "Telegram Bot Orchestration",
+    "AI/Automation Pipelines",
+    "Edge & IoT Meshes",
+    "UI/UX Systems",
+    "Web Specialist",
+    "Mission-Grade Software"
+  ],
+  "socials": {
+    "github": "https://github.com/Mih-Nig-Afe",
+    "linkedin": "https://www.linkedin.com/in/mih-nig-afe/",
+    "instagram": "https://www.instagram.com/mih_nig_afe/",
+    "email": "mtabdevt@gmail.com"
+  },
+  "bio": "Systems Futurist, Web Specialist, and Full-Stack & AI Engineer. Architecting autonomous ML agents, scalable Telegram bot ecosystems, and modern web platforms from Addis Ababa & Hawassa, Ethiopia.",
+  "aboutNarrative": "I am Mihretab Nigatu—a Systems Futurist and Full Stack Developer & AI Engineer passionate about building intelligent, scalable digital ecosystems. I architect autonomous AI agents and ML-powered solutions that automate complex workflows, design high-throughput Telegram bot ecosystems, and craft pixel-perfect, accessible web platforms."
+}

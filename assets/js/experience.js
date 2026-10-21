@@ -14,9 +14,22 @@ const exp = [
 
 ];
 
-const showCards2 = () => {
+const showCards2 = async () => {
+  let workList = exp;
+  try {
+    const res = await fetch("assets/data/experience.json");
+    if (res.ok) {
+      const data = await res.json();
+      if (data && Array.isArray(data.work) && data.work.length > 0) {
+        workList = data.work;
+      }
+    }
+  } catch (err) {
+    // Graceful offline fallback
+  }
+
   let output = "";
-  exp.forEach(
+  workList.forEach(
     ({ title, cardImage, place, time, desp }) =>
     (output += `        
     <div class="col gaap" data-aos="fade-up" data-aos-easing="linear" data-aos-delay="100" data-aos-duration="400"> 
@@ -45,7 +58,7 @@ const showCards2 = () => {
     </div>
       `)
   );
-  experiencecards.innerHTML = output;
+  if (experiencecards) experiencecards.innerHTML = output;
 };
 document.addEventListener("DOMContentLoaded", showCards2);
 
@@ -80,14 +93,27 @@ const volunteershipcards = [
   },
 ];
 
-const showCards = () => {
+const showCards = async () => {
+  let certList = volunteershipcards;
+  try {
+    const res = await fetch("assets/data/experience.json");
+    if (res.ok) {
+      const data = await res.json();
+      if (data && Array.isArray(data.accreditations) && data.accreditations.length > 0) {
+        certList = data.accreditations;
+      }
+    }
+  } catch (err) {
+    // Graceful offline fallback
+  }
+
   let output = "";
-  volunteershipcards.forEach(
+  certList.forEach(
     ({ title, cardImage, description }) =>
     (output += `        
       <div class="card volunteerCard" data-aos="fade-down" data-aos-easing="linear" data-aos-delay="100" data-aos-duration="600" style="max-width: 400px; width: 100%; min-height: 500px; cursor: pointer;" onclick="showModal('${cardImage}')">
       
-      <img src="${cardImage}" height="250" width="65" class="card-img" style="border-radius:10px">
+      <img src="${cardImage}" height="250" width="65" class="card-img" style="border-radius:10px" alt="${title}" loading="lazy">
       <div class="content">
           <h2 class="volunteerTitle">${title}</h2><br>
           <p class="copy">${description}</p></div>
@@ -95,7 +121,7 @@ const showCards = () => {
       </div>
       `)
   );
-  volunteership.innerHTML = output;
+  if (volunteership) volunteership.innerHTML = output;
 };
 document.addEventListener("DOMContentLoaded", showCards);
 
