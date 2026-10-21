@@ -332,7 +332,7 @@ const AdminApp = {
     this.initGoogleIdentity();
   },
 
-  showDeckView() {
+  async showDeckView() {
     document.getElementById("lock-screen").style.display = "none";
     document.getElementById("google-auth-screen").style.display = "none";
     document.getElementById("deck-view").style.display = "block";
@@ -342,7 +342,7 @@ const AdminApp = {
       statusText.textContent = this.cms.hasToken() ? "Connected (@Mih-Nig-Afe)" : "Local Storage Mode (Token Optional)";
     }
 
-    this.loadAllData();
+    await this.loadAllData();
     this.renderCurrentTab();
   },
 
@@ -692,6 +692,7 @@ const AdminApp = {
       this.data.experience = expRes;
 
       this.checkResumeStatus();
+      this.renderCurrentTab();
     } catch (err) {
       this.showToast("Loaded local datasets with fallback.", "info");
     }
@@ -1616,6 +1617,11 @@ const AdminApp = {
     });
   }
 };
+
+if (typeof window !== "undefined") {
+  window.AdminApp = AdminApp;
+  window.CryptoVault = CryptoVault;
+}
 
 // Bootstrap Admin Deck on DOM ready
 document.addEventListener("DOMContentLoaded", () => {
