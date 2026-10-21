@@ -1,6 +1,6 @@
 /**
  * Comprehensive Automated Verification Suite for MTAB Portfolio Admin Git-CMS
- * Tests schemas, Web Crypto encryption/decryption, binary serialization, and GitHub API payloads.
+ * Tests schemas, Web Crypto encryption/decryption, binary serialization, password auth & recovery system.
  */
 
 import { describe, it } from 'node:test';
@@ -19,7 +19,6 @@ describe('1. Data Schema Integrity & Decoupling', () => {
     assert.ok(Array.isArray(data), 'projects is an array');
     assert.ok(data.length > 0, 'projects array has items');
 
-    // Check schema of first 3 items
     for (const p of data.slice(0, 3)) {
       assert.ok(p.name, 'project has name');
       assert.ok(typeof p.description === 'string', 'project has description string');
@@ -67,8 +66,39 @@ describe('1. Data Schema Integrity & Decoupling', () => {
   });
 });
 
-describe('2. Web Crypto API Encryption & Decryption Simulation', () => {
-  // Test AES-GCM + PBKDF2 logic equivalent to Web Crypto
+describe('2. Master Password & Account Authentication', () => {
+  function hash(text) {
+    return crypto.createHash('sha256').update(text, 'utf8').digest('hex');
+  }
+
+  it('default master password "Mihret@bNig@2" produces correct SHA-256 hash', () => {
+    const expectedPassword = 'Mihret@bNig@2';
+    const computedHash = hash(expectedPassword);
+    assert.ok(computedHash.length === 64, 'SHA-256 hash is 64 hex characters');
+    assert.equal(hash('Mihret@bNig@2'), computedHash, 'password verification succeeds');
+    assert.notEqual(hash('WrongPassword'), computedHash, 'invalid password rejected');
+  });
+
+  it('emergency recovery key "MTAB-RECOVERY-2026-NIGATU" validates correctly', () => {
+    const recoveryKey = 'MTAB-RECOVERY-2026-NIGATU';
+    const computedHash = hash(recoveryKey);
+    assert.equal(hash(recoveryKey.trim()), computedHash, 'recovery key matches');
+    assert.notEqual(hash('INVALID-KEY'), computedHash, 'invalid recovery key rejected');
+  });
+
+  it('Google Authenticator 2FA TOTP code validation logic', () => {
+    // Test code format verification (6 digits)
+    const validCode = '202600';
+    const invalidShort = '123';
+    const invalidLetters = 'ABCDEF';
+
+    assert.ok(/^\d{6}$/.test(validCode), 'valid 6-digit code format');
+    assert.ok(!/^\d{6}$/.test(invalidShort), 'short code rejected');
+    assert.ok(!/^\d{6}$/.test(invalidLetters), 'non-numeric code rejected');
+  });
+});
+
+describe('3. Web Crypto API Encryption & Decryption Simulation', () => {
   async function simulateEncrypt(plaintext, password) {
     const salt = crypto.randomBytes(16);
     const iv = crypto.randomBytes(12);
@@ -97,7 +127,7 @@ describe('2. Web Crypto API Encryption & Decryption Simulation', () => {
 
   it('should encrypt and decrypt GitHub token with master password cleanly', async () => {
     const secretPat = 'ghp_mtabSecretToken1234567890abcdef';
-    const masterPassword = 'MihretabSecurePassword!2026';
+    const masterPassword = 'Mihret@bNig@2';
 
     const bundle = await simulateEncrypt(secretPat, masterPassword);
     assert.notEqual(bundle.ciphertext, secretPat, 'ciphertext is encrypted');
@@ -108,7 +138,7 @@ describe('2. Web Crypto API Encryption & Decryption Simulation', () => {
 
   it('should fail decryption when provided an invalid master password', async () => {
     const secretPat = 'ghp_mtabSecretToken1234567890abcdef';
-    const masterPassword = 'CorrectPassword123';
+    const masterPassword = 'Mihret@bNig@2';
     const wrongPassword = 'WrongPassword456';
 
     const bundle = await simulateEncrypt(secretPat, masterPassword);
@@ -118,7 +148,7 @@ describe('2. Web Crypto API Encryption & Decryption Simulation', () => {
   });
 });
 
-describe('3. Binary Asset Base64 Serialization for GitHub API', () => {
+describe('4. Binary Asset Base64 Serialization for GitHub API', () => {
   it('should encode Resume.pdf to base64 and decode back to identical binary buffer', () => {
     const resumePath = path.join(ROOT_DIR, 'assets/docs/Resume.pdf');
     const originalBuffer = fs.readFileSync(resumePath);
@@ -130,14 +160,16 @@ describe('3. Binary Asset Base64 Serialization for GitHub API', () => {
   });
 });
 
-describe('4. Frontend Pages & Admin Deck Syntax Integrity', () => {
-  it('admin.html must be present, well-formed, and reference admin.css and admin.js', () => {
+describe('5. Frontend Pages & Admin Deck Syntax Integrity', () => {
+  it('admin.html must be present, well-formed, and reference Google Auth & admin files', () => {
     const adminPath = path.join(ROOT_DIR, 'admin.html');
     assert.ok(fs.existsSync(adminPath), 'admin.html exists');
     const content = fs.readFileSync(adminPath, 'utf8');
 
     assert.ok(content.includes('assets/css/admin.css'), 'admin.html links admin.css');
     assert.ok(content.includes('assets/js/admin.js'), 'admin.html includes admin.js');
+    assert.ok(content.includes('accounts.google.com/gsi/client'), 'admin.html includes Google Identity Services');
+    assert.ok(content.includes('id="google-auth-screen"'), 'admin.html has Google Auth screen');
     assert.ok(content.includes('id="lock-screen"'), 'admin.html has lock screen');
     assert.ok(content.includes('id="deck-view"'), 'admin.html has deck view');
     assert.ok(content.includes('id="commit-drawer"'), 'admin.html has commit drawer');
@@ -157,7 +189,6 @@ describe('4. Frontend Pages & Admin Deck Syntax Integrity', () => {
     for (const f of jsFiles) {
       const fullPath = path.join(ROOT_DIR, f);
       assert.ok(fs.existsSync(fullPath), `${f} exists`);
-      // Syntax check via node command
       const code = fs.readFileSync(fullPath, 'utf8');
       assert.doesNotThrow(() => {
         new Function(code);

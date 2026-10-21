@@ -517,3 +517,119 @@ body.admin-body {
     opacity: 1;
   }
 }
+
+/* Google Authentication & Reset System Styles */
+.btn-google {
+  background: #ffffff;
+  color: #1f2937;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 11px 20px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.btn-google:hover {
+  background: #f9fafb;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transform: translateY(-1px);
+  color: #111827;
+}
+
+.btn-google-dark {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 1px solid var(--admin-glass-border);
+  border-radius: 12px;
+  padding: 11px 20px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.btn-google-dark:hover {
+  background: rgba(66, 133, 244, 0.2);
+  border-color: #4285f4;
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(66, 133, 244, 0.4);
+}
+
+.auth-step-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(66, 133, 244, 0.18);
+  border: 1px solid rgba(66, 133, 244, 0.4);
+  color: #8ab4f8;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.google-avatar-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--admin-glass-border);
+  border-radius: 999px;
+  padding: 6px 16px;
+  margin-bottom: 18px;
+}
+
+.google-avatar-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #4285f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.totp-input {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.6rem;
+  letter-spacing: 8px;
+  text-align: center;
+  padding: 10px;
+  background: rgba(10, 13, 26, 0.85);
+  border: 1px solid var(--admin-accent);
+  color: #03dac6;
+  border-radius: 12px;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.recovery-key-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px dashed var(--admin-cyan);
+  padding: 12px;
+  border-radius: 10px;
+  font-family: monospace;
+  color: #03dac6;
+  font-size: 0.95rem;
+  text-align: center;
+  letter-spacing: 1.5px;
+  word-break: break-all;
+  user-select: all;
+}

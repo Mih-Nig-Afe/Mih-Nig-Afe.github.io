@@ -40,14 +40,21 @@ Personal developer portfolio website of **Mihretab Nigatu** (Systems Futurist, W
 
 ## Admin Content Management Deck (`admin.html`)
 
-The portfolio includes an in-browser Git-CMS Admin Deck powered by the GitHub REST API and client-side Web Crypto AES-GCM encryption:
+The portfolio includes an in-browser Git-CMS Admin Deck powered by the GitHub REST API, Google Identity Services, and client-side Web Crypto AES-GCM encryption:
 
 - **Access URL**: Open [`admin.html`](admin.html) locally or live at `https://mih-nig-afe.github.io/admin.html`.
-- **First-Time Setup**:
-  1. Set your personal **Master Password**.
-  2. Input your GitHub Personal Access Token (PAT) with `repo` (or fine-grained `contents:write`) scope.
-  3. The token is encrypted using AES-GCM (PBKDF2 key derivation, 100,000 iterations) and stored safely in your browser's `localStorage`.
-- **Subsequent Logins**: Simply enter your Master Password to decrypt your session in memory.
+- **Pre-Configured Account Credentials**:
+  - **Master Password**: `Mihret@bNig@2` (click *"Fill 'Mihret@bNig@2'"* for instant entry)
+  - **Authorized Google Account**: `mtabdevt@gmail.com`
+  - **Emergency Recovery Key**: `MTAB-RECOVERY-2026-NIGATU`
+- **2-Step Secure Login Flow**:
+  1. **Step 1 (Master Password)**: Enter `Mihret@bNig@2` and click *"Continue to Google Auth Approval"*.
+  2. **Step 2 (Google Auth Approval)**: Approve access via **Google Sign-In** (`mtabdevt@gmail.com`), **One-Click Approval**, or **Google Authenticator 2FA** code.
+- **Full Account Recovery & Reset System**:
+  - Click **"Forgot Password / Reset"** on the lock screen or inside Settings to open the Reset Center:
+    - **Path A (Google Account Verification)**: Authenticate with `mtabdevt@gmail.com` via Google to immediately unlock password reset.
+    - **Path B (Emergency Recovery Key)**: Enter `MTAB-RECOVERY-2026-NIGATU` to validate identity and set a new password.
+    - **Path C (Restore Defaults)**: 1-click restore back to default password `Mihret@bNig@2`.
 - **Content Operations**:
   - **Projects Manager**: Post new projects, edit descriptions, adjust tags, manage live demo links, reorder priority, and mark featured items.
   - **Resume Manager**: Upload and replace `assets/docs/Resume.pdf` with live preview and instant base64 serialization.

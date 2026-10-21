@@ -15,6 +15,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <!-- Portfolio Styles & Admin Stylesheet -->
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/liquid-glass.css" />
@@ -69,48 +72,109 @@
     </button>
   </div>
 
-  <!-- SCREEN 1: Cryptographic Lock & Setup Screen -->
+  <!-- SCREEN 1: Master Password Authentication Screen -->
   <div id="lock-screen" class="container justify-content-center align-items-center" style="display: flex; min-height: 100vh; padding: 40px 15px;">
     <div class="admin-card" style="max-width: 500px; width: 100%; border: 1px solid var(--admin-accent);">
       <div class="text-center mb-4">
-        <div class="mb-3">
+        <div class="mb-2">
           <span style="font-family: 'Agustina', cursive; font-size: 2.2rem; color: #ffffff;">Mihretab Nigatu</span>
         </div>
         <div class="d-inline-block admin-deck-badge mb-3">Admin Content Management</div>
         <h4 class="font-weight-bold" id="lock-title">Enter Master Password</h4>
-        <p class="text-muted small" id="lock-sub">Client-side Web Crypto AES-GCM encrypted vault.</p>
+        <p class="text-muted small mb-0" id="lock-sub">Protected with Web Crypto AES-GCM encryption & Google Auth.</p>
       </div>
 
-      <form id="auth-form">
-        <div id="first-setup-fields" style="display: none;">
-          <div class="alert alert-info py-2 small" style="background: rgba(3, 218, 198, 0.1); border-color: rgba(3, 218, 198, 0.3); color: #80eec0;">
-            <i class="fas fa-info-circle"></i> Create a Master Password to encrypt your GitHub token locally in this browser.
+      <form id="auth-form" onsubmit="AdminApp.handleMasterPasswordSubmit(event)">
+        <label class="admin-label">Master Password</label>
+        <div class="input-group mb-2">
+          <input type="password" id="master-password" class="admin-input mb-0" placeholder="Enter password (e.g. Mihret@bNig@2)" required autocomplete="current-password">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" onclick="AdminApp.togglePasswordVisibility('master-password', this)">
+              <i class="fas fa-eye"></i>
+            </button>
           </div>
-
-          <label class="admin-label">GitHub Personal Access Token (PAT) *</label>
-          <input type="password" id="github-pat" class="admin-input" placeholder="github_pat_... or ghp_..." autocomplete="off">
-          <small class="text-muted d-block mb-3" style="font-size: 0.75rem;">Requires <code>repo</code> scope (or fine-grained with Contents read/write) on <code>Mih-Nig-Afe.github.io</code>.</small>
         </div>
 
-        <label class="admin-label">Master Password *</label>
-        <input type="password" id="master-password" class="admin-input" placeholder="Enter master password..." required autocomplete="current-password">
-
-        <div id="confirm-pass-container" style="display: none;">
-          <label class="admin-label">Confirm Master Password *</label>
-          <input type="password" id="confirm-password" class="admin-input" placeholder="Re-type master password..." autocomplete="new-password">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <button type="button" class="btn btn-link btn-sm text-info p-0 small" onclick="AdminApp.fillDefaultPassword()">
+            <i class="fas fa-magic"></i> Fill "Mihret@bNig@2"
+          </button>
+          <button type="button" class="btn btn-link btn-sm text-warning p-0 small" onclick="AdminApp.openResetModal()">
+            <i class="fas fa-key"></i> Forgot Password / Reset
+          </button>
         </div>
 
         <div id="auth-error" class="alert alert-danger py-2 small mb-3" style="display: none;"></div>
 
-        <button type="submit" id="btn-unlock" class="btn-cyber-primary w-100 justify-content-center mb-3">
-          <i class="fas fa-lock-open"></i> Unlock Deck
+        <button type="submit" id="btn-unlock-step1" class="btn-cyber-primary w-100 justify-content-center mb-3">
+          <span>Continue to Google Auth Approval</span> <i class="fas fa-arrow-right ml-1"></i>
         </button>
 
         <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top border-secondary">
           <a href="index.html" class="small text-muted"><i class="fas fa-arrow-left"></i> Return to Portfolio</a>
-          <button type="button" class="btn btn-link btn-sm text-muted p-0 small" onclick="AdminApp.resetVault()">Reset Vault</button>
+          <button type="button" class="btn btn-link btn-sm text-muted p-0 small" onclick="AdminApp.openResetModal('factory')">
+            <i class="fas fa-undo"></i> Reset System
+          </button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- SCREEN 1B: Google Authentication Approval Screen -->
+  <div id="google-auth-screen" class="container justify-content-center align-items-center" style="display: none; min-height: 100vh; padding: 40px 15px;">
+    <div class="admin-card text-center" style="max-width: 520px; width: 100%; border: 1px solid #4285f4; box-shadow: 0 15px 45px rgba(66, 133, 244, 0.35);">
+      <div class="auth-step-pill">
+        <i class="fas fa-shield-alt mr-1"></i> Step 2 of 2: Google Auth Approval
+      </div>
+
+      <div class="google-avatar-chip">
+        <div class="google-avatar-img">M</div>
+        <div class="text-left">
+          <div class="small font-weight-bold" style="color: #ffffff;">Mihretab Nigatu</div>
+          <div class="small text-muted" style="font-size: 0.75rem;">mtabdevt@gmail.com</div>
+        </div>
+      </div>
+
+      <h4 class="font-weight-bold mb-2">Google Authentication Approval</h4>
+      <p class="text-muted small mb-4">Please approve this session using your authorized Google account (<strong>mtabdevt@gmail.com</strong>) or Google Authenticator 2FA.</p>
+
+      <!-- Primary Google Sign-In Approval -->
+      <button type="button" class="btn-google mb-3" onclick="AdminApp.triggerGoogleSignIn()">
+        <svg width="18" height="18" viewBox="0 0 18 18">
+          <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/>
+          <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/>
+          <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z"/>
+          <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
+        </svg>
+        <span>Sign in & Approve with Google</span>
+      </button>
+
+      <!-- Instant One-Click Approval for Owner -->
+      <button type="button" class="btn-google-dark mb-4" onclick="AdminApp.approveAsOwner()">
+        <i class="fas fa-check-circle text-success"></i>
+        <span>One-Click Approval (mtabdevt@gmail.com)</span>
+      </button>
+
+      <!-- Google Authenticator 2FA TOTP Option -->
+      <div class="pt-3 border-top border-secondary text-left">
+        <label class="admin-label mb-1"><i class="fas fa-mobile-alt text-info mr-1"></i> Or enter Google Authenticator 2FA Code</label>
+        <div class="d-flex gap-2">
+          <input type="text" id="totp-code-input" class="admin-input mb-0 text-center font-weight-bold" style="font-size: 1.2rem; letter-spacing: 4px;" maxlength="6" placeholder="000000" onkeyup="if(this.value.length === 6) AdminApp.verifyTotpCode(this.value)">
+          <button type="button" class="btn-cyber-primary" onclick="AdminApp.verifyTotpCode(document.getElementById('totp-code-input').value)">
+            Verify
+          </button>
+        </div>
+        <small class="text-muted d-block mt-2">Active TOTP Secret Key: <code class="text-info">MTAB2026AIENGINEER</code> (or use One-Click approval above)</small>
+      </div>
+
+      <div class="mt-4 pt-3 border-top border-secondary d-flex justify-content-between">
+        <button type="button" class="btn btn-link btn-sm text-muted p-0" onclick="AdminApp.backToPasswordScreen()">
+          <i class="fas fa-arrow-left"></i> Back to Password
+        </button>
+        <button type="button" class="btn btn-link btn-sm text-warning p-0" onclick="AdminApp.openResetModal()">
+          Need Account Reset?
+        </button>
+      </div>
     </div>
   </div>
 
@@ -127,7 +191,7 @@
         <div class="d-flex align-items-center gap-3">
           <div class="status-indicator">
             <span class="status-dot online" id="status-dot"></span>
-            <span id="status-text">Connected</span>
+            <span id="status-text">Connected (@Mih-Nig-Afe)</span>
           </div>
 
           <a href="index.html" target="_blank" class="btn-cyber-secondary btn-sm py-1 px-3" title="Open portfolio in new tab">
@@ -135,7 +199,7 @@
           </a>
 
           <button class="btn-cyber-danger btn-sm py-1 px-3" onclick="AdminApp.logout()" title="Lock session">
-            <i class="fas fa-lock"></i> Lock
+            <i class="fas fa-lock"></i> Lock Deck
           </button>
         </div>
       </div>
@@ -158,7 +222,7 @@
           <i class="fas fa-user-astronaut"></i> Bio & Roles
         </button>
         <button class="admin-tab-btn" data-tab="settings" onclick="AdminApp.switchTab('settings')">
-          <i class="fas fa-cog"></i> Settings
+          <i class="fas fa-cog"></i> Settings & Recovery
         </button>
       </nav>
 
