@@ -767,3 +767,128 @@ body.admin-body {
   from { transform: translateX(60px); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
 }
+
+/* ==========================================================================
+   Side-by-Side Dual-Viewport Resume Comparison Studio
+   ========================================================================== */
+
+.resume-studio-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.resume-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 991px) {
+  .resume-compare-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pdf-viewer-bezel {
+  background: var(--admin-surface-1);
+  border: 1px solid var(--admin-border-subtle);
+  border-radius: var(--admin-radius-inner);
+  overflow: hidden;
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.25s var(--admin-ease-spring), box-shadow 0.25s var(--admin-ease-spring);
+}
+
+.pdf-viewer-bezel:hover {
+  border-color: rgba(0, 242, 254, 0.28);
+}
+
+.pdf-viewer-bezel.active-candidate {
+  border-color: rgba(16, 185, 129, 0.45);
+  box-shadow: 0 18px 45px -10px rgba(16, 185, 129, 0.25), inset 0 1px 0 rgba(16, 185, 129, 0.2);
+}
+
+.pdf-viewer-header {
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--admin-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.window-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.window-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.window-dot.red { background: #ef4444; }
+.window-dot.yellow { background: #f59e0b; }
+.window-dot.green { background: #10b981; }
+
+.pdf-viewport {
+  height: 580px;
+  width: 100%;
+  position: relative;
+  background: #0d111b;
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-viewport iframe,
+.pdf-viewport embed,
+.pdf-viewport object {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.pdf-viewer-footer {
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid var(--admin-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.upload-dropzone-viewport {
+  height: 580px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
+  border: 2px dashed rgba(255, 255, 255, 0.12);
+  border-radius: var(--admin-radius-inner);
+  background: rgba(255, 255, 255, 0.015);
+  cursor: pointer;
+  transition: all 0.25s var(--admin-ease-spring);
+}
+
+.upload-dropzone-viewport:hover,
+.upload-dropzone-viewport.dragover {
+  border-color: var(--admin-cyan);
+  background: rgba(0, 242, 254, 0.04);
+  transform: scale(0.995);
+}

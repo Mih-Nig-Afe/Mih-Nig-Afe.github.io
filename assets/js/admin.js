@@ -1123,38 +1123,200 @@ const AdminApp = {
     this.showToast(`Saved project: ${name}`, "success");
   },
 
-  /* --- Resume Tab --- */
+  /* --- Resume Tab: Side-by-Side Dual-Viewport Inspection Studio --- */
+  selectedResumeFile: null,
+  candidateResumeUrl: null,
+  currentResumeSizeBytes: null,
+  currentResumeLastMod: null,
+
+  async checkResumeStatus() {
+    try {
+      const res = await fetch("assets/docs/Resume.pdf", { method: "HEAD" });
+      if (res.ok) {
+        const sizeBytes = res.headers.get("Content-Length");
+        const lastMod = res.headers.get("Last-Modified");
+        this.currentResumeSizeBytes = sizeBytes ? parseInt(sizeBytes) : null;
+        this.currentResumeLastMod = lastMod;
+
+        const resumeInfoEl = document.getElementById("resume-info");
+        if (resumeInfoEl) {
+          const formattedSize = this.currentResumeSizeBytes ? (this.currentResumeSizeBytes / 1024).toFixed(1) + " KB" : "Available";
+          const formattedDate = lastMod ? new Date(lastMod).toLocaleDateString() : "Active";
+          resumeInfoEl.innerHTML = `<strong>Production File:</strong> <code>assets/docs/Resume.pdf</code> &bull; <strong>Size:</strong> ${formattedSize} &bull; <strong>Modified:</strong> ${formattedDate}`;
+        }
+
+        const telemetryStatus = document.getElementById("telemetry-resume-status");
+        if (telemetryStatus && this.currentResumeSizeBytes) {
+          telemetryStatus.textContent = `${(this.currentResumeSizeBytes / 1024).toFixed(0)} KB`;
+        }
+      }
+    } catch (e) {
+      // Offline fallback
+    }
+  },
+
   renderResumeTab(container) {
+    const hasCandidate = !!(this.selectedResumeFile && this.candidateResumeUrl);
+    const currentSizeKB = this.currentResumeSizeBytes ? (this.currentResumeSizeBytes / 1024).toFixed(1) : "142.3";
+    const candidateSizeKB = hasCandidate ? (this.selectedResumeFile.size / 1024).toFixed(1) : null;
+
+    let deltaText = "";
+    if (hasCandidate && this.currentResumeSizeBytes) {
+      const diffKB = (this.selectedResumeFile.size - this.currentResumeSizeBytes) / 1024;
+      const sign = diffKB > 0 ? "+" : "";
+      const deltaColor = diffKB > 0 ? "text-warning" : "text-success";
+      deltaText = `<span class="${deltaColor}">(${sign}${diffKB.toFixed(1)} KB)</span>`;
+    }
+
+    const isStaged = this.stagedChanges.has("assets/docs/Resume.pdf");
+
     container.innerHTML = `
       <div class="admin-card">
-        <h3 class="font-weight-bold mb-1">Resume Management</h3>
-        <p class="text-muted small mb-4">Directly replace and publish your official PDF resume across the entire portfolio.</p>
+        <!-- Top Toolbar -->
+        <div class="resume-studio-topbar">
+          <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <span class="badge badge-pill" style="background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--admin-cyan); font-family: var(--admin-font-mono); font-size: 0.72rem;">DUAL-VIEWPORT DIFF STUDIO</span>
+              <span class="small text-muted">&bull; Side-by-Side Visual Inspection</span>
+            </div>
+            <h3 class="font-weight-bold mb-1">Resume Verification & Comparator</h3>
+            <p class="text-muted small mb-0">Preview your newly uploaded resume alongside current production before committing to GitHub.</p>
+          </div>
 
-        <div id="resume-info" class="p-3 mb-4 rounded" style="background: rgba(255,255,255,0.05); border: 1px solid var(--admin-glass-border);">
-          Loading resume status...
+          <div class="d-flex align-items-center gap-2">
+            <input type="file" id="resume-file-input" accept="application/pdf" style="display:none" onchange="AdminApp.handleResumeSelect(this.files[0])">
+            <button class="btn-cyber-primary" onclick="document.getElementById('resume-file-input').click()">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <span>${hasCandidate ? 'Upload Different Version' : 'Upload Candidate Resume (PDF)'}</span>
+            </button>
+            ${hasCandidate && !isStaged ? `
+              <button class="btn-cyber-secondary" onclick="AdminApp.stageResumeFile()">
+                <i class="fas fa-check-circle text-success"></i>
+                <span>Stage Candidate</span>
+              </button>
+            ` : ''}
+          </div>
         </div>
 
-        <div class="row">
-          <div class="col-lg-6 mb-4">
-            <div class="upload-dropzone" id="resume-dropzone" onclick="document.getElementById('resume-file-input').click()">
-              <input type="file" id="resume-file-input" accept="application/pdf" style="display:none" onchange="AdminApp.handleResumeSelect(this.files[0])">
-              <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: var(--admin-accent);"></i>
-              <h5 class="font-weight-bold">Upload New Resume (PDF)</h5>
-              <p class="text-muted small">Click or drag & drop replacement PDF file here (max 15MB)</p>
-              <div id="selected-resume-label" class="mt-2 text-info font-weight-bold small"></div>
+        <div id="resume-info" class="p-3 mb-4 rounded" style="background: rgba(255,255,255,0.03); border: 1px solid var(--admin-border-subtle); font-size: 0.85rem;">
+          <strong>Production File:</strong> <code>assets/docs/Resume.pdf</code> &bull; <strong>Size:</strong> ${currentSizeKB} KB &bull; <strong>Status:</strong> Live on Portfolio
+        </div>
+
+        <!-- Side-by-Side Comparison Grid -->
+        <div class="resume-compare-grid">
+          <!-- Pane 1: Current Live Production -->
+          <div class="pdf-viewer-bezel">
+            <div class="pdf-viewer-header">
+              <div class="d-flex align-items-center gap-2">
+                <div class="window-dots">
+                  <span class="window-dot red"></span>
+                  <span class="window-dot yellow"></span>
+                  <span class="window-dot green"></span>
+                </div>
+                <strong style="font-size: 0.88rem; color: #ffffff;">Current Live Production</strong>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge badge-pill" style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); color: #60a5fa; font-size: 0.7rem;">
+                  <i class="fas fa-globe-americas mr-1"></i> Live Site
+                </span>
+                <a href="assets/docs/Resume.pdf" target="_blank" class="btn-icon-action btn-sm" title="Open Fullscreen in New Tab">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </div>
             </div>
 
-            <div id="resume-stage-actions" class="mt-3" style="display: none;">
-              <button class="btn-cyber-primary w-100" onclick="AdminApp.stageResumeFile()">
-                <i class="fas fa-file-pdf"></i> Stage Resume for Publish
-              </button>
+            <div class="pdf-viewport">
+              <iframe id="live-resume-iframe" src="assets/docs/Resume.pdf#toolbar=0" title="Active Live Resume PDF"></iframe>
+            </div>
+
+            <div class="pdf-viewer-footer">
+              <div>
+                <i class="fas fa-file-pdf text-danger mr-1"></i>
+                <span>assets/docs/Resume.pdf</span>
+              </div>
+              <div>
+                <span>Size: <strong>${currentSizeKB} KB</strong></span>
+              </div>
             </div>
           </div>
 
-          <div class="col-lg-6">
-            <h5 class="font-weight-bold mb-3"><i class="fas fa-eye"></i> Active Resume Viewer</h5>
-            <div style="width: 100%; height: 420px; border-radius: 12px; overflow: hidden; border: 1px solid var(--admin-glass-border);">
-              <iframe src="assets/docs/Resume.pdf" style="width: 100%; height: 100%; border: none;"></iframe>
+          <!-- Pane 2: Candidate Uploaded Draft -->
+          <div class="pdf-viewer-bezel ${hasCandidate ? 'active-candidate' : ''}">
+            <div class="pdf-viewer-header">
+              <div class="d-flex align-items-center gap-2">
+                <div class="window-dots">
+                  <span class="window-dot red"></span>
+                  <span class="window-dot yellow"></span>
+                  <span class="window-dot green"></span>
+                </div>
+                <strong style="font-size: 0.88rem; color: #ffffff;">
+                  ${hasCandidate ? this.selectedResumeFile.name : 'Candidate Version (New Draft)'}
+                </strong>
+              </div>
+
+              <div class="d-flex align-items-center gap-2">
+                ${hasCandidate ? `
+                  <span class="badge badge-pill" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; font-size: 0.7rem;">
+                    <i class="fas fa-eye mr-1"></i> Visual Preview Ready
+                  </span>
+                  <a href="${this.candidateResumeUrl}" target="_blank" class="btn-icon-action btn-sm" title="Open Preview in New Tab">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                  <button type="button" class="btn-icon-action danger btn-sm" title="Discard Draft" onclick="AdminApp.discardResumeDraft()">
+                    <i class="fas fa-times"></i>
+                  </button>
+                ` : `
+                  <span class="badge badge-pill badge-secondary" style="font-size: 0.7rem;">
+                    Awaiting Upload
+                  </span>
+                `}
+              </div>
+            </div>
+
+            <div class="pdf-viewport">
+              ${hasCandidate ? `
+                <iframe id="candidate-resume-iframe" src="${this.candidateResumeUrl}#toolbar=0" title="Uploaded Candidate Resume Preview"></iframe>
+              ` : `
+                <div class="upload-dropzone-viewport" id="candidate-resume-dropzone" onclick="document.getElementById('resume-file-input').click()">
+                  <div class="mb-3" style="width: 70px; height: 70px; border-radius: 50%; background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.25); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--admin-cyan); margin: 0 auto;">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <h5 class="font-weight-bold mb-2">Drag & Drop New Resume (PDF) Here</h5>
+                  <p class="text-muted small mb-3" style="max-width: 320px;">Or click anywhere in this container to select a replacement PDF from your computer.</p>
+                  <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded" style="background: rgba(255,255,255,0.04); font-size: 0.78rem; font-family: var(--admin-font-mono); color: var(--admin-text-muted);">
+                    <i class="fas fa-shield-alt text-info"></i> Instant side-by-side verification before commit
+                  </div>
+                </div>
+              `}
+            </div>
+
+            <div class="pdf-viewer-footer">
+              ${hasCandidate ? `
+                <div>
+                  <i class="fas fa-file-pdf text-success mr-1"></i>
+                  <span>${candidateSizeKB} KB ${deltaText}</span>
+                </div>
+                <div>
+                  ${isStaged ? `
+                    <span class="badge badge-pill" style="background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.5); color: #34d399; padding: 6px 14px; font-size: 0.78rem;">
+                      <i class="fas fa-check-circle mr-1"></i> Staged in Commit Drawer
+                    </span>
+                  ` : `
+                    <button type="button" class="btn-cyber-primary btn-sm py-1 px-3" onclick="AdminApp.stageResumeFile()">
+                      <i class="fas fa-arrow-right"></i> Stage Candidate for Publish
+                    </button>
+                  `}
+                </div>
+              ` : `
+                <div class="text-muted small">
+                  <span>No candidate file staged yet</span>
+                </div>
+                <div>
+                  <button type="button" class="btn-cyber-secondary btn-sm py-1 px-3" onclick="document.getElementById('resume-file-input').click()">
+                    <i class="fas fa-folder-open mr-1"></i> Browse Files...
+                  </button>
+                </div>
+              `}
             </div>
           </div>
         </div>
@@ -1162,10 +1324,10 @@ const AdminApp = {
     `;
 
     this.checkResumeStatus();
-    this.setupDropzone("resume-dropzone", file => this.handleResumeSelect(file));
+    if (!hasCandidate) {
+      this.setupDropzone("candidate-resume-dropzone", file => this.handleResumeSelect(file));
+    }
   },
-
-  selectedResumeFile: null,
 
   handleResumeSelect(file) {
     if (!file) return;
@@ -1173,11 +1335,42 @@ const AdminApp = {
       alert("Please select a valid PDF file.");
       return;
     }
+
+    if (this.candidateResumeUrl) {
+      try {
+        URL.revokeObjectURL(this.candidateResumeUrl);
+      } catch (e) {}
+    }
+
     this.selectedResumeFile = file;
-    const label = document.getElementById("selected-resume-label");
-    const actions = document.getElementById("resume-stage-actions");
-    if (label) label.textContent = `Selected: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
-    if (actions) actions.style.display = "block";
+    this.candidateResumeUrl = URL.createObjectURL(file);
+
+    const container = document.getElementById("tab-content-area");
+    if (container) {
+      this.renderResumeTab(container);
+    }
+    this.showToast(`✓ Candidate resume loaded: ${file.name}. Review side-by-side!`, "success");
+  },
+
+  discardResumeDraft() {
+    if (this.candidateResumeUrl) {
+      try {
+        URL.revokeObjectURL(this.candidateResumeUrl);
+      } catch (e) {}
+    }
+    this.selectedResumeFile = null;
+    this.candidateResumeUrl = null;
+
+    if (this.stagedChanges.has("assets/docs/Resume.pdf")) {
+      this.stagedChanges.delete("assets/docs/Resume.pdf");
+      this.updateStagingBar();
+    }
+
+    const container = document.getElementById("tab-content-area");
+    if (container) {
+      this.renderResumeTab(container);
+    }
+    this.showToast("Candidate draft discarded.", "info");
   },
 
   stageResumeFile() {
@@ -1191,9 +1384,11 @@ const AdminApp = {
         `Update Resume: ${this.selectedResumeFile.name} (${(this.selectedResumeFile.size / 1024).toFixed(1)} KB)`,
         true
       );
-      this.showToast("Resume staged! Click 'Review & Publish' to push to GitHub.", "success");
-      document.getElementById("selected-resume-label").textContent = `✓ Staged: ${this.selectedResumeFile.name}`;
-      document.getElementById("resume-stage-actions").style.display = "none";
+      this.showToast("✓ Candidate resume staged! Click 'Review & Publish' to push live to GitHub.", "success");
+      const container = document.getElementById("tab-content-area");
+      if (container) {
+        this.renderResumeTab(container);
+      }
     };
     reader.readAsDataURL(this.selectedResumeFile);
   },
