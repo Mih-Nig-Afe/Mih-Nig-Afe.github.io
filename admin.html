@@ -13,7 +13,10 @@
   <!-- Bootstrap 4.5.0 & FontAwesome -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- High-End Bespoke Typography: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <!-- Google Identity Services & Firebase Suite (Console /u/2/) -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -211,6 +214,49 @@
 
     <!-- Main Workspace Container -->
     <main class="container mt-4">
+      <!-- Studio Command & Live Telemetry Strip -->
+      <section class="studio-command-bar" aria-label="System Telemetry">
+        <div class="studio-stat-item">
+          <div class="studio-stat-icon text-info"><i class="fas fa-layer-group"></i></div>
+          <div>
+            <div class="studio-stat-number" id="telemetry-projects-count">29</div>
+            <div class="studio-stat-label">Showcase Projects</div>
+          </div>
+        </div>
+
+        <div class="studio-stat-item">
+          <div class="studio-stat-icon text-warning"><i class="fas fa-certificate"></i></div>
+          <div>
+            <div class="studio-stat-number" id="telemetry-certs-count">13</div>
+            <div class="studio-stat-label">MOOC Credentials</div>
+          </div>
+        </div>
+
+        <div class="studio-stat-item">
+          <div class="studio-stat-icon text-danger"><i class="fas fa-file-pdf"></i></div>
+          <div>
+            <div class="studio-stat-number" id="telemetry-resume-status">Synced</div>
+            <div class="studio-stat-label">Active Resume PDF</div>
+          </div>
+        </div>
+
+        <div class="studio-stat-item">
+          <div class="studio-stat-icon text-success"><i class="fas fa-fire"></i></div>
+          <div>
+            <div class="studio-stat-number text-success">Live (nam5)</div>
+            <div class="studio-stat-label">Cloud Firestore</div>
+          </div>
+        </div>
+
+        <div class="studio-stat-item">
+          <div class="studio-stat-icon text-primary"><i class="fas fa-code-branch"></i></div>
+          <div>
+            <div class="studio-stat-number" style="font-size: 0.85rem;">origin/main</div>
+            <div class="studio-stat-label">GitHub Target</div>
+          </div>
+        </div>
+      </section>
+
       <!-- Tab Navigation Menu -->
       <nav class="admin-tabs" aria-label="Admin Navigation Tabs">
         <button class="admin-tab-btn active" data-tab="projects" onclick="AdminApp.switchTab('projects')">

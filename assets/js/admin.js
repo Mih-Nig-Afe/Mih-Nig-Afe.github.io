@@ -691,6 +691,11 @@ const AdminApp = {
       this.data.profile = profRes;
       this.data.experience = expRes;
 
+      const pCountEl = document.getElementById("telemetry-projects-count");
+      if (pCountEl) pCountEl.textContent = projRes.length || 0;
+      const cCountEl = document.getElementById("telemetry-certs-count");
+      if (cCountEl) cCountEl.textContent = certRes.length || 0;
+
       this.checkResumeStatus();
       this.renderCurrentTab();
     } catch (err) {
@@ -752,79 +757,179 @@ const AdminApp = {
   },
 
   /* --- Projects Tab --- */
+  currentProjectCategory: 'all',
+
+  filterProjectCategory(cat) {
+    this.currentProjectCategory = cat;
+    document.querySelectorAll(".filter-pill").forEach(el => {
+      el.classList.toggle("active", el.dataset.category === cat);
+    });
+    const sInput = document.getElementById("project-search-admin");
+    this.filterProjectsList(sInput ? sInput.value : "");
+  },
+
+  resetProjectFilters() {
+    this.currentProjectCategory = 'all';
+    const sInput = document.getElementById("project-search-admin");
+    if (sInput) sInput.value = "";
+    this.renderCurrentTab();
+  },
+
   renderProjectsTab(container) {
-    const projects = this.data.projects;
+    const projects = this.data.projects || [];
+    const cat = this.currentProjectCategory || 'all';
+
+    const fullstackCount = projects.filter(p => p.category === 'fullstack').length;
+    const aimlCount = projects.filter(p => p.category === 'ai-ml').length;
+    const mobileCount = projects.filter(p => p.category === 'mobile').length;
+
     container.innerHTML = `
       <div class="admin-card">
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
           <div>
-            <h3 class="font-weight-bold mb-1">Portfolio Projects (${projects.length})</h3>
-            <p class="text-muted small mb-0">Manage featured repositories, custom case studies, tags, and demo links.</p>
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <span class="badge badge-pill" style="background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--admin-cyan); font-family: var(--admin-font-mono); font-size: 0.72rem;">PORTFOLIO SHOWCASE</span>
+              <span class="small text-muted">&bull; ${projects.length} Total Curated Works</span>
+            </div>
+            <h3 class="font-weight-bold mb-1">Projects Command Desk</h3>
+            <p class="text-muted small mb-0">Order, categorize, curate live demos, and edit descriptions appearing on your portfolio.</p>
           </div>
           <button class="btn-cyber-primary" onclick="AdminApp.openProjectModal()">
-            <i class="fas fa-plus"></i> Add New Project
+            <i class="fas fa-plus"></i>
+            <span>Add New Project</span>
           </button>
         </div>
 
-        <div class="mb-3">
-          <input type="text" id="project-search-admin" class="admin-input" placeholder="🔍 Filter projects by name, language, or tags..." oninput="AdminApp.filterProjectsList(this.value)">
+        <!-- Filter Pills & Search Cluster -->
+        <div class="row align-items-center mb-3">
+          <div class="col-lg-7 mb-2 mb-lg-0">
+            <div class="filter-pill-group mb-0">
+              <button class="filter-pill ${cat === 'all' ? 'active' : ''}" data-category="all" onclick="AdminApp.filterProjectCategory('all')">
+                All Projects (${projects.length})
+              </button>
+              <button class="filter-pill ${cat === 'fullstack' ? 'active' : ''}" data-category="fullstack" onclick="AdminApp.filterProjectCategory('fullstack')">
+                Full-Stack (${fullstackCount})
+              </button>
+              <button class="filter-pill ${cat === 'ai-ml' ? 'active' : ''}" data-category="ai-ml" onclick="AdminApp.filterProjectCategory('ai-ml')">
+                AI & ML (${aimlCount})
+              </button>
+              <button class="filter-pill ${cat === 'mobile' ? 'active' : ''}" data-category="mobile" onclick="AdminApp.filterProjectCategory('mobile')">
+                Mobile (${mobileCount})
+              </button>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="position-relative">
+              <input type="text" id="project-search-admin" class="admin-input mb-0" style="padding-left: 42px; padding-right: 50px;" placeholder="Search by title, stack, tags..." oninput="AdminApp.filterProjectsList(this.value)">
+              <i class="fas fa-search position-absolute" style="left: 16px; top: 50%; transform: translateY(-50%); color: var(--admin-text-dim);"></i>
+              <span class="position-absolute" style="right: 14px; top: 50%; transform: translateY(-50%); font-family: var(--admin-font-mono); font-size: 0.7rem; color: var(--admin-text-dim); background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px;">⌘K</span>
+            </div>
+          </div>
         </div>
 
-        <div id="projects-list-container">
-          ${this.getProjectsListHTML(projects)}
+        <div id="projects-list-container" class="mt-4">
+          ${this.getProjectsListHTML(this.getFilteredProjects())}
         </div>
       </div>
     `;
   },
 
+  getFilteredProjects() {
+    const q = (document.getElementById("project-search-admin")?.value || "").toLowerCase().trim();
+    const cat = this.currentProjectCategory || 'all';
+
+    return (this.data.projects || []).filter(p => {
+      const matchesCat = cat === 'all' || p.category === cat;
+      const matchesQuery = !q ||
+        (p.name || "").toLowerCase().includes(q) ||
+        (p.description || "").toLowerCase().includes(q) ||
+        (p.language || "").toLowerCase().includes(q) ||
+        (Array.isArray(p.tags) && p.tags.some(t => t.toLowerCase().includes(q)));
+      return matchesCat && matchesQuery;
+    });
+  },
+
   getProjectsListHTML(list) {
     if (!list || list.length === 0) {
-      return `<p class="text-center text-muted py-5">No projects found. Click "Add New Project" to get started.</p>`;
+      return `
+        <div class="text-center py-5 px-3">
+          <div class="mb-3" style="font-size: 2.2rem; opacity: 0.35;"><i class="fas fa-folder-open"></i></div>
+          <h5 class="font-weight-bold text-muted mb-1">No Projects Match Your Filter</h5>
+          <p class="small text-muted mb-3">Try adjusting your search terms or select another category.</p>
+          <button class="btn-cyber-secondary btn-sm" onclick="AdminApp.resetProjectFilters()">
+            <i class="fas fa-undo"></i> Reset Filters
+          </button>
+        </div>
+      `;
     }
 
-    return list.map((p, idx) => `
-      <div class="admin-item-row" data-id="${p.id || p.name}">
-        <div class="d-flex align-items-center gap-3" style="min-width: 0;">
-          <div class="item-thumb d-flex align-items-center justify-content-center" style="font-size: 1.5rem; color: var(--admin-accent);">
-            ${p.image ? `<img src="${p.image}" class="item-thumb" alt="${p.name}">` : `<i class="fas fa-folder"></i>`}
-          </div>
-          <div class="item-info">
-            <div class="item-title d-flex align-items-center gap-2">
-              <span>${p.name || p.title}</span>
-              ${p.featured ? `<span class="badge badge-pill badge-primary" style="font-size: 0.65rem;">Featured</span>` : ''}
-              ${p.pinned ? `<span class="badge badge-pill badge-info" style="font-size: 0.65rem;">Pinned</span>` : ''}
-              <span class="badge badge-pill badge-secondary" style="font-size: 0.65rem;">${p.language || 'Web'}</span>
-            </div>
-            <div class="item-sub">${p.description || 'No description'}</div>
-          </div>
-        </div>
+    const categoryStyles = {
+      'ai-ml': { label: 'AI & ML', border: 'rgba(16, 185, 129, 0.4)', bg: 'rgba(16, 185, 129, 0.12)', color: '#34d399' },
+      'fullstack': { label: 'Full Stack', border: 'rgba(59, 130, 246, 0.4)', bg: 'rgba(59, 130, 246, 0.12)', color: '#60a5fa' },
+      'mobile': { label: 'Mobile', border: 'rgba(245, 158, 11, 0.4)', bg: 'rgba(245, 158, 11, 0.12)', color: '#fbbf24' }
+    };
 
-        <div class="item-actions">
-          <button class="btn-icon-action" title="Move Up" onclick="AdminApp.moveProject(${idx}, -1)" ${idx === 0 ? 'disabled' : ''}>
-            <i class="fas fa-arrow-up"></i>
-          </button>
-          <button class="btn-icon-action" title="Move Down" onclick="AdminApp.moveProject(${idx}, 1)" ${idx === list.length - 1 ? 'disabled' : ''}>
-            <i class="fas fa-arrow-down"></i>
-          </button>
-          <button class="btn-icon-action" title="Edit" onclick="AdminApp.openProjectModal('${p.id || p.name}')">
-            <i class="fas fa-edit"></i>
-          </button>
-          <button class="btn-icon-action danger" title="Delete" onclick="AdminApp.deleteProject('${p.id || p.name}')">
-            <i class="fas fa-trash"></i>
-          </button>
+    return list.map((p, idx) => {
+      const catStyle = categoryStyles[p.category] || categoryStyles['fullstack'];
+      const initials = (p.name || "PR").replace(/[^a-zA-Z]/g, '').substring(0, 2).toUpperCase() || "PR";
+      const demoUrl = p.homepage || p.demo || null;
+      const ghUrl = p.html_url || p.github || (p.name ? `https://github.com/Mih-Nig-Afe/${p.name}` : null);
+
+      return `
+        <div class="admin-item-row" data-id="${p.id || p.name}">
+          <div class="d-flex align-items-center gap-3" style="min-width: 0; flex: 1;">
+            <div class="item-thumb d-flex align-items-center justify-content-center" style="font-size: 1.15rem; font-weight: 800; font-family: var(--admin-font-mono); color: var(--admin-cyan);">
+              ${p.image ? `<img src="${p.image}" class="item-thumb" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerText='${initials}';">` : initials}
+            </div>
+
+            <div class="item-info">
+              <div class="item-title">
+                <span class="text-white">${p.name || p.title}</span>
+                ${p.featured ? `<span class="badge badge-pill" style="background: rgba(0, 242, 254, 0.15); border: 1px solid rgba(0, 242, 254, 0.35); color: var(--admin-cyan); font-size: 0.65rem;">★ Featured</span>` : ''}
+                ${p.pinned ? `<span class="badge badge-pill" style="background: rgba(178, 95, 255, 0.15); border: 1px solid rgba(178, 95, 255, 0.35); color: #d8b4fe; font-size: 0.65rem;">Pinned</span>` : ''}
+                <span class="badge badge-pill" style="background: ${catStyle.bg}; border: 1px solid ${catStyle.border}; color: ${catStyle.color}; font-size: 0.65rem;">${catStyle.label}</span>
+                <span class="badge badge-pill badge-secondary" style="font-family: var(--admin-font-mono); font-size: 0.65rem;">${p.language || 'Web'}</span>
+              </div>
+
+              <div class="item-sub mb-2">${p.description || 'No description provided.'}</div>
+
+              <div class="d-flex align-items-center gap-2 flex-wrap">
+                ${Array.isArray(p.tags) && p.tags.length ? p.tags.slice(0, 5).map(t => `<span class="small text-muted" style="font-size: 0.72rem; font-family: var(--admin-font-mono); background: rgba(255,255,255,0.04); padding: 2px 7px; border-radius: 4px;">#${t}</span>`).join('') : ''}
+              </div>
+            </div>
+          </div>
+
+          <div class="item-actions">
+            ${demoUrl ? `
+              <a href="${demoUrl}" target="_blank" class="btn-icon-action" title="Open Live Demo">
+                <i class="fas fa-external-link-alt text-info"></i>
+              </a>
+            ` : ''}
+            ${ghUrl ? `
+              <a href="${ghUrl}" target="_blank" class="btn-icon-action" title="View GitHub Repo">
+                <i class="fab fa-github"></i>
+              </a>
+            ` : ''}
+            <button class="btn-icon-action" title="Move Up in Showcase" onclick="AdminApp.moveProject(${idx}, -1)" ${idx === 0 ? 'disabled' : ''}>
+              <i class="fas fa-arrow-up"></i>
+            </button>
+            <button class="btn-icon-action" title="Move Down in Showcase" onclick="AdminApp.moveProject(${idx}, 1)" ${idx === list.length - 1 ? 'disabled' : ''}>
+              <i class="fas fa-arrow-down"></i>
+            </button>
+            <button class="btn-icon-action" title="Edit Project Details" onclick="AdminApp.openProjectModal('${p.id || p.name}')">
+              <i class="fas fa-edit text-warning"></i>
+            </button>
+            <button class="btn-icon-action danger" title="Delete Project" onclick="AdminApp.deleteProject('${p.id || p.name}')">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   },
 
   filterProjectsList(query) {
-    const q = query.toLowerCase();
-    const filtered = this.data.projects.filter(p =>
-      (p.name || "").toLowerCase().includes(q) ||
-      (p.description || "").toLowerCase().includes(q) ||
-      (p.language || "").toLowerCase().includes(q) ||
-      (Array.isArray(p.tags) && p.tags.some(t => t.toLowerCase().includes(q)))
-    );
+    const filtered = this.getFilteredProjects();
     const container = document.getElementById("projects-list-container");
     if (container) container.innerHTML = this.getProjectsListHTML(filtered);
   },
