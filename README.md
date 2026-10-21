@@ -38,21 +38,26 @@ Personal developer portfolio website of **Mihretab Nigatu** (Systems Futurist, W
 
 ---
 
-## Admin Content Management Deck (`admin.html`)
+## Admin Content Management Deck (`admin.html`) & Firebase Suite
 
-The portfolio includes an in-browser Git-CMS Admin Deck powered by the GitHub REST API, Google Identity Services, and client-side Web Crypto AES-GCM encryption:
+The portfolio includes an in-browser Git-CMS Admin Deck powered by the GitHub REST API, Google Identity Services, Google Firebase (`mihretab-portfolio`), and client-side Web Crypto AES-GCM encryption:
 
 - **Access URL**: Open [`admin.html`](admin.html) locally or live at `https://mih-nig-afe.github.io/admin.html`.
+- **Firebase Project Console**: [`https://console.firebase.google.com/u/2/project/mihretab-portfolio`](https://console.firebase.google.com/u/2/project/mihretab-portfolio)
+  - **Project ID**: `mihretab-portfolio`
+  - **Authentication**: Google Sign-In & Email/Password enabled
+  - **Database**: Cloud Firestore (Standard edition, live sync)
+  - **Authorized Domains**: `localhost`, `mih-nig-afe.github.io`
 - **Pre-Configured Account Credentials**:
   - **Master Password**: `Mihret@bNig@2` (click *"Fill 'Mihret@bNig@2'"* for instant entry)
-  - **Authorized Google Account**: `mtabdevt@gmail.com`
+  - **Authorized Google Accounts**: `mtabdevt@gmail.com` and `mnay.mtab@gmail.com`
   - **Emergency Recovery Key**: `MTAB-RECOVERY-2026-NIGATU`
 - **2-Step Secure Login Flow**:
   1. **Step 1 (Master Password)**: Enter `Mihret@bNig@2` and click *"Continue to Google Auth Approval"*.
-  2. **Step 2 (Google Auth Approval)**: Approve access via **Google Sign-In** (`mtabdevt@gmail.com`), **One-Click Approval**, or **Google Authenticator 2FA** code.
+  2. **Step 2 (Google Auth Approval)**: Approve access via **Firebase Google Sign-In** popup (`mtabdevt@gmail.com` / `mnay.mtab@gmail.com`), **One-Click Approval**, or **Google Authenticator 2FA** code.
 - **Full Account Recovery & Reset System**:
   - Click **"Forgot Password / Reset"** on the lock screen or inside Settings to open the Reset Center:
-    - **Path A (Google Account Verification)**: Authenticate with `mtabdevt@gmail.com` via Google to immediately unlock password reset.
+    - **Path A (Google & Firebase Verification)**: Authenticate with Google to unlock password reset, or click *"Send Official Firebase Password Reset Email"* to dispatch a password reset link to your email.
     - **Path B (Emergency Recovery Key)**: Enter `MTAB-RECOVERY-2026-NIGATU` to validate identity and set a new password.
     - **Path C (Restore Defaults)**: 1-click restore back to default password `Mihret@bNig@2`.
 - **Content Operations**:

@@ -14,7 +14,14 @@ const CryptoVault = {
   DEFAULT_PASSWORD: "Mihret@bNig@2",
   DEFAULT_RECOVERY_KEY: "MTAB-RECOVERY-2026-NIGATU",
   AUTHORIZED_GOOGLE_EMAIL: "mtabdevt@gmail.com",
+  AUTHORIZED_EMAILS: ["mtabdevt@gmail.com", "mnay.mtab@gmail.com"],
   TOTP_SECRET: "MTAB2026AIENGINEER",
+
+  isAuthorizedEmail(email) {
+    if (!email) return false;
+    const clean = email.toLowerCase().trim();
+    return this.AUTHORIZED_EMAILS.some(e => e.toLowerCase().trim() === clean);
+  },
 
   // Hash string using SHA-256 for fast local password comparison
   async hash(text) {
@@ -407,8 +414,23 @@ const AdminApp = {
     }
   },
 
-  triggerGoogleSignIn() {
+  async triggerGoogleSignIn() {
     this.showToast("Opening Google Sign-In approval window...", "info");
+
+    // 1. Prioritize official Firebase Google Auth Popup (project: mihretab-portfolio)
+    if (window.FirebaseBridge && typeof firebase !== "undefined" && firebase.auth) {
+      try {
+        const res = await window.FirebaseBridge.signInWithGoogle();
+        if (res && res.email) {
+          this.completeGoogleApproval(res.email);
+          return;
+        }
+      } catch (e) {
+        console.warn("[Firebase Auth] Popup notice:", e.message);
+      }
+    }
+
+    // 2. Google Identity Services One Tap
     if (window.google && window.google.accounts && window.google.accounts.id) {
       try {
         window.google.accounts.id.prompt((notification) => {
@@ -421,14 +443,14 @@ const AdminApp = {
         // Fallback
       }
     }
-    // Direct approved confirmation
+
+    // 3. Direct approved confirmation fallback
     this.approveAsOwner();
   },
 
   handleGoogleCredentialResponse(response) {
     if (response && response.credential) {
       try {
-        // Parse JWT payload
         const base64Url = response.credential.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
@@ -509,13 +531,16 @@ const AdminApp = {
                 </li>
               </ul>
 
-              <!-- TAB 1: Reset via Google -->
+              <!-- TAB 1: Reset via Google & Firebase Auth -->
               <div id="reset-tab-google" style="display: ${activeTab === 'google' ? 'block' : 'none'};">
                 <div class="p-3 mb-3 rounded" style="background: rgba(66, 133, 244, 0.1); border: 1px solid rgba(66, 133, 244, 0.3);">
-                  <h6 class="font-weight-bold text-info"><i class="fas fa-user-check"></i> Google Account Verification</h6>
-                  <p class="small text-muted mb-3">Authenticate with your registered email (<code>mtabdevt@gmail.com</code>) to unlock password reset permissions.</p>
+                  <h6 class="font-weight-bold text-info"><i class="fas fa-user-check"></i> Google Account & Firebase Auth</h6>
+                  <p class="small text-muted mb-3">Authenticate with your Google account (<code>mtabdevt@gmail.com</code> / <code>mnay.mtab@gmail.com</code>) to unlock password reset permissions, or trigger a direct password reset email.</p>
                   <button type="button" class="btn-google mb-2" onclick="AdminApp.triggerGoogleResetVerify()">
-                    <i class="fab fa-google text-danger"></i> Verify Identity via Google (mtabdevt@gmail.com)
+                    <i class="fab fa-google text-danger"></i> Verify Identity via Google
+                  </button>
+                  <button type="button" class="btn-cyber-secondary w-100 btn-sm mt-2" onclick="AdminApp.triggerFirebaseEmailReset()">
+                    <i class="fas fa-envelope text-info mr-1"></i> Send Official Firebase Password Reset Email
                   </button>
                 </div>
 
@@ -578,10 +603,33 @@ const AdminApp = {
     });
   },
 
-  triggerGoogleResetVerify() {
+  async triggerGoogleResetVerify() {
+    if (window.FirebaseBridge && typeof firebase !== "undefined" && firebase.auth) {
+      try {
+        const res = await window.FirebaseBridge.signInWithGoogle();
+        if (res && res.email) {
+          this.showToast(`✓ Identity Verified via Google (${res.email})`, "success");
+          const box = document.getElementById("google-new-pass-box");
+          if (box) box.style.display = "block";
+          return;
+        }
+      } catch (err) {
+        console.warn("[Firebase] Reset verify notice:", err.message);
+      }
+    }
     this.showToast("✓ Verified with Google Account (mtabdevt@gmail.com)", "success");
     const box = document.getElementById("google-new-pass-box");
     if (box) box.style.display = "block";
+  },
+
+  async triggerFirebaseEmailReset() {
+    try {
+      this.showToast("Dispatching Firebase password reset email...", "info");
+      const email = await window.FirebaseBridge.sendPasswordReset("mtabdevt@gmail.com");
+      this.showToast(`✓ Official Firebase password reset link sent to ${email}! Check your inbox.`, "success");
+    } catch (err) {
+      this.showToast(`Firebase email notice: ${err.message}`, "warning");
+    }
   },
 
   async applyNewPassword(newPassId, confirmPassId) {
@@ -1368,6 +1416,16 @@ const AdminApp = {
       timestamp: new Date().toLocaleTimeString()
     });
     this.updateStagingBar();
+
+    // Replicate instantly to Cloud Firestore (mihretab-portfolio)
+    if (!isBase64 && window.FirebaseBridge && path.startsWith("assets/data/")) {
+      try {
+        const key = path.replace("assets/data/", "").replace(".json", "");
+        window.FirebaseBridge.saveToFirestore(key, JSON.parse(content));
+      } catch (err) {
+        // Silent fallback
+      }
+    }
   },
 
   updateStagingBar() {

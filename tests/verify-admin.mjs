@@ -168,6 +168,10 @@ describe('5. Frontend Pages & Admin Deck Syntax Integrity', () => {
 
     assert.ok(content.includes('assets/css/admin.css'), 'admin.html links admin.css');
     assert.ok(content.includes('assets/js/admin.js'), 'admin.html includes admin.js');
+    assert.ok(content.includes('assets/js/firebase-config.js'), 'admin.html includes firebase-config.js');
+    assert.ok(content.includes('firebase-app-compat.js'), 'admin.html includes Firebase App SDK');
+    assert.ok(content.includes('firebase-auth-compat.js'), 'admin.html includes Firebase Auth SDK');
+    assert.ok(content.includes('firebase-firestore-compat.js'), 'admin.html includes Firebase Firestore SDK');
     assert.ok(content.includes('accounts.google.com/gsi/client'), 'admin.html includes Google Identity Services');
     assert.ok(content.includes('id="google-auth-screen"'), 'admin.html has Google Auth screen');
     assert.ok(content.includes('id="lock-screen"'), 'admin.html has lock screen');
@@ -178,6 +182,7 @@ describe('5. Frontend Pages & Admin Deck Syntax Integrity', () => {
   it('all JavaScript files pass Node syntax check', () => {
     const jsFiles = [
       'assets/js/admin.js',
+      'assets/js/firebase-config.js',
       'assets/js/project.js',
       'assets/js/experience.js',
       'assets/js/education.js',
@@ -194,5 +199,23 @@ describe('5. Frontend Pages & Admin Deck Syntax Integrity', () => {
         new Function(code);
       }, `File ${f} is valid JavaScript`);
     }
+  });
+});
+
+describe('6. Firebase Suite & Live Cloud Integration', () => {
+  it('assets/js/firebase-config.js must exist and export valid credentials', async () => {
+    const configPath = path.join(ROOT_DIR, 'assets/js/firebase-config.js');
+    assert.ok(fs.existsSync(configPath), 'firebase-config.js exists');
+
+    const { FIREBASE_PORTFOLIO_CONFIG, AUTHORIZED_EMAILS, FirebaseBridge } = await import('../assets/js/firebase-config.js');
+    assert.equal(FIREBASE_PORTFOLIO_CONFIG.projectId, 'mihretab-portfolio', 'project ID matches console');
+    assert.equal(FIREBASE_PORTFOLIO_CONFIG.authDomain, 'mihretab-portfolio.firebaseapp.com', 'authDomain matches console');
+    assert.ok(FIREBASE_PORTFOLIO_CONFIG.apiKey.startsWith('AIzaSy'), 'valid Firebase API key prefix');
+    assert.ok(AUTHORIZED_EMAILS.includes('mtabdevt@gmail.com'), 'authorized emails includes mtabdevt@gmail.com');
+    assert.ok(AUTHORIZED_EMAILS.includes('mnay.mtab@gmail.com'), 'authorized emails includes mnay.mtab@gmail.com');
+    assert.ok(typeof FirebaseBridge.signInWithGoogle === 'function', 'bridge has signInWithGoogle');
+    assert.ok(typeof FirebaseBridge.sendPasswordReset === 'function', 'bridge has sendPasswordReset');
+    assert.ok(typeof FirebaseBridge.saveToFirestore === 'function', 'bridge has saveToFirestore');
+    assert.ok(typeof FirebaseBridge.loadFromFirestore === 'function', 'bridge has loadFromFirestore');
   });
 });
