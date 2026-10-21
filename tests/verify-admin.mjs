@@ -146,6 +146,28 @@ describe('3. Web Crypto API Encryption & Decryption Simulation', () => {
       await simulateDecrypt(bundle, wrongPassword);
     }, /Unsupported state or unable to authenticate data|bad decrypt/i);
   });
+
+  it('pre-configured DEFAULT_ENCRYPTED_BUNDLE decrypts to a valid GitHub token with master password', () => {
+    const bundle = {
+      salt: "436284770e1ac506654da8d9c0f4e7b5",
+      iv: "ff603b352413eccb9f528f23",
+      ciphertext: "fe9ed3814861eb0af24300b5136f7b18436b5594f143beeff23839ee8971c28874834fe683f0a708743ae76b91d82b23033d57360cf5586b"
+    };
+    const password = "Mihret@bNig@2";
+
+    const salt = Buffer.from(bundle.salt, "hex");
+    const iv = Buffer.from(bundle.iv, "hex");
+    const fullCiphertext = Buffer.from(bundle.ciphertext, "hex");
+    const ciphertext = fullCiphertext.subarray(0, fullCiphertext.length - 16);
+    const tag = fullCiphertext.subarray(fullCiphertext.length - 16);
+
+    const key = crypto.pbkdf2Sync(password, salt, 100000, 32, "sha256");
+    const decipher = crypto.createDecipheriv("aes-256-gcm", key, iv);
+    decipher.setAuthTag(tag);
+    const decrypted = Buffer.concat([decipher.update(ciphertext), decipher.final()]).toString("utf8");
+
+    assert.ok(decrypted.startsWith("gh"), "decrypted token starts with valid GitHub prefix");
+  });
 });
 
 describe('4. Binary Asset Base64 Serialization for GitHub API', () => {

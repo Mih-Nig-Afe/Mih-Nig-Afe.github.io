@@ -17,6 +17,13 @@ const CryptoVault = {
   AUTHORIZED_EMAILS: ["mtabdevt@gmail.com", "mnay.mtab@gmail.com"],
   TOTP_SECRET: "MTAB2026AIENGINEER",
 
+  // Pre-configured AES-GCM encrypted vault bundle (protected with master password)
+  DEFAULT_ENCRYPTED_BUNDLE: {
+    salt: "436284770e1ac506654da8d9c0f4e7b5",
+    iv: "ff603b352413eccb9f528f23",
+    ciphertext: "fe9ed3814861eb0af24300b5136f7b18436b5594f143beeff23839ee8971c28874834fe683f0a708743ae76b91d82b23033d57360cf5586b"
+  },
+
   isAuthorizedEmail(email) {
     if (!email) return false;
     const clean = email.toLowerCase().trim();
@@ -110,13 +117,18 @@ const CryptoVault = {
         passwordHash,
         recoveryHash,
         googleEmail: this.AUTHORIZED_GOOGLE_EMAIL,
-        tokenEncrypted: null,
+        tokenEncrypted: this.DEFAULT_ENCRYPTED_BUNDLE,
         created_at: new Date().toISOString()
       };
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(initialVault));
       return initialVault;
     }
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    if (!parsed.tokenEncrypted) {
+      parsed.tokenEncrypted = this.DEFAULT_ENCRYPTED_BUNDLE;
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(parsed));
+    }
+    return parsed;
   },
 
   getVault() {
@@ -337,6 +349,28 @@ const AdminApp = {
     document.getElementById("google-auth-screen").style.display = "none";
     document.getElementById("deck-view").style.display = "block";
 
+    // Auto-resolve GitHub Token from session or encrypted vault
+    if (!this.cms.hasToken()) {
+      const sessionToken = sessionStorage.getItem("mtab_github_pat");
+      if (sessionToken) {
+        this.cms.setToken(sessionToken);
+      } else {
+        try {
+          const vault = CryptoVault.getVault() || await CryptoVault.initDefaults();
+          const bundle = (vault && vault.tokenEncrypted) || CryptoVault.DEFAULT_ENCRYPTED_BUNDLE;
+          if (bundle) {
+            const token = await CryptoVault.decrypt(bundle, CryptoVault.DEFAULT_PASSWORD);
+            if (token && token.startsWith("gh")) {
+              this.cms.setToken(token);
+              sessionStorage.setItem("mtab_github_pat", token);
+            }
+          }
+        } catch (e) {
+          console.warn("[Vault] Auto-decrypt notice:", e.message);
+        }
+      }
+    }
+
     const statusText = document.getElementById("status-text");
     if (statusText) {
       statusText.textContent = this.cms.hasToken() ? "Connected (@Mih-Nig-Afe)" : "Local Storage Mode (Token Optional)";
@@ -363,6 +397,21 @@ const AdminApp = {
       errorEl.textContent = "Incorrect master password. Use 'Mihret@bNig@2' or click 'Forgot Password'.";
       errorEl.style.display = "block";
       return;
+    }
+
+    // Decrypt GitHub Token using entered password
+    try {
+      const vault = CryptoVault.getVault() || await CryptoVault.initDefaults();
+      const bundle = (vault && vault.tokenEncrypted) || CryptoVault.DEFAULT_ENCRYPTED_BUNDLE;
+      if (bundle) {
+        const token = await CryptoVault.decrypt(bundle, input);
+        if (token && token.startsWith("gh")) {
+          this.cms.setToken(token);
+          sessionStorage.setItem("mtab_github_pat", token);
+        }
+      }
+    } catch (err) {
+      console.warn("Token decrypt notice:", err.message);
     }
 
     errorEl.style.display = "none";
@@ -1597,7 +1646,29 @@ const AdminApp = {
     const items = Array.from(this.stagedChanges.values());
     if (items.length === 0) return;
 
-    // Check if GitHub token is present
+    // Ensure GitHub token is resolved from session or encrypted vault
+    if (!this.cms.hasToken()) {
+      try {
+        const sessionToken = sessionStorage.getItem("mtab_github_pat");
+        if (sessionToken) {
+          this.cms.setToken(sessionToken);
+        } else {
+          const vault = CryptoVault.getVault() || await CryptoVault.initDefaults();
+          const bundle = (vault && vault.tokenEncrypted) || CryptoVault.DEFAULT_ENCRYPTED_BUNDLE;
+          if (bundle) {
+            const token = await CryptoVault.decrypt(bundle, CryptoVault.DEFAULT_PASSWORD);
+            if (token && token.startsWith("gh")) {
+              this.cms.setToken(token);
+              sessionStorage.setItem("mtab_github_pat", token);
+            }
+          }
+        }
+      } catch (e) {
+        console.warn("[Commit] Token auto-resolve notice:", e.message);
+      }
+    }
+
+    // Fallback prompt only if all automated resolution fails
     if (!this.cms.hasToken()) {
       statusBox.style.display = "block";
       statusBox.innerHTML = `
